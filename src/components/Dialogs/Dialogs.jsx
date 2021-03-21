@@ -7,6 +7,7 @@ const DialogItem = (props) => {
 
     return (
         <div className={s.dialog + ' ' + s.active}>
+            <img className={s.ava} src={props.avatar} />"
             <NavLink to={path}> {props.name}</NavLink>
         </div>
     )
@@ -20,7 +21,7 @@ const Message = (props) => {
 
 const Dialogs = (props) => {
 
-    let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
+    let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} id={d.id} avatar={d.ava}/>)
     let messagesElements = props.messages.map(m => <Message message={m.message}/>)
 
     return (

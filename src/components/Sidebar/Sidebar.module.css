@@ -1,0 +1,11 @@
+.Sidebar {
+
+    padding-top: 50px;
+    text-align: center;
+    width: 100%;
+}
+.friends {
+    font-size: large;
+    color: darkblue;
+    font-weight: 700;
+}
