@@ -1,4 +1,13 @@
+.block {
+  padding: 10px;
+}
 
+.post {
+  padding: 10px;
+  font-size: xx-large;
+  font-weight: bold;
+
+}
 
 .content {
   background-color: lightgreen;

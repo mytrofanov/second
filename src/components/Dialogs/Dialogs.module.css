@@ -1,6 +1,6 @@
 .dialogs {
     display: grid;
-    grid-template-columns: 2fr 10fr;
+    grid-template-columns: 1fr 2fr 4fr;
 }
 
 .dialogsItem {
@@ -29,4 +29,8 @@
     width: 50px;
     height: auto;
     border-radius: 30px;
+}
+
+.block {   /*Блок с кнопкой добалвения сообщений*/
+    margin: 10px;
 }

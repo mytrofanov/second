@@ -23,10 +23,21 @@ const Dialogs = (props) => {
 
     let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} id={d.id} avatar={d.ava}/>)
     let messagesElements = props.messages.map(m => <Message message={m.message}/>)
-
+    let newPostElement = React.createRef();  /*ссылка для кнопки добавления сообщений*/
+    let addPost = () => {
+        let text = newPostElement.current.value;
+        alert(text);
+    }
     return (
 
         <div className={s.dialogs}>
+            <div className={s.block}> {/*начало блока добавления сообщений*/}
+                <textarea ref={newPostElement}></textarea>
+                <div>
+                    <button onClick={addPost}>Add Post</button>
+                </div>
+            </div> {/*конец блока добавления сообщений*/}
+
             <div className={s.dialogsItem}>
                 {dialogsElements}
             </div>
@@ -37,6 +48,7 @@ const Dialogs = (props) => {
                 {messagesElements}
             </div>
             {/*конец блока сообщений*/}
+
 
 
         </div>

@@ -21,15 +21,16 @@ const App = (props) => {
 
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
-                           render= {() => <Dialogs
+                           render={() => <Dialogs
                                messages={props.state.messagesPage.messages}
-                               dialogs={props.state.messagesPage.dialogs}/>} />
+                               dialogs={props.state.messagesPage.dialogs}/>}/>
                     <Route path='/profile'
-                           render= { () => <Profile
-                               postData={props.state.profilePage.postData}/>} />
-                    <Route path='/news' render= {() => <News />}/>
-                    <Route path='/music' render= {() => <Music />} />
-                    <Route path='/settings' render= {() => <Settings />} />
+                           render={() => <Profile
+                               postData={props.state.profilePage.postData}
+                               addPost={props.addPost}/>}/>
+                    <Route path='/news' render={() => <News/>}/>
+                    <Route path='/music' render={() => <Music/>}/>
+                    <Route path='/settings' render={() => <Settings/>}/>
                 </div>
             </div>
         </BrowserRouter>
