@@ -13,12 +13,12 @@ const Posts = (props) => {
 
     let onAddPost = () => {
         props.addPost();
-            }
+    }
 
     let onPostChange = () => {
         let text = newPostElement.current.value;
         props.updateNewPostText(text);
-      }
+    }
 
     return (
 
@@ -38,6 +38,5 @@ const Posts = (props) => {
         </div>
     )
 }
-
 
 export default Posts;
