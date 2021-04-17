@@ -1,6 +1,6 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-
+/// Непонятка с Head
 let initialState = {
     posts: [
         {id: 1, message: 'First post', count: 5, discount: 0},
