@@ -1,6 +1,5 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-/// Непонятка с Head - пытаемся запушить
 let initialState = {
     posts: [
         {id: 1, message: 'First post', count: 5, discount: 0},
@@ -24,18 +23,20 @@ const profileReducer = (state = initialState, action) => {
                 message: state.newPostText,
                 count: 0, discount: 0
             }
-            let stateCopy = {...state};
-            stateCopy.posts = [...state.posts];
-            stateCopy.posts.push(newPost);
-            stateCopy.newPostText = '';
-            return stateCopy;
+            return {
+                ...state,
+                posts: [...state.posts, newPost],
+                newPostText: '',
+            };
         }
         case UPDATE_NEW_POST_TEXT: {
-            let stateCopy = {...state};
-            stateCopy.newPostText = action.newText;
-            return stateCopy;
+            return {
+                ...state,
+                newPostText: action.newText
+            };
         }
-        default: return state;
+        default:
+            return state;
     }
 
 }
