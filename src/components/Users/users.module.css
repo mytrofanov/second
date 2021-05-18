@@ -1,4 +1,21 @@
+.pageNumber {
+    margin: 10px;
+}
+
 .usersPhoto {
     width: 70px;
     height: auto;
+}
+
+.selectedPage {
+    color: blue;
+    font-size: large;
+    font-weight: bold;
+    cursor: pointer;
+     }
+
+.nonSelectedPage {
+    color: blue;
+    font-size: large;
+    cursor: pointer;
 }
