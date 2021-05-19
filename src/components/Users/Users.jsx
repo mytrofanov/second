@@ -26,14 +26,17 @@ class Users extends React.Component {
         }
 
 
+
         return <div>
             <div className={styles.pageNumber}>
                 {pages.map(p => {
-                    return <span className={p === this.props.currentPage ? styles.selectedPage : styles.nonSelectedPage}
+                    if (p <= this.props.currentPage + 5 & p >= this.props.currentPage - 5)
+                        return (<span className={p === this.props.currentPage ? styles.selectedPage : styles.nonSelectedPage}
                                  onClick={(event) => {
                                      this.onPageChanged(p);
-                                 }}> {p} </span>
+                                 }}> {p} </span>);
                 })}
+                <span className={styles.totalPages}> Всего страниц: {this.props.totalUsersCount}</span>
             </div>
             {
                 this.props.users.map(u => <div key={u.id}>
