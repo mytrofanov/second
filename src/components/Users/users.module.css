@@ -21,6 +21,14 @@
 }
 .totalPages {
     margin-left: 15px;
+    margin-right: 15px;
     color: blue;
     font-size: large;
+}
+.startAndEnd {
+    margin-left: 15px;
+    margin-right: 15px;
+    color: blue;
+    font-size: large;
+    cursor: pointer;
 }
