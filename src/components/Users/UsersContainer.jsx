@@ -13,7 +13,7 @@ import * as axios from "axios";
 import Preloader from "../common/preloader/preloader";
 
 class UsersContainer extends React.Component {
-    componentDidMount() {
+     componentDidMount() {
         this.props.toggleIsFetching(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`).then(response => {
             this.props.toggleIsFetching(false);
