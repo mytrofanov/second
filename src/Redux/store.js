@@ -3,6 +3,7 @@ import dialogsReducer from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 
 
+
 let store = {
     _state: {
         profilePage: {
@@ -61,6 +62,7 @@ let store = {
         console.log('State changed');
     },
     getState() {
+        debugger;
         return this._state;
     },
     subscribe(observer) {
@@ -81,5 +83,5 @@ let store = {
 }
 
 export default store;
-
 window.store = store;
+// store - OOP
