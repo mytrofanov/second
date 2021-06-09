@@ -1,5 +1,5 @@
 import * as axios from "axios";
-import {unfollow} from "../Redux/users-reducer";
+
 
 const instance = axios.create ({
     withCredentials: true,
@@ -12,13 +12,14 @@ export const usersAPI = {
         return  instance.get(`users?count=${pageSize}&page=${currentPage}`)
             .then(response => response.data);
 
-
 }}
 
+// в delete параметр withCredentials отправляется вторым
 export const unFollow = (id) => {
     return instance.delete(`follow/${id}`).then(response => response.data);
 };
 
+// в post параметр withCredentials отправляется третьим
 export const Follow = (id) => {
     return instance.post(`follow/${id}`).then(response => response.data);
 };
