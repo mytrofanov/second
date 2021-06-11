@@ -6,7 +6,7 @@ import {
     setUsers,
     setTotalUserCount,
     toggleIsFetching,
-    unfollow, toggleFollowingProgress
+    unfollow, toggleFollowingProgress, getUsers, setTotalUsersCount
 } from "../../Redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/preloader/preloader";
@@ -15,12 +15,7 @@ import {usersAPI} from "../../API/api";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.toggleIsFetching(true);
-        usersAPI.getUsers(this.props.pageSize, this.props.currentPage).then(data => {
-            this.props.toggleIsFetching(false);
-            this.props.setUsers(data.items);
-            this.props.setTotalUserCount(data.totalCount);
-        });
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (pageNumber) => {
@@ -69,7 +64,7 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
     follow, unfollow, setUsers, setCurrentPage,
-    setTotalUserCount, toggleIsFetching, toggleFollowingProgress
+    setTotalUsersCount, toggleIsFetching, toggleFollowingProgress, getUsers
 })(UsersContainer);
 
 //max исправил крутилку
