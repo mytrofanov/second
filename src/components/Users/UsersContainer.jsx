@@ -26,8 +26,8 @@ class UsersContainer extends React.Component {
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true);
-        usersAPI.getUsers(this.props.pageSize, pageNumber).then(data => {
 
+        usersAPI.getUsers(this.props.pageSize, pageNumber).then(data => {
             this.props.setUsers(data.items);
             this.props.toggleIsFetching(true);
         });
@@ -70,3 +70,5 @@ export default connect(mapStateToProps, {
     follow, unfollow, setUsers, setCurrentPage,
     setTotalUserCount, toggleIsFetching, toggleFollowingProgress
 })(UsersContainer);
+
+//max

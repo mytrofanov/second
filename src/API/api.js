@@ -21,6 +21,6 @@ export const unFollow = (id) => {
 
 // в post параметр withCredentials отправляется третьим
 export const Follow = (id) => {
-    return instance.post(`follow/${id}`).then(response => response.data);
+   return instance.post(`follow/${id}`).then(response => response.data);
 };
 
