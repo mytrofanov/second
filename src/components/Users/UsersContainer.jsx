@@ -72,4 +72,4 @@ export default connect(mapStateToProps, {
     setTotalUserCount, toggleIsFetching, toggleFollowingProgress
 })(UsersContainer);
 
-//max
+//max исправил крутилку
