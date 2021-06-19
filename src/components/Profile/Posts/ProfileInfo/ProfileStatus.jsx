@@ -3,12 +3,12 @@ import s from './ProfileInfo.module.css';
 
 class ProfileStatus extends React.Component {
     state = {
-        editMode: false
+        editMode: false,
+        status: this.props.status
     }
 
     activateEditMode = () => {
-
-        this.setState({
+            this.setState({
             editMode: true
         });
     }
