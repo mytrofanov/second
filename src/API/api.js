@@ -49,5 +49,9 @@ export const profileAPI = {
 export const authAPI = {
     me() {
         return instance.get(`auth/me`)
+    },
+    login(data) {
+        return instance.post('auth/login', {email:data.email, password:data.password, rememberMe:data.rememberMe})
     }
 }
+
