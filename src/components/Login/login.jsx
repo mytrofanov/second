@@ -5,7 +5,7 @@ import {authAPI} from "../../API/api";
 
 
 export const LoginForm = () =>{
-    const onSubmit = (data)  => authAPI.login(data);
+    const onSubmit = (data)  => Login(data);
     const { register, handleSubmit,
         formState: { errors }} = useForm();
     return (
@@ -38,7 +38,8 @@ export const LoginForm = () =>{
     )
 }
 
-export default function Login() {
+export default function Login(data) {
+    authAPI.login(data);
     return (
         <div >
            <LoginForm/>
