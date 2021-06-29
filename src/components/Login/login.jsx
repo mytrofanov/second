@@ -4,6 +4,7 @@ import s from './login.module.css';
 import {authAPI} from "../../API/api";
 
 
+
 export const LoginForm = () =>{
     const onSubmit = (data)  => Login(data);
     const { register, handleSubmit,
@@ -46,6 +47,4 @@ export default function Login(data) {
         </div>
     );
 }
-
-
 

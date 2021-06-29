@@ -1,8 +1,7 @@
 import React from 'react';
 import Post from './Post/Post';
 import s from './Posts.module.css'
-
-
+import { useForm} from "react-hook-form";
 
 
 const Posts = (props) => {
@@ -23,12 +22,16 @@ const Posts = (props) => {
     return (
 
         <div>
-            <div className={s.block}>
+
+                 <div className={s.block}>
                 <textarea onChange={onPostChange} ref={newPostElement}
                           value={props.newPostText}/>
                 <div>
                     <button onClick={onAddPost}>Add Post</button>
                 </div>
+            </div>
+            <div>
+                <NewPostForm />
             </div>
 
             <div className={s.post}> New Posts</div>
@@ -40,3 +43,18 @@ const Posts = (props) => {
 }
 
 export default Posts;
+
+
+export function NewPostForm() {
+    const { register, handleSubmit } = useForm();
+    const onSubmit = data => console.log(data);
+
+    return (
+        <div className={s.hookForm}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <input {...register("newPostFormMessage")} />
+            <input type="submit" value="Добавить сообщение" />
+        </form>
+        </div>
+    );
+}
