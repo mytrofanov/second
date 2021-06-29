@@ -26,16 +26,13 @@ const Dialogs = (props) => {
 
     let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id} avatar={d.ava}/>)
     let messagesElements = state.messages.map(m => <Message message={m.message} key={m.id}/>)
-    let newMessageBody = state.newMessageBody;
-    let onSendMessageClick = () => {
-        props.sendMessage();
-    }
 
-    let onNewMessageChange = (e) => {
-        let body = e.target.value;
-        props.updateNewMessageBody(body);
-    }
 
+
+    let addNewMessage = (values) => {
+          console.log(values.newMessageBody)
+          props.sendMessage(values.newMessageBody);
+            }
 
     return (
 
@@ -54,7 +51,7 @@ const Dialogs = (props) => {
             <div className={s.messages}>  {/*начало ТЕКСТА сообщений*/}
                 <div>{messagesElements} </div>
                 <div> {/*НАЧАЛО ПОЛЯ ВВОДА НОВОГО СООБЩЕНИЯ*/}
-                    <AddMessageForm/>
+                    <AddMessageForm onSubmit={addNewMessage} />
                 </div>
                 {/*КОНЕЦ ПОЛЯ ВВОДА НОВОГО СООБЩЕНИЯ*/}
             </div>
@@ -71,11 +68,10 @@ export default Dialogs;
 
 export const AddMessageForm = (props) => {
     const {register, handleSubmit} = useForm();
-    const onSubmit = data => console.log(data);
-
-    return (
+    const onSubmit = data => props.onSubmit(data);
+        return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <input {...register("firstName")} placeholder="enter your message"/>
+            <input {...register("newMessageBody")} placeholder="enter your message"/>
             <input type="Submit" value="Send Message"/>
         </form>
     );
