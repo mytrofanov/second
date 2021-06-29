@@ -1,7 +1,7 @@
 import React from 'react';
 import Post from './Post/Post';
 import s from './Posts.module.css'
-import { useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
 
 
 const Posts = (props) => {
@@ -10,28 +10,18 @@ const Posts = (props) => {
 
     let newPostElement = React.createRef();
 
-    let onAddPost = () => {
-        props.addPost();
-    }
 
-    let onPostChange = () => {
-        let text = newPostElement.current.value;
-        props.updateNewPostText(text);
+    let addNewPost = (value) => {
+        props.addPost(value.newPost);
+
     }
 
     return (
 
         <div>
 
-                 <div className={s.block}>
-                <textarea onChange={onPostChange} ref={newPostElement}
-                          value={props.newPostText}/>
-                <div>
-                    <button onClick={onAddPost}>Add Post</button>
-                </div>
-            </div>
             <div>
-                <NewPostForm />
+                <NewPostForm onSubmit={addNewPost}/>
             </div>
 
             <div className={s.post}> New Posts</div>
@@ -45,16 +35,21 @@ const Posts = (props) => {
 export default Posts;
 
 
-export function NewPostForm() {
-    const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
-
+export const NewPostForm = (props) => {
+    const {
+        register, handleSubmit,
+        formState: {errors}
+    } = useForm();
+    const onSubmit = data => props.onSubmit(data);
     return (
-        <div className={s.hookForm}>
         <form onSubmit={handleSubmit(onSubmit)}>
-            <input {...register("newPostFormMessage")} />
-            <input type="submit" value="Добавить сообщение" />
+            <input {...register("newPost", {required: true, maxLength: 30}
+            )} placeholder="enter your post"/>
+            <input type="Submit" value="Send Message"/>
+            {errors?.newPost?.type === "required" && <span>This field is required</span>}
+            {errors?.newPost?.type === "maxLength" && (
+                <span>This field cannot exceed 30 characters</span>
+            )}
         </form>
-        </div>
     );
 }

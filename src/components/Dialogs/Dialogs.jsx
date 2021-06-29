@@ -28,11 +28,10 @@ const Dialogs = (props) => {
     let messagesElements = state.messages.map(m => <Message message={m.message} key={m.id}/>)
 
 
-
     let addNewMessage = (values) => {
-          console.log(values.newMessageBody)
-          props.sendMessage(values.newMessageBody);
-            }
+        console.log(values.newMessageBody)
+        props.sendMessage(values.newMessageBody);
+    }
 
     return (
 
@@ -40,8 +39,6 @@ const Dialogs = (props) => {
             <div className={s.block}>
 
             </div>
-            {/*ПЕРВЫЙ СТОЛБЕЦ - ВОЗМОЖНО ДЛЯ ДОБАЛЕНИЯ ПОЛЯ ВВОДА*/}
-
             <div className={s.dialogsItem}>
                 {dialogsElements}
             </div>
@@ -51,7 +48,7 @@ const Dialogs = (props) => {
             <div className={s.messages}>  {/*начало ТЕКСТА сообщений*/}
                 <div>{messagesElements} </div>
                 <div> {/*НАЧАЛО ПОЛЯ ВВОДА НОВОГО СООБЩЕНИЯ*/}
-                    <AddMessageForm onSubmit={addNewMessage} />
+                    <AddMessageForm onSubmit={addNewMessage}/>
                 </div>
                 {/*КОНЕЦ ПОЛЯ ВВОДА НОВОГО СООБЩЕНИЯ*/}
             </div>
@@ -67,12 +64,17 @@ export default Dialogs;
 
 
 export const AddMessageForm = (props) => {
-    const {register, handleSubmit} = useForm();
+    const {register, handleSubmit, formState: {errors}} = useForm();
     const onSubmit = data => props.onSubmit(data);
-        return (
+    return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <input {...register("newMessageBody")} placeholder="enter your message"/>
+            <input {...register("newMessageBody", {required: true, maxLength: 30})}
+                   placeholder="enter your message"/>
             <input type="Submit" value="Send Message"/>
+            {errors?.newMessageBody?.type === "required" && <span>This field is required</span>}
+            {errors?.newMessageBody?.type === "maxLength" && (
+                <span>This field cannot exceed 30 characters</span>
+            )}
         </form>
     );
 }

@@ -4,7 +4,6 @@ import Posts from "./Posts";
 import {connect} from "react-redux";
 
 
-
 const mapStateToProps = (state) => {
     return {
         posts: state.profilePage.posts,
@@ -14,12 +13,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateNewPostText: (text) => {
-            let action = updateNewPostTextActionCreator(text);
-            dispatch(action);
-        },
-        addPost: () => {
-            dispatch(addPostActionCreator());
+        addPost: (newPost) => {
+            dispatch(addPostActionCreator(newPost));
         }
     }
 }
