@@ -2,6 +2,8 @@ import React from 'react';
 import { useForm } from "react-hook-form";
 import s from './login.module.css';
 import {authAPI} from "../../API/api";
+import {connect} from "react-redux";
+
 
 
 
@@ -48,3 +50,5 @@ export default function Login(data) {
     );
 }
 
+//updateAction - скорее всего это actionCreator
+// connect(({ email, password, rememberMe }) => ({ email, password, rememberMe }), updateAction)(Login);

@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Dialogs.module.css';
 import {NavLink, Redirect} from "react-router-dom";
-
+import {useForm} from "react-hook-form";
 
 
 const DialogItem = (props) => {
@@ -9,7 +9,7 @@ const DialogItem = (props) => {
 
     return (
         <div className={s.dialog + ' ' + s.active}>
-            <img className={s.ava} src={props.avatar} />"
+            <img className={s.ava} src={props.avatar}/>"
             <NavLink to={path}> {props.name}</NavLink>
         </div>
     )
@@ -24,9 +24,8 @@ const Message = (props) => {
 const Dialogs = (props) => {
     let state = props.dialogsPage;
 
-    let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} key={d.id}  id={d.id} avatar={d.ava}/>)
-    let messagesElements = state.messages.map(m => <Message message={m.message} key={m.id} />)
-
+    let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id} avatar={d.ava}/>)
+    let messagesElements = state.messages.map(m => <Message message={m.message} key={m.id}/>)
     let newMessageBody = state.newMessageBody;
     let onSendMessageClick = () => {
         props.sendMessage();
@@ -35,14 +34,16 @@ const Dialogs = (props) => {
     let onNewMessageChange = (e) => {
         let body = e.target.value;
         props.updateNewMessageBody(body);
-         }
+    }
+
 
     return (
 
         <div className={s.dialogs}>
             <div className={s.block}>
 
-            </div> {/*ПЕРВЫЙ СТОЛБЕЦ - ВОЗМОЖНО ДЛЯ ДОБАЛЕНИЯ ПОЛЯ ВВОДА*/}
+            </div>
+            {/*ПЕРВЫЙ СТОЛБЕЦ - ВОЗМОЖНО ДЛЯ ДОБАЛЕНИЯ ПОЛЯ ВВОДА*/}
 
             <div className={s.dialogsItem}>
                 {dialogsElements}
@@ -53,11 +54,9 @@ const Dialogs = (props) => {
             <div className={s.messages}>  {/*начало ТЕКСТА сообщений*/}
                 <div>{messagesElements} </div>
                 <div> {/*НАЧАЛО ПОЛЯ ВВОДА НОВОГО СООБЩЕНИЯ*/}
-                    <div><textarea value={newMessageBody}
-                                   onChange={onNewMessageChange}
-                                   placeholder='Enter your Message'></textarea></div>
-                    <div><button onClick={ onSendMessageClick }>Send Message</button></div>
-                </div> {/*КОНЕЦ ПОЛЯ ВВОДА НОВОГО СООБЩЕНИЯ*/}
+                    <AddMessageForm/>
+                </div>
+                {/*КОНЕЦ ПОЛЯ ВВОДА НОВОГО СООБЩЕНИЯ*/}
             </div>
             {/*конец блока сообщений*/}
 
@@ -66,4 +65,18 @@ const Dialogs = (props) => {
     )
 }
 
+
 export default Dialogs;
+
+
+export const AddMessageForm = (props) => {
+    const {register, handleSubmit} = useForm();
+    const onSubmit = data => console.log(data);
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <input {...register("firstName")} placeholder="enter your message"/>
+            <input type="Submit" value="Send Message"/>
+        </form>
+    );
+}
