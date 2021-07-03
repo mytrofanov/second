@@ -3,12 +3,14 @@ import { useForm } from "react-hook-form";
 import s from './login.module.css';
 import {authAPI} from "../../API/api";
 import {connect} from "react-redux";
+import {loginReducer} from "../../Redux/auth-reducer";
 
 
 
 
-export const LoginForm = () =>{
-    const onSubmit = (data)  => Login(data);
+export const LoginForm = (props) =>{
+    const onSubmit = data  => props.loginReducer(data.email, data.password, data.rememberMe);
+
     const { register, handleSubmit,
         formState: { errors }} = useForm();
     return (
@@ -25,7 +27,7 @@ export const LoginForm = () =>{
             </div>
             <div>
                 <input {...register("password", { required: true,maxLength : 30}
-                )} placeholder={" password"}/>
+                )} placeholder={" password"} type={"password"}/>
                 {errors?.password?.type === "required" && <span>This field is required</span>}
                 {errors?.password?.type === "maxLength" && (
                     <span>This field cannot exceed 30 characters</span>
@@ -41,14 +43,6 @@ export const LoginForm = () =>{
     )
 }
 
-export default function Login(data) {
-    authAPI.login(data);
-    return (
-        <div >
-           <LoginForm/>
-        </div>
-    );
-}
 
-//updateAction - скорее всего это actionCreator
-// connect(({ email, password, rememberMe }) => ({ email, password, rememberMe }), updateAction)(Login);
+
+export default connect(null, {loginReducer})(LoginForm);
