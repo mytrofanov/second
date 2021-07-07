@@ -1,13 +1,15 @@
 import {authAPI} from "../API/api";
 
 const SET_USER_DATA = 'SET_USER_DATA';
+const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
 
 
 let initialState = {
     userId: null,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: false,
+    authError: ["Incorrect E or P"]
 };
 
 const authReducer = (state = initialState, action) => {
@@ -16,17 +18,22 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.payload,
-
-
             }
-
-
             default:
             return state;
+        case SET_AUTH_ERROR:
+            debugger;
+            return {
+                ...state,
+                ...action.authError,
+            }
     }
 }
 export const setAuthUserData = (userId, email, login, isAuth) =>
     ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}})
+
+export const setAuthError = (errorMessage) =>
+    ({type: SET_AUTH_ERROR, authError: {errorMessage}})
 
 export const getAuthUserData = () => (dispatch) => {
     authAPI.me().then(response => {
@@ -42,8 +49,9 @@ export const loginReducer = (email, password, rememberMe) => (dispatch) => {
         if (response.data.resultCode === 0) {
         dispatch(getAuthUserData())}
         else {
-            let message = response.data.messages.length > 0 ? response.data.messages[0] : "ошибка авторизации";
-            console.log(message)
+            let errorMessage = response.data.messages.length > 0 ? response.data.messages[0] : "ошибка авторизации";
+            setAuthError(errorMessage)
+            console.log(errorMessage)
         }
     });
 }

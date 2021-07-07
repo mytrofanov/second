@@ -56,10 +56,13 @@ const login = (props) => {
 
     return <div>
         <LoginForm onSubmit={onSubmit}/>
+        <div>
+            Ошибка из props родитель auth-reducer: {props.authError}
+        </div>
     </div>
 }
 
-const mapStateToProps = (state) => ({isAuth: state.auth.isAuth})
+const mapStateToProps = (state) => ({isAuth: state.auth.isAuth, authError:state.auth.authError})
 
 
 export default connect(mapStateToProps, {loginReducer})(login);
