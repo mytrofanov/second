@@ -9,7 +9,7 @@ let initialState = {
     email: null,
     login: null,
     isAuth: false,
-    authError: ["Incorrect E or P"]
+    authError: ["ошибки нет"]
 };
 
 const authReducer = (state = initialState, action) => {
@@ -19,13 +19,12 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 ...action.payload,
             }
-            default:
+        default:
             return state;
         case SET_AUTH_ERROR:
-            debugger;
             return {
                 ...state,
-                ...action.authError,
+                authError: action.authError
             }
     }
 }
@@ -38,25 +37,27 @@ export const setAuthError = (errorMessage) =>
 export const getAuthUserData = () => (dispatch) => {
     authAPI.me().then(response => {
         if (response.data.resultCode === 0) {
-            let {id, login, email}  = response.data.data;
+            let {id, login, email} = response.data.data;
             dispatch(setAuthUserData(id, email, login, true));
         }
     });
 }
 
 export const loginReducer = (email, password, rememberMe) => (dispatch) => {
-       authAPI.login(email, password, rememberMe).then(response => {
+    authAPI.login(email, password, rememberMe).then(response => {
         if (response.data.resultCode === 0) {
-        dispatch(getAuthUserData())}
-        else {
-            let errorMessage = response.data.messages.length > 0 ? response.data.messages[0] : "ошибка авторизации";
-            setAuthError(errorMessage)
+            dispatch(getAuthUserData())
+        } else {
+            let errorMessage = response.data.messages[0]
+                // response.data.messages.length > 0 ? response.data.messages[0] : "ошибка авторизации";
             console.log(errorMessage)
+            dispatch(setAuthError(errorMessage))
+
         }
     });
 }
 export const logoutReducer = () => (dispatch) => {
-       authAPI.logout().then(response => {
+    authAPI.logout().then(response => {
         if (response.data.resultCode === 0) {
             dispatch(setAuthUserData(null, null, null, false))
         }
@@ -64,3 +65,4 @@ export const logoutReducer = () => (dispatch) => {
 }
 
 export default authReducer;
+
