@@ -8,11 +8,11 @@ import {Redirect} from "react-router-dom";
 
 export const LoginForm = (props) => {
 
-    const {
+    const { setError,
         register, handleSubmit,
         formState: {errors}
     } = useForm();
-
+    const { onChange, ...rest } = register("loginError");
     return (
         <div>
             <form className={s.form} onSubmit={handleSubmit(props.onSubmit)}>
@@ -29,7 +29,8 @@ export const LoginForm = (props) => {
                 </div>
                 <div>
                     <input {...register("password", {required: true, maxLength: 30}
-                    )} placeholder={" password"} type={"password"}/>
+                    )} placeholder={" password"} type={"password"}
+                     />
                     {errors?.password?.type === "required" && <span>This field is required</span>}
                     {errors?.password?.type === "maxLength" && (
                         <span>This field cannot exceed 30 characters</span>
@@ -39,7 +40,9 @@ export const LoginForm = (props) => {
                     <input {...register("rememberMe")} type="checkbox"/>
                     Remember me
                 </div>
+
                 <input type="submit" value="Login"/>
+
             </form>
         </div>
     )
