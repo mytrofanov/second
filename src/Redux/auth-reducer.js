@@ -9,7 +9,7 @@ let initialState = {
     email: null,
     login: null,
     isAuth: false,
-    authError: ["ошибки нет"]
+    authError: null
 };
 
 const authReducer = (state = initialState, action) => {
@@ -24,7 +24,7 @@ const authReducer = (state = initialState, action) => {
         case SET_AUTH_ERROR:
             return {
                 ...state,
-                authError: action.authError
+                authError: action.errorMessage
             }
     }
 }
@@ -32,7 +32,7 @@ export const setAuthUserData = (userId, email, login, isAuth) =>
     ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}})
 
 export const setAuthError = (errorMessage) =>
-    ({type: SET_AUTH_ERROR, authError: {errorMessage}})
+        ({type: SET_AUTH_ERROR, errorMessage})
 
 export const getAuthUserData = () => (dispatch) => {
     authAPI.me().then(response => {
@@ -48,10 +48,9 @@ export const loginReducer = (email, password, rememberMe) => (dispatch) => {
         if (response.data.resultCode === 0) {
             dispatch(getAuthUserData())
         } else {
-            let errorMessage = response.data.messages[0]
-                // response.data.messages.length > 0 ? response.data.messages[0] : "ошибка авторизации";
-            console.log(errorMessage)
-            dispatch(setAuthError(errorMessage))
+           const errorMessage = response.data.messages.length > 0 ? response.data.messages[0] : "ошибка авторизации";
+           console.log(errorMessage)
+           dispatch(setAuthError(errorMessage))
 
         }
     });

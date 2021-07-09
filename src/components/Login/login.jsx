@@ -56,8 +56,8 @@ const login = (props) => {
 
     return <div>
         <LoginForm onSubmit={onSubmit}/>
-        <div>
-            Ошибка из props родитель auth-reducer: {props.authError}
+        <div className={s.error}>
+             {props.authError}
         </div>
     </div>
 }
