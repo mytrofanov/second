@@ -5,13 +5,15 @@ import sidebarReducer from "./sidebar-reducer";
 import usersReducers from "./users-reducer";
 import authReducer from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
+import appReducer from "./app-reducer";
 
 let reducers = combineReducers({
     profilePage: profileReducer,
     messagesPage: dialogsReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducers,
-    auth: authReducer
+    auth: authReducer,
+    app: appReducer
 });
 
 let store = createStore (reducers,applyMiddleware(thunkMiddleware));
