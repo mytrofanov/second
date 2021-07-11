@@ -4,8 +4,10 @@
 }
 .loaderBlock {
     width: 100%;
+    height: 100vh;
     background-image: url("../../../assets/images/silent-blue-water-sea-zp-3840x2160.jpg");
     }
+
 
 .img{
     margin: 0 auto;
