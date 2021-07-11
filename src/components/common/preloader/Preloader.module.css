@@ -1,0 +1,12 @@
+.loader {
+   width: 25%;
+   margin: 0 auto;
+}
+.loaderBlock {
+    width: 100%;
+    background-image: url("../../../assets/images/silent-blue-water-sea-zp-3840x2160.jpg");
+    }
+
+.img{
+    margin: 0 auto;
+}

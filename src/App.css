@@ -1,18 +1,20 @@
 .app-wrapper {
-  display: grid;
-  margin: 0 auto;
-width: 1200px;
+    display: grid;
+    margin: 0 auto;
+    width: 100%;
+    background-image: url("./assets/images/silent-blue-water-sea-zp-3840x2160.jpg") ;
 
-  grid-template-areas: 
+    grid-template-areas:
   "h h"
-  "n c";  
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 2fr 10fr;
+  "n c";
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
 }
 
 
 .app-wrapper-content {
-  grid-area: c;
-  background-color: yellowgreen;
+    grid-area: c;
+
+
 }
 

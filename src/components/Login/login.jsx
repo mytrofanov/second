@@ -54,7 +54,7 @@ const login = (props) => {
         return <Redirect to={"/profile"}/>
     }
 
-    return <div>
+    return <div className={s.loginBlock}>
         <LoginForm onSubmit={onSubmit}/>
         <div className={s.error}>
              {props.authError}

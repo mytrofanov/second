@@ -1,13 +1,17 @@
+.loginBlock {
+    height: 100vh;
+}
+
 .loginForm {
     padding: 10px;
+
 }
+
 .loginForm input {
     margin: 5px;
 }
 
-
 .form {
-
     text-align: center;
     margin: 20px auto;
 }

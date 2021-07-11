@@ -11,7 +11,7 @@ const ProfileInfo = (props) => {
 
     return (
         <div>
-            <div> <img src='https://theinpaint.com/images/example-1-1.jpg' /> </div>
+
         <img className={s.about} src={props.profile.photos.large}/>
 
             <div className={s.about}>
