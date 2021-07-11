@@ -2,7 +2,9 @@
     display: grid;
     margin: 0 auto;
     width: 100%;
+
     background-image: url("./assets/images/silent-blue-water-sea-zp-3840x2160.jpg") ;
+    background-size: cover;
 
     grid-template-areas:
   "h h"
