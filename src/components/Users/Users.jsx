@@ -4,7 +4,6 @@ import userPhoto from "../../assets/images/user.png";
 import {NavLink} from "react-router-dom";
 
 
-
 let Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
@@ -20,10 +19,10 @@ let Users = (props) => {
                         className={p === props.currentPage ? styles.selectedPage : styles.nonSelectedPage}
                         onClick={
                             (event) => {
-                              props.onPageChanged(p);
-                        }}> {p} </span>);
-            })}
-            <span className={styles.totalPages}> Всего страниц: {props.totalUsersCount}</span>
+                                props.onPageChanged(p);
+                            }}> {p} </span>);
+                            })}
+            <span className={styles.totalPages}> Всего страниц: {pagesCount} </span>
         </div>
         {props.users.map(u => <div key={u.id}>
         <span>
