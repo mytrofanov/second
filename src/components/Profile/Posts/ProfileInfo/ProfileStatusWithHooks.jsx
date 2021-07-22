@@ -1,0 +1,40 @@
+import React, {useState} from 'react';
+import s from './ProfileInfo.module.css';
+
+const ProfileStatusWithHooks = (props) => {
+
+    let [editMode, setEditMode] = useState(false);
+    let [status, setStatus] = useState(props.status);
+
+    const activateEditMode = () => {
+        setEditMode(true)
+    }
+    const deactivateEditMode = () => {
+        setEditMode(false);
+        props.updateStatus(status);
+    }
+    const onStatusChange = (ev) => {
+        setStatus(ev.currentTarget.value)
+    }
+
+    return (
+        <div className={s.status}>
+            {!editMode &&
+            <div>
+                  <span className={s.about} onDoubleClick={activateEditMode}>Статус: &nbsp;
+                      {props.status||"-------"}  </span>
+            </div>
+            }
+            {editMode &&
+            <div>
+                <input className={s.about} value={status}
+                       autoFocus={true} onChange={onStatusChange}
+                       onBlur={deactivateEditMode}/>
+            </div>
+            }
+        </div>
+    )
+
+}
+
+export default ProfileStatusWithHooks;
