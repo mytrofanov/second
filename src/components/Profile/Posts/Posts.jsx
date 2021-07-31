@@ -1,7 +1,7 @@
     import React from 'react';
     import Post from './Post/Post';
     import s from './Posts.module.css'
-    import {set, useForm} from "react-hook-form";
+    import {useForm} from "react-hook-form";
 
     window.props = [];
     const Posts = React.memo(props => {
@@ -12,7 +12,7 @@
         window.props.push(props);
 
         let postsElements =
-            props.posts.map(p => <Post message={p.message} count={p.count} discount={p.discount}/>)
+            [...props.posts].reverse().map(p => <Post message={p.message} count={p.count} discount={p.discount}/>)
 
         let newPostElement = React.createRef();
 
