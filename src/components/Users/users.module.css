@@ -1,31 +1,9 @@
-.pageNumber {
-    margin: 10px;
-}
 
 .usersPhoto {
     width: 70px;
     height: auto;
 }
 
-.selectedPage {
-    color: blue;
-    font-size: large;
-    font-weight: bold;
-    cursor: pointer;
-     }
-
-.nonSelectedPage {
-    color: blue;
-    font-size: large;
-    cursor: pointer;
-}
-.totalPages {
-    margin-left: 15px;
-    margin-right: 15px;
-    color: blue;
-    font-size: large;
-    cursor: pointer;
-}
 .startAndEnd {
     margin-left: 15px;
     margin-right: 15px;

@@ -6,7 +6,7 @@ import {loginReducer} from "../../Redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 
 
-export const LoginForm = (props) => {
+export const LoginForm = ({onSubmit}) => {
 
     const { setError,
         register, handleSubmit,
@@ -15,7 +15,7 @@ export const LoginForm = (props) => {
     const { onChange, ...rest } = register("loginError");
     return (
         <div>
-            <form className={s.form} onSubmit={handleSubmit(props.onSubmit)}>
+            <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
                 <h1>Login Form</h1>
                 <div>
                     <input {...register("email", {
@@ -48,16 +48,16 @@ export const LoginForm = (props) => {
     )
 }
 
-const login = (props) => {
-    const onSubmit = data => props.loginReducer(data.email, data.password, data.rememberMe);
-    if (props.isAuth) {
+const login = ({isAuth, loginReducer, authError  }) => {
+    const onSubmit = data => loginReducer(data.email, data.password, data.rememberMe);
+    if (isAuth) {
         return <Redirect to={"/profile"}/>
     }
 
     return <div className={s.loginBlock}>
         <LoginForm onSubmit={onSubmit}/>
         <div className={s.error}>
-             {props.authError}
+             {authError}
         </div>
     </div>
 }
