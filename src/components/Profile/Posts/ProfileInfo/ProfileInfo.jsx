@@ -1,15 +1,14 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
 import Preloader from "../../../common/preloader/preloader";
-import ProfileStatus from "./ProfileStatus";
 import mask from "./../../../../assets/images/mask.jpg";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
-const ProfileInfo = (props) => {
-    if (!props.profile) {
+const ProfileInfo = ({profile, status, updateStatus }) => {
+    if (!profile) {
         return  <Preloader/>
     }
-    const ava = !props.profile.photos.large? mask: props.profile.photos.large;
+    const ava = !profile.photos.large? mask: profile.photos.large;
     //подставляю маску вместо аватарки если ее нет у юзера
 
     return (
@@ -18,12 +17,12 @@ const ProfileInfo = (props) => {
         <img className={s.about} src={ava} />
 
             <div className={s.about}>
-                Имя:  {props.profile.fullName}
+                Имя:  {profile.fullName}
             </div>
             <div className={s.about}>
-               О мне:  {props.profile.aboutMe}
+               О мне:  {profile.aboutMe}
             </div>
-            <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
+            <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
         </div>
 
     )
