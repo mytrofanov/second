@@ -14,6 +14,15 @@ export const usersAPI = {
                 return response.data;
             });
     },
+    // getFriends (currentFriendsPage = 1, friendsPageSize = 3, friend = true) {
+    //     return instance.get (`users?page=${currentFriendsPage}&count=${friendsPageSize}&friend=${friend}`)
+    //         .then(response => {
+    //             return response.data;
+    //         });
+    // },
+    getFriends (currentFriendsPage=1, friendsPageSize=3, friend=true) {
+        return instance.get (`users?page=${currentFriendsPage}&count=${friendsPageSize}&friend={friend}`)
+},
 
 // в delete параметр withCredentials отправляется вторым
     unFollow(id) {

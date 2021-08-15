@@ -16,6 +16,7 @@ import {
 } from "../../Redux/usersSelectors";
 
 
+
 class UsersContainer extends React.Component {
     componentDidMount() {
         let {currentPage,pageSize } = this.props;
@@ -39,6 +40,7 @@ class UsersContainer extends React.Component {
                    unfollow={this.props.unfollow}
                    followingInProgress={this.props.followingInProgress}
             />
+
         </>
     }
 

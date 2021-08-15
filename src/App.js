@@ -15,6 +15,7 @@ import {compose} from "redux";
 import {initializeApp} from "./Redux/app-reducer";
 import Preloader from "./components/common/preloader/preloader";
 import store from "./Redux/redux-store";
+import FriendsContainer from "./components/Friends/FriendsContainer";
 
 
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
@@ -47,6 +48,7 @@ class App extends React.Component {
                         <Route path='/music' render={() => <Music/>}/>
                         <Route path='/settings' render={() => <Settings/>}/>
                         <Route path='/users' render={() => <UsersContainer/>}/>
+                        <Route path='/friends' render={() => <FriendsContainer/>}/>
                         <Route path='/login' render={() => <Login/>}/>
                     </div>
                 </React.Suspense>
