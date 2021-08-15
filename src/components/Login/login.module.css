@@ -1,3 +1,13 @@
+.loginPage {
+    display: grid;
+    margin: 0 auto;
+    width: 100%;
+
+    grid-template-areas: "l t";
+    grid-auto-columns: auto;
+}
+
+
 .loginBlock {
     height: 100vh;
 }
@@ -19,4 +29,11 @@
 .error {
     text-align: center;
     color: red;
+}
+
+.testAccount {
+    grid-area: t;
+    padding: 10px;
+    text-align: center;
+    font-size: large;
 }

@@ -8,13 +8,14 @@ import {Redirect} from "react-router-dom";
 
 export const LoginForm = ({onSubmit}) => {
 
-    const { setError,
+    const {
+        setError,
         register, handleSubmit,
         formState: {errors}
     } = useForm();
-    const { onChange, ...rest } = register("loginError");
+    const {onChange, ...rest} = register("loginError");
     return (
-        <div>
+        <div className={s.loginPage}>
             <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
                 <h1>Login Form</h1>
                 <div>
@@ -30,7 +31,7 @@ export const LoginForm = ({onSubmit}) => {
                 <div>
                     <input {...register("password", {required: true, maxLength: 30}
                     )} placeholder={" password"} type={"password"}
-                     />
+                    />
                     {errors?.password?.type === "required" && <span>This field is required</span>}
                     {errors?.password?.type === "maxLength" && (
                         <span>This field cannot exceed 30 characters</span>
@@ -44,11 +45,18 @@ export const LoginForm = ({onSubmit}) => {
                 <input type="submit" value="Login"/>
 
             </form>
+
+
+            <div className={s.testAccount}>
+                <h1> Test account: </h1>
+                <div>Email: free@samuraijs.com</div>
+                <div>Password: free</div>
+            </div>
         </div>
     )
 }
 
-const login = ({isAuth, loginReducer, authError  }) => {
+const login = ({isAuth, loginReducer, authError}) => {
     const onSubmit = data => loginReducer(data.email, data.password, data.rememberMe);
     if (isAuth) {
         return <Redirect to={"/profile"}/>
@@ -57,12 +65,12 @@ const login = ({isAuth, loginReducer, authError  }) => {
     return <div className={s.loginBlock}>
         <LoginForm onSubmit={onSubmit}/>
         <div className={s.error}>
-             {authError}
+            {authError}
         </div>
     </div>
 }
 
-const mapStateToProps = (state) => ({isAuth: state.auth.isAuth, authError:state.auth.authError})
+const mapStateToProps = (state) => ({isAuth: state.auth.isAuth, authError: state.auth.authError})
 
 
 export default connect(mapStateToProps, {loginReducer})(login);
