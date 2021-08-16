@@ -46,22 +46,21 @@ export const getAuthUserData = () => async (dispatch) => {
 export const loginReducer = (email, password, rememberMe) => async (dispatch) => {
     let response = await authAPI.login(email, password, rememberMe);
 
-            if (response.data.resultCode === 0) {
-            dispatch(getAuthUserData())
-        } else {
-            const errorMessage = response.data.messages.length > 0 ? response.data.messages[0] : "ошибка авторизации";
-            console.log(errorMessage)
-            dispatch(setAuthError(errorMessage))
-        }
+    if (response.data.resultCode === 0) {
+        dispatch(getAuthUserData())
+    } else {
+        const errorMessage = response.data.messages.length > 0 ? response.data.messages[0] : "ошибка авторизации";
+        dispatch(setAuthError(errorMessage))
     }
+}
 
 export const logoutReducer = () => async (dispatch) => {
     let response = await authAPI.logout();
 
-        if (response.data.resultCode === 0) {
-            dispatch(setAuthUserData(null, null, null, false))
-        }
+    if (response.data.resultCode === 0) {
+        dispatch(setAuthUserData(null, null, null, false))
     }
+}
 
 
 export default authReducer;

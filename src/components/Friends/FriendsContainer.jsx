@@ -10,6 +10,7 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import {follow, requestFriends, toggleFollowingProgress, unfollow} from "../../Redux/users-reducer";
 import Friends from "./Friends";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 class FriendsContainer extends React.Component {
@@ -54,6 +55,6 @@ let mapStateToProps = (state) => {
 
 export default compose(
     connect(mapStateToProps, {
-        follow, unfollow, toggleFollowingProgress, getFriends: requestFriends
+        follow, unfollow, toggleFollowingProgress, getFriends: requestFriends, withAuthRedirect
     }),
 )(FriendsContainer);
