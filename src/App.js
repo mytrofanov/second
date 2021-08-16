@@ -36,8 +36,8 @@ class App extends React.Component {
         return (
             <div className='app-wrapper'>
 
-                    <HeaderContainer/>
-                    <Navbar/>
+                <HeaderContainer/>
+                <Navbar/>
                 <React.Suspense fallback={<Preloader/>}>
                     <div className='app-wrapper-content'>
                         <Route path='/dialogs'
@@ -48,7 +48,7 @@ class App extends React.Component {
                         <Route path='/music' render={() => <Music/>}/>
                         <Route path='/settings' render={() => <Settings/>}/>
                         <Route path='/users' render={() => <UsersContainer/>}/>
-                        <Route path='/friends' render={() => <FriendsContainer friendsPageSize={10}/>}/>
+                        <Route path='/friends' render={() => <FriendsContainer/>}/>
                         <Route path='/login' render={() => <Login/>}/>
                     </div>
                 </React.Suspense>

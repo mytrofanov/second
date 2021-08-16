@@ -15,7 +15,7 @@ export const usersAPI = {
             });
     },
 
-    getFriends(currentFriendsPage = 1, friendsPageSize = 3, friend = true) {
+    getFriends(currentFriendsPage = 1, friendsPageSize = 10, friend = true) {
         return instance.get(`users?page=${currentFriendsPage}&count=${friendsPageSize}&friend=${friend}`)
     },
 

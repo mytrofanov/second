@@ -11,6 +11,7 @@ import {connect} from "react-redux";
 import {follow, requestFriends, toggleFollowingProgress, unfollow} from "../../Redux/users-reducer";
 import Friends from "./Friends";
 
+
 class FriendsContainer extends React.Component {
     componentDidMount() {
         let {currentFriendsPage, friendsPageSize, friend} = this.props;
@@ -36,8 +37,8 @@ class FriendsContainer extends React.Component {
                 followingInProgress={this.props.followingInProgress}
             />
 
-        </>
-    }
+            </>
+            }
 }
 
 let mapStateToProps = (state) => {
