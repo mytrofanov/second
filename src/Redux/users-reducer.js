@@ -117,7 +117,7 @@ export const requestFriends = (currentFriendsPage, friendsPageSize, friends) => 
         dispatch(setCurrentFriendsPage(currentFriendsPage))
 
         let data = await usersAPI.getFriends(currentFriendsPage, friendsPageSize, friends);
-        let newFriends = data.data.items[0].name;
+        let newFriends = data.data.items;
         dispatch(toggleIsFetching(false));
         dispatch(setFriends(newFriends));
         dispatch(setTotalFriendsCount(data.data.totalCount));

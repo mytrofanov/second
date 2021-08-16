@@ -48,7 +48,7 @@ class App extends React.Component {
                         <Route path='/music' render={() => <Music/>}/>
                         <Route path='/settings' render={() => <Settings/>}/>
                         <Route path='/users' render={() => <UsersContainer/>}/>
-                        <Route path='/friends' render={() => <FriendsContainer/>}/>
+                        <Route path='/friends' render={() => <FriendsContainer friendsPageSize={10}/>}/>
                         <Route path='/login' render={() => <Login/>}/>
                     </div>
                 </React.Suspense>

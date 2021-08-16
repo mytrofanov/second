@@ -1,6 +1,5 @@
 import React from "react";
 import Preloader from "../common/preloader/preloader";
-import Friend from "./Friend";
 import {
     getCurrentFriendsPage,
     getFollowingInProgress, getFriends, getFriendsPageSize,
@@ -10,6 +9,7 @@ import {
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {follow, requestFriends, toggleFollowingProgress, unfollow} from "../../Redux/users-reducer";
+import Friends from "./Friends";
 
 class FriendsContainer extends React.Component {
     componentDidMount() {
@@ -25,7 +25,7 @@ class FriendsContainer extends React.Component {
     render() {
         return <>
             {this.props.isFetching ? <Preloader/> : null}
-            <Friend
+            <Friends
                 totalFriendsCount={this.props.totalFriendsCount}
                 friendsPageSize={this.props.friendsPageSize}
                 currentFriendsPage={this.props.currentFriendsPage}

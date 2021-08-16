@@ -14,15 +14,10 @@ export const usersAPI = {
                 return response.data;
             });
     },
-    // getFriends (currentFriendsPage = 1, friendsPageSize = 3, friend = true) {
-    //     return instance.get (`users?page=${currentFriendsPage}&count=${friendsPageSize}&friend=${friend}`)
-    //         .then(response => {
-    //             return response.data;
-    //         });
-    // },
-    getFriends (currentFriendsPage=1, friendsPageSize=3, friend=true) {
-        return instance.get (`users?page=${currentFriendsPage}&count=${friendsPageSize}&friend={friend}`)
-},
+
+    getFriends(currentFriendsPage = 1, friendsPageSize = 3, friend = true) {
+        return instance.get(`users?page=${currentFriendsPage}&count=${friendsPageSize}&friend=${friend}`)
+    },
 
 // в delete параметр withCredentials отправляется вторым
     unFollow(id) {
@@ -59,10 +54,10 @@ export const authAPI = {
     me() {
         return instance.get(`auth/me`)
     },
-    login(email, password, rememberMe=false) {
+    login(email, password, rememberMe = false) {
         return instance.post('auth/login', {email, password, rememberMe})
     },
-    logout () {
+    logout() {
         return instance.delete('auth/login')
     }
 }
