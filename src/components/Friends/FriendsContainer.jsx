@@ -2,14 +2,13 @@ import React from "react";
 import Preloader from "../common/preloader/preloader";
 import {
     getCurrentFriendsPage,
-    getFollowingInProgress, getFriends, getFriendsPageSize,
-    getIsFetching,
+    getFriends, getFriendsPageSize,
     getTotalFriendsCount
-} from "../../Redux/usersSelectors";
+} from "../../Redux/friendsSelectors";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {follow, requestFriends, toggleFollowingProgress, unfollow} from "../../Redux/users-reducer";
-import Friends from "./Friends";
+import {requestFriends} from "../../Redux/sidebar-reducer";
+import Sidebar from "../Sidebar/Sidebar";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
@@ -27,34 +26,29 @@ class FriendsContainer extends React.Component {
     render() {
         return <>
             {this.props.isFetching ? <Preloader/> : null}
-            <Friends
+            <Sidebar
                 totalFriendsCount={this.props.totalFriendsCount}
                 friendsPageSize={this.props.friendsPageSize}
                 currentFriendsPage={this.props.currentFriendsPage}
                 onFriendsPageChanged={this.onFriendsPageChanged}
                 friends={this.props.friends}
-                follow={this.props.follow}
-                unfollow={this.props.unfollow}
-                followingInProgress={this.props.followingInProgress}
             />
 
-            </>
-            }
+        </>
+    }
 }
 
 let mapStateToProps = (state) => {
     return {
         friends: getFriends(state),
-        friendsPageSize: getFriendsPageSize(state),
-        currentFriendsPage: getCurrentFriendsPage(state),
         totalFriendsCount: getTotalFriendsCount(state),
-        isFetching: getIsFetching(state),
-        followingInProgress: getFollowingInProgress(state),
+        friendsPageSize: getFriendsPageSize(state),
+        currentFriendsPage: getCurrentFriendsPage(state)
     }
 }
 
 export default compose(
     connect(mapStateToProps, {
-        follow, unfollow, toggleFollowingProgress, getFriends: requestFriends, withAuthRedirect
-    }),
+        getFriends: requestFriends
+    }),withAuthRedirect
 )(FriendsContainer);

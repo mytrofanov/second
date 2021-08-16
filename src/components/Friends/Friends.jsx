@@ -3,18 +3,21 @@ import Friend from "./Friend";
 import s from "./friends.module.css"
 
 
-let Friends = ({currentFriendsPage, onFriendsPageChanged, friendsPageSize, totalFriendsCount, friends, ...props}) => {
+let Friends = ({currentFriendsPage, onFriendsPageChanged, friendsPageSize, totalFriendsCount, friends}) => {
+    console.log(currentFriendsPage, onFriendsPageChanged,friendsPageSize,totalFriendsCount)
+
     return <div className={s.friendsBlock}>
 
-        {friends.map(u =>
-            <Friend
-                    friend={u}
-                    followingInProgress={props.followingInProgress}
-                    unfollow={props.unfollow}
-                    follow={props.follow}
+
+        {friends.slice(0, 3).map(u =>
+            <Friend friend={u}
             />
         )
         }
+        <div className={s.friends}>
+        <div>Всего друзей:</div>
+        <div>{totalFriendsCount}</div>
+        </div>
     </div>
 }
 
