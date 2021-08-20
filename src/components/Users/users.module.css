@@ -2,6 +2,7 @@
 .usersPhoto {
     width: 70px;
     height: auto;
+    padding-top: 10px;
 }
 
 .startAndEnd {
@@ -10,4 +11,8 @@
     color: blue;
     font-size: large;
     cursor: pointer;
+}
+
+.userName {
+   padding-bottom: 15px;
 }
