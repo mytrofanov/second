@@ -31,7 +31,9 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto}) => {
             <div className={s.about}>
                 О мне: {profile.aboutMe}
             </div>
+            <div className={s.status}>
             <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
+            </div>
         </div>
 
     )
