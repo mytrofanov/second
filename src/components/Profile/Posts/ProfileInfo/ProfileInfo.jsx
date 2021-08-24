@@ -3,8 +3,14 @@ import s from './ProfileInfo.module.css';
 import Preloader from "../../../common/preloader/preloader";
 import mask from "./../../../../assets/images/mask.jpg";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
+import {ProfileForm} from "./ProfileForm";
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contacts}) => {
+    let [editMode, setEditMode] = useState(false);
+    const goToEditMode = () =>{
+        console.log (editMode);
+        setEditMode(editMode=!editMode)};
+
     if (!profile) {
         return <Preloader/>
     }
@@ -30,17 +36,21 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contact
                 <div className={s.status}>
                     <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 </div>
-
-                <ProfileData profile={profile} isOwner={isOwner}/>
-
+                {editMode ? <ProfileForm goToEditMode={goToEditMode}/>
+                        : <ProfileData profile={profile}
+                                       isOwner={isOwner}
+                                       goToEditMode={goToEditMode}/>
+                }
 
             </div>
-
         </div>
+
+
     )
 }
 
-const ProfileData = ({profile, isOwner}, editMode) => {
+
+const ProfileData = ({profile, isOwner, goToEditMode}) => {
 
     return <div className={s.ProfileData}>
         <div className={s.about}>
@@ -59,17 +69,14 @@ const ProfileData = ({profile, isOwner}, editMode) => {
                 return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
             })
             }
-            </div>
-        <button className={s.editProfile} > 🛠 Редактировать профиль</button>
+        </div>
+        {isOwner && <button className={s.editProfile} onClick={goToEditMode}> 🛠 Редактировать профиль</button>}
     </div>
 }
 
 const Contact = ({contactTitle, contactValue}) => {
     return <div className={s.contact}>{contactTitle}: {contactValue}</div>
 }
-
-
-
 
 
 export default ProfileInfo;
