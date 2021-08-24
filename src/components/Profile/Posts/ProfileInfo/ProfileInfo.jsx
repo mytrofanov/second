@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from './ProfileInfo.module.css';
 import Preloader from "../../../common/preloader/preloader";
 import mask from "./../../../../assets/images/mask.jpg";
@@ -16,6 +16,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contact
             savePhoto(e.target.files[0])
         }
     }
+
 
     return (
         <div>
@@ -39,8 +40,8 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contact
     )
 }
 
-const ProfileData = ({profile, isOwner, editMode}) => {
-    console.log(profile.contacts);
+const ProfileData = ({profile, isOwner}, editMode) => {
+
     return <div className={s.ProfileData}>
         <div className={s.about}>
             Имя: {profile.fullName}
@@ -59,12 +60,16 @@ const ProfileData = ({profile, isOwner, editMode}) => {
             })
             }
             </div>
-        <div className={s.editProfile}>Редактировать профиль</div>
+        <button className={s.editProfile} > 🛠 Редактировать профиль</button>
     </div>
 }
 
 const Contact = ({contactTitle, contactValue}) => {
     return <div className={s.contact}>{contactTitle}: {contactValue}</div>
 }
+
+
+
+
 
 export default ProfileInfo;

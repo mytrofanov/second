@@ -39,6 +39,11 @@
 .ProfileData {
     padding: 5px 0 15px 0;
 }
+.editProfile {
+    background-color: aliceblue;
+    font-size: 14px;
+    border-radius: 10px;
+}
 
 .status {
     grid-area: m;
