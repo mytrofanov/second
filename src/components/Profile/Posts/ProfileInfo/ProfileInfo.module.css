@@ -20,7 +20,8 @@
     display: block;
     width: 100%;
     height: auto;
-    padding-top: 10px;
+
+    padding-bottom: 5px;
 }
 
 .ProfileData {
@@ -31,7 +32,9 @@
     padding-top: 15px;
     max-width: 300px;
 }
-
+.contact {
+    padding-bottom: 5px;
+}
 .overlay {
     color: white;
     text-align: right;

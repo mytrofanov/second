@@ -27,15 +27,15 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contact
             <div className={s.status}>
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
-            <ProfileData profile={profile} isOwner={isOwner}/>
+            <ProfileData profile={profile}  isOwner={isOwner}/>
 
         </div>
 
     )
 }
 
-const ProfileData = (profile, isOwner, editMode) => {
-console.log(profile.contacts)
+const ProfileData = ({profile, isOwner, editMode}) => {
+    console.log (profile.contacts);
     return <div className={s.ProfileData}>
         <div className={s.about}>
             Имя: {profile.fullName}
@@ -48,11 +48,11 @@ console.log(profile.contacts)
             <div>My Professional Skills: {profile.lookingForAJobDescription}</div> : <span>Нет</span>}
         </div>
         <div>
-            Контакты:
-            {/*{Object.keys(profile.contacts).map(key => {*/}
-            {/*    return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>*/}
-            {/*})*/}
-            {/*}*/}
+            <b>Контакты:</b>
+            {Object.keys(profile.contacts).map(key => {
+                return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+            })
+            }
         </div>
     </div>
 }
