@@ -14,7 +14,7 @@ export const ProfileForm = ({goToEditMode, profile}) => {
 }
 
 export const ProfileDataForm = ({onSubmit, profile}) => {
-    console.log(profile)
+    console.log(profile.contacts)
     const inputCreator = (inputName, placeholder) => {
         return <div>
             <input {...register(inputName)} placeholder={placeholder}/>
@@ -31,26 +31,22 @@ export const ProfileDataForm = ({onSubmit, profile}) => {
         <div className={s.loginPage}>
             <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
 
-                <div>
-                    <input {...register("Имя:")} placeholder={"имя"}/>
-                    <input {...register("О мне:")} placeholder={"О мне:"}/>
-
-                </div>
-                <div>
-                    <input {...register("password", {required: true, maxLength: 30}
-                    )} placeholder={" password"} type={"password"}
-                    />
-                    {errors?.password?.type === "required" && <span>This field is required</span>}
-                    {errors?.password?.type === "maxLength" && (
-                        <span>This field cannot exceed 30 characters</span>
-                    )}
-                </div>
-                <div>
-                    <input {...register("rememberMe")} type="checkbox"/>
-                    Remember me
+                <div>Имя:
+                    <input {...register("profile.fullName")} placeholder={profile.fullName}/>
+                    <div>Обо мне: <input {...register("profile.aboutMe")} placeholder={profile.aboutMe}/></div>
+                    <div>Ищу работу: <input {...register("profile.lookingForAJob")} type="checkbox"/></div>
+                    <div>Мои навыки: <input {...register("profile.lookingForAJobDescription")}
+                                            placeholder={profile.lookingForAJobDescription}/></div>
+                    <b>Контакты:</b>
+                    {Object.keys(profile.contacts).map(key => {
+                        return < div key={key}>
+                            {inputCreator(key, key)}
+                        < /div>
+                    })
+                    }
                 </div>
 
-                <input type="submit" value="Login"/>
+               <input type="submit" value="Save"/>
 
             </form>
 
