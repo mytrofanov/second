@@ -23,8 +23,12 @@
     padding-top: 10px;
 }
 
+.ProfileData {
+    padding: 5px 0 15px 0;
+}
+
 .status {
-    padding-bottom: 10px;
+    padding-top: 15px;
     max-width: 300px;
 }
 
