@@ -19,23 +19,28 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contact
 
     return (
         <div>
-            <div className={s.container}>
-                <img className={s.about} src={ava}/>
-                {isOwner && <div className={s.overlay}>🖋</div>}
-                {isOwner && <input type={"file"} className={s.bigPen} onChange={selectPhoto}/>}
+            <div className={s.ProfileInfo}>
+                <div className={s.container}>
+                    <img className={s.about} src={ava}/>
+                    {isOwner && <div className={s.overlay}>🖋</div>}
+                    {isOwner && <input type={"file"} className={s.bigPen} onChange={selectPhoto}/>}
+
+                </div>
+                <div className={s.status}>
+                    <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
+                </div>
+
+                <ProfileData profile={profile} isOwner={isOwner}/>
+
+
             </div>
-            <div className={s.status}>
-                <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
-            </div>
-            <ProfileData profile={profile}  isOwner={isOwner}/>
 
         </div>
-
     )
 }
 
 const ProfileData = ({profile, isOwner, editMode}) => {
-    console.log (profile.contacts);
+    console.log(profile.contacts);
     return <div className={s.ProfileData}>
         <div className={s.about}>
             Имя: {profile.fullName}
@@ -53,7 +58,8 @@ const ProfileData = ({profile, isOwner, editMode}) => {
                 return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
             })
             }
-        </div>
+            </div>
+        <div className={s.editProfile}>Редактировать профиль</div>
     </div>
 }
 
