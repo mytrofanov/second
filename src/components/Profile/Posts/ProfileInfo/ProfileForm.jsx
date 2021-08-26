@@ -3,13 +3,12 @@ import s from "./ProfileInfo.module.css";
 import {useForm} from "react-hook-form";
 
 export const ProfileForm = ({goToEditMode, profile}) => {
- const onSubmit = () => {
-     goToEditMode()
- }
+    const onSubmit = () => {
+        goToEditMode()
+    }
 
     return <div>
         <ProfileDataForm profile={profile} onSubmit={onSubmit}/>
-
     </div>
 }
 
@@ -17,7 +16,7 @@ export const ProfileDataForm = ({onSubmit, profile}) => {
 
     const inputCreator = (inputName, placeholder) => {
         return <div>
-            <input {...register(inputName)} placeholder={placeholder}/>
+            {inputName}  :  <input {...register(inputName)} placeholder={placeholder}/>
         </div>
     }
 
@@ -40,13 +39,13 @@ export const ProfileDataForm = ({onSubmit, profile}) => {
                     <b>Контакты:</b>
                     {Object.keys(profile.contacts).map(key => {
                         return < div key={key}>
-                            {inputCreator(key, key)}
+                             {inputCreator(key, profile.contacts[key])}
                         < /div>
                     })
                     }
                 </div>
 
-               <input className={s.editProfile} type="submit" value="💾 Save"/>
+                <input className={s.editProfile} type="submit" value="💾 Save"/>
 
             </form>
 
