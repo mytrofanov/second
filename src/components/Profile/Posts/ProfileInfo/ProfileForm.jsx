@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import s from "./ProfileInfo.module.css";
 import {useForm} from "react-hook-form";
-import {saveProfile} from "../../../../Redux/profile-reducer";
 
 export const ProfileForm = ({goToEditMode, profile, onSubmit}) => {
 
@@ -13,9 +12,9 @@ export const ProfileForm = ({goToEditMode, profile, onSubmit}) => {
 
 export const ProfileDataForm = ({onSubmit, profile}) => {
 
-    const inputCreator = (inputName, placeholder) => {
+    const inputCreator = (divName, inputName, placeholder) => {
         return <div>
-            {inputName}  :  <input {...register(inputName)} placeholder={placeholder}/>
+            {divName}  :  <input {...register(inputName)} placeholder={placeholder}/>
         </div>
     }
 
@@ -24,7 +23,13 @@ export const ProfileDataForm = ({onSubmit, profile}) => {
         register, handleSubmit,
         formState: {errors}
     } = useForm();
+    const load = async () => {
 
+        return {
+            fullName: 'erikras',
+
+        }
+    }
     return (
         <div className={s.loginPage}>
             <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
@@ -38,7 +43,7 @@ export const ProfileDataForm = ({onSubmit, profile}) => {
                     <b>Контакты:</b>
                     {Object.keys(profile.contacts).map(key => {
                         return < div key={key}>
-                             {inputCreator(key, profile.contacts[key])}
+                             {inputCreator(key, "contacts." + key, profile.contacts[key])}
                         < /div>
                     })
                     }

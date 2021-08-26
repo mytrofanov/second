@@ -7,8 +7,9 @@ import {ProfileForm} from "./ProfileForm";
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contacts, saveProfile}) => {
     let [editMode, setEditMode] = useState(false);
-    const goToEditMode = () =>{
-        setEditMode(editMode=!editMode)};
+    const goToEditMode = () => {
+        setEditMode(editMode = !editMode)
+    };
 
     if (!profile) {
         return <Preloader/>
@@ -39,10 +40,10 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contact
                 <div className={s.status}>
                     <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 </div>
-                {editMode ? <ProfileForm profile={profile}  onSubmit={onSubmit}/>
-                        : <ProfileData profile={profile}
-                                       isOwner={isOwner}
-                                       goToEditMode={goToEditMode}/>
+                {editMode ? <ProfileForm profile={profile} onSubmit={onSubmit}/>
+                    : <ProfileData profile={profile}
+                                   isOwner={isOwner}
+                                   goToEditMode={goToEditMode}/>
                 }
 
             </div>
@@ -63,8 +64,10 @@ const ProfileData = ({profile, isOwner, goToEditMode}) => {
             О мне: {profile.aboutMe}
         </div>
         <div className={s.about}>
-            Ищу работу: {profile.lookingForAJob ? <span>Да</span> &&
-            <div>My Professional Skills: {profile.lookingForAJobDescription}</div> : <span>Нет</span>}
+            Ищу работу: {profile.lookingForAJob ? "yes" : "no"}
+
+            <div className={s.about}>
+                Professional skills:  {profile.lookingForAJobDescription}</div>
         </div>
         <div>
             <b>Контакты:</b>
