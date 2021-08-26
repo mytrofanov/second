@@ -87,6 +87,14 @@ export const updateStatus = (status) => async (dispatch) => {
         dispatch(setStatus(status));
     }
 }
+export const saveProfile = (profile) => async (dispatch, getState) => {
+    let userId= getState().auth.userId
+    let response = await profileAPI.saveProfile(profile);
+    debugger;
+    if (response.data.resultCode === 0) {
+        dispatch(setUserProfile(profile));
+    }
+}
 export const savePhoto = (file) => async (dispatch) => {
     let response = await profileAPI.savePhoto(file);
     if (response.data.resultCode === 0) {

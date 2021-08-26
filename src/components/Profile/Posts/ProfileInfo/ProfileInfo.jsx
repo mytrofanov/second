@@ -5,10 +5,9 @@ import mask from "./../../../../assets/images/mask.jpg";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import {ProfileForm} from "./ProfileForm";
 
-const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contacts}) => {
+const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contacts, saveProfile}) => {
     let [editMode, setEditMode] = useState(false);
     const goToEditMode = () =>{
-        console.log (editMode);
         setEditMode(editMode=!editMode)};
 
     if (!profile) {
@@ -22,7 +21,11 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contact
             savePhoto(e.target.files[0])
         }
     }
-
+    const onSubmit = (values) => {
+        console.log(values)
+        saveProfile(values)
+        goToEditMode()
+    }
 
     return (
         <div>
@@ -36,7 +39,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contact
                 <div className={s.status}>
                     <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 </div>
-                {editMode ? <ProfileForm profile={profile}  goToEditMode={goToEditMode}/>
+                {editMode ? <ProfileForm profile={profile}  onSubmit={onSubmit}/>
                         : <ProfileData profile={profile}
                                        isOwner={isOwner}
                                        goToEditMode={goToEditMode}/>
