@@ -5,11 +5,9 @@ import mask from "./../../../../assets/images/mask.jpg";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import {ProfileForm} from "./ProfileForm";
 
-const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contacts, saveProfile}) => {
-    let [editMode, setEditMode] = useState(false);
-    const goToEditMode = () => {
-        setEditMode(editMode = !editMode)
-    };
+const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contacts, saveProfile, setEditMode}) => {
+    let editMode= profile.mode
+
 
     if (!profile) {
         return <Preloader/>
@@ -23,10 +21,8 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contact
         }
     }
     const onSubmit = (values) => {
-        console.log(values)
         saveProfile(values)
-        goToEditMode()
-    }
+           }
 
     return (
         <div>
@@ -43,7 +39,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contact
                 {editMode ? <ProfileForm profile={profile} onSubmit={onSubmit}/>
                     : <ProfileData profile={profile}
                                    isOwner={isOwner}
-                                   goToEditMode={goToEditMode}/>
+                                   setEditMode={setEditMode}/>
                 }
 
             </div>
@@ -54,7 +50,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contact
 }
 
 
-const ProfileData = ({profile, isOwner, goToEditMode}) => {
+const ProfileData = ({profile, isOwner, setEditMode}) => {
 
     return <div className={s.ProfileData}>
         <div className={s.about}>
@@ -76,10 +72,9 @@ const ProfileData = ({profile, isOwner, goToEditMode}) => {
             })
             }
         </div>
-        {isOwner && <button className={s.editProfile} onClick={goToEditMode}> 🛠 Редактировать профиль</button>}
+        {isOwner && <button className={s.editProfile} onClick={setEditMode(true)}> 🛠 Редактировать профиль</button>}
         <div className={s.profileError}>
             {profile.error  &&  profile.error }
-
         </div>
     </div>
 }

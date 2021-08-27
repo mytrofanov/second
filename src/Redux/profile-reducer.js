@@ -6,6 +6,7 @@ const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const SET_PHOTO = 'SET_PHOTO';
 const SET_PROFILE_ERROR = 'SET_PROFILE_ERROR';
+const SET_USER_PROFILE_MODE = 'SET_USER_PROFILE_MODE';
 
 let initialState = {
     posts: [
@@ -20,6 +21,7 @@ let initialState = {
         {id: 9, message: 'Nine post', count: 7, discount: 2}
     ],
     profile: null,
+
     status: ""
 
 
@@ -68,6 +70,12 @@ const profileReducer = (state = initialState, action) => {
                 profile: {...state.profile, error: action.error}
             };
         }
+        case SET_USER_PROFILE_MODE: {
+            return {
+                ...state,
+                profile: {...state.profile, editMode: action.editMode}
+            };
+        }
         default:
             return state;
     }
@@ -80,6 +88,7 @@ export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
 export const setStatus = (status) => ({type: SET_STATUS, status})
 export const savePhotoSuccess = (photos) => ({type: SET_PHOTO, photos})
 export const saveProfileError = (error) => ({type: SET_PROFILE_ERROR, error})
+export const setUserProfileMode = (editMode) => ({type: SET_USER_PROFILE_MODE, editMode})
 
 export const getUserProfile = (userId) => async (dispatch) => {
     let response = await usersAPI.getProfile(userId);
@@ -100,7 +109,9 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
     let response = await profileAPI.saveProfile(profile);
     if (response.data.resultCode === 0) {
         dispatch(getUserProfile(userId));
+        dispatch(setUserProfileMode(false))
     } else dispatch(saveProfileError(response.data.messages[0]))
+    dispatch(setUserProfileMode(true))
 }
 
 

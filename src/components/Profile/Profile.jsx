@@ -1,9 +1,6 @@
 import React from 'react';
 import ProfileInfo from "./Posts/ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./Posts/MyPostsContainer";
-import {saveProfile} from "../../Redux/profile-reducer";
-
-
 
 
 const Profile = (props) => {
@@ -16,6 +13,7 @@ const Profile = (props) => {
                          isOwner ={props.isOwner}
                          savePhoto ={props.savePhoto}
                          saveProfile={props.saveProfile}
+                         setEditMode={props.setEditMode}
                         />
             <MyPostsContainer  />
 
