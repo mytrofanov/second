@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import s from "./ProfileInfo.module.css";
 import {useForm} from "react-hook-form";
 
-export const ProfileForm = ({goToEditMode, profile, onSubmit}) => {
+export const ProfileForm = ({profile, onSubmit}) => {
 
 
     return <div>
@@ -31,8 +31,7 @@ export const ProfileDataForm = ({onSubmit, profile}) => {
 
                 <div>
                     <div>Имя: <input {...register("fullName")} placeholder={profile.fullName}
-                                     defaultValue={profile.fullName}
-                                     onSubmit={onSubmit}/></div>
+                                     defaultValue={profile.fullName}/></div>
                     <div>Обо мне: <input {...register("aboutMe")} placeholder={profile.aboutMe}
                                          defaultValue={profile.aboutMe}/></div>
                     <div>Ищу работу: <input {...register("lookingForAJob")} type="checkbox"

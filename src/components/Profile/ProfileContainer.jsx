@@ -5,12 +5,9 @@ import {
     getStatus,
     getUserProfile,
     savePhoto,
-    saveProfile, saveProfileError,
-    setUserProfile, setUserProfileMode,
-    updateStatus
+    saveProfile, setEditMode, updateStatus
 } from "../../Redux/profile-reducer";
 import {withRouter} from 'react-router-dom';
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 
@@ -39,6 +36,7 @@ class ProfileContainer extends React.Component {
         }//если юзер меняется то обновляем компоненту profile
     }
 
+
     render() {
 
         return (
@@ -49,7 +47,7 @@ class ProfileContainer extends React.Component {
                      isOwner={!this.props.match.params.userId}
                      savePhoto={this.props.savePhoto}
                      saveProfile={this.props.saveProfile}
-                     setEditMode={this.props.setUserProfileMode}
+                     setEditMode={this.props.setEditMode}
                      editMode={this.props.editMode}
             />
         )
@@ -63,7 +61,7 @@ let mapStateToProps = (state) => ({
     status: state.profilePage.status,
     authorizedUserId: state.auth.userId,
     isAuth: state.auth.isAuth,
-    editMode:state.editMode
+    editMode:state.profilePage.editMode
 
 });
 
@@ -71,7 +69,7 @@ let mapStateToProps = (state) => ({
 export default compose(
     connect(mapStateToProps, {
         getUserProfile, getStatus,
-        updateStatus, savePhoto, saveProfile, setUserProfileMode
+        updateStatus, savePhoto, saveProfile, setEditMode
     }),
     withRouter
 )(ProfileContainer);

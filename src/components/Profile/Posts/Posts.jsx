@@ -7,8 +7,7 @@
     const Posts = React.memo(props => {
 
 
-        console.log('Render Posts')
-        console.log(props)
+
         window.props.push(props);
 
         let postsElements =
@@ -42,7 +41,7 @@
 
 
     export const NewPostForm = (props) => {
-        console.log('Form Render')
+
         const {
             register, handleSubmit,
             formState: {errors}

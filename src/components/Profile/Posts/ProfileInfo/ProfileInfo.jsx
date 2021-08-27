@@ -6,6 +6,7 @@ import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import {ProfileForm} from "./ProfileForm";
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile, setEditMode, editMode}) => {
+    console.log("ProfileInfo:" + editMode);
 
     if (!profile) {
         return <Preloader/>
@@ -20,7 +21,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
     }
     const onSubmit = (values) => {
         saveProfile(values)
-           }
+    }
 
     return (
         <div>
@@ -34,11 +35,10 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
                 <div className={s.status}>
                     <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 </div>
-                {editMode ? <ProfileForm profile={profile} onSubmit={onSubmit}/>
-                    : <ProfileData profile={profile}
-                                   isOwner={isOwner}
-                                   setEditMode={setEditMode}/>
+                {editMode ? <ProfileForm profile={profile} onSubmit={onSubmit()}/> :
+                    <ProfileData profile={profile} isOwner={isOwner}/>
                 }
+
 
             </div>
         </div>
@@ -61,7 +61,7 @@ const ProfileData = ({profile, isOwner, setEditMode, editMode}) => {
             Ищу работу: {profile.lookingForAJob ? "yes" : "no"}
 
             <div className={s.about}>
-                Professional skills:  {profile.lookingForAJobDescription}</div>
+                Professional skills: {profile.lookingForAJobDescription}</div>
         </div>
         <div>
             <b>Контакты:</b>
@@ -70,9 +70,9 @@ const ProfileData = ({profile, isOwner, setEditMode, editMode}) => {
             })
             }
         </div>
-        {isOwner && <button className={s.editProfile} onClick={setEditMode(true)}> 🛠 Редактировать профиль</button>}
+        {isOwner && <button className={s.editProfile} > 🛠 Редактировать профиль</button>}
         <div className={s.profileError}>
-            {profile.error  &&  profile.error }
+            {profile.error && profile.error}
         </div>
     </div>
 }

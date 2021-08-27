@@ -3,9 +3,7 @@ import Friend from "./Friend";
 import s from "./friends.module.css"
 
 
-let Friends = ({currentFriendsPage, onFriendsPageChanged, friendsPageSize, totalFriendsCount, friends}) => {
-    console.log(currentFriendsPage, onFriendsPageChanged,friendsPageSize,totalFriendsCount)
-
+let Friends = ({totalFriendsCount, friends}) => {
     return <div className={s.friendsBlock}>
 
 
@@ -15,8 +13,8 @@ let Friends = ({currentFriendsPage, onFriendsPageChanged, friendsPageSize, total
         )
         }
         <div className={s.friends}>
-        <div>Всего друзей:</div>
-        <div>{totalFriendsCount}</div>
+            <div>Всего друзей:</div>
+            <div>{totalFriendsCount}</div>
         </div>
     </div>
 }
