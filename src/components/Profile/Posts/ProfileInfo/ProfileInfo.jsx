@@ -5,9 +5,7 @@ import mask from "./../../../../assets/images/mask.jpg";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import {ProfileForm} from "./ProfileForm";
 
-const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contacts, saveProfile, setEditMode}) => {
-    let editMode= profile.mode
-
+const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile, setEditMode, editMode}) => {
 
     if (!profile) {
         return <Preloader/>
@@ -50,7 +48,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, contact
 }
 
 
-const ProfileData = ({profile, isOwner, setEditMode}) => {
+const ProfileData = ({profile, isOwner, setEditMode, editMode}) => {
 
     return <div className={s.ProfileData}>
         <div className={s.about}>

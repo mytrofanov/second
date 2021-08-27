@@ -21,7 +21,7 @@ let initialState = {
         {id: 9, message: 'Nine post', count: 7, discount: 2}
     ],
     profile: null,
-
+    editMode: false,
     status: ""
 
 
@@ -73,7 +73,7 @@ const profileReducer = (state = initialState, action) => {
         case SET_USER_PROFILE_MODE: {
             return {
                 ...state,
-                profile: {...state.profile, editMode: action.editMode}
+                editMode: action.editMode
             };
         }
         default:

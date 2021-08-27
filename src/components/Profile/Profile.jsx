@@ -14,6 +14,7 @@ const Profile = (props) => {
                          savePhoto ={props.savePhoto}
                          saveProfile={props.saveProfile}
                          setEditMode={props.setEditMode}
+                         editMode={props.editMode}
                         />
             <MyPostsContainer  />
 
