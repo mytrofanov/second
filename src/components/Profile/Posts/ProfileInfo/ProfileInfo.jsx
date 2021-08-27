@@ -8,6 +8,7 @@ import {ProfileForm} from "./ProfileForm";
 const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile, setEditMode, editMode}) => {
     console.log("ProfileInfo:" + editMode);
 
+
     if (!profile) {
         return <Preloader/>
     }
@@ -21,6 +22,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
     }
     const onSubmit = (values) => {
         saveProfile(values)
+
     }
 
     return (
@@ -36,7 +38,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
                     <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 </div>
                 {editMode ? <ProfileForm profile={profile} onSubmit={onSubmit()}/> :
-                    <ProfileData profile={profile} isOwner={isOwner}/>
+                    <ProfileData profile={profile} isOwner={isOwner}  />
                 }
 
 
@@ -48,7 +50,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
 }
 
 
-const ProfileData = ({profile, isOwner, setEditMode, editMode}) => {
+const ProfileData = ({profile, isOwner, onSubmit}) => {
 
     return <div className={s.ProfileData}>
         <div className={s.about}>
@@ -70,7 +72,7 @@ const ProfileData = ({profile, isOwner, setEditMode, editMode}) => {
             })
             }
         </div>
-        {isOwner && <button className={s.editProfile} > 🛠 Редактировать профиль</button>}
+        {isOwner && <button className={s.editProfile} onSubmit={onSubmit}> 🛠 Редактировать профиль</button>}
         <div className={s.profileError}>
             {profile.error && profile.error}
         </div>

@@ -21,7 +21,7 @@ let initialState = {
         {id: 9, message: 'Nine post', count: 7, discount: 2}
     ],
     profile: null,
-    editMode: false,
+    editMode: true,
     status: ""
 
 
@@ -109,6 +109,7 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
     let response = await profileAPI.saveProfile(profile);
     if (response.data.resultCode === 0) {
         dispatch(getUserProfile(userId));
+        dispatch(setEditMode(false));
     } else dispatch(saveProfileError(response.data.messages[0]))
 
 }
