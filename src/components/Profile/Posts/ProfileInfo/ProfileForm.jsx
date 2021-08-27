@@ -33,7 +33,8 @@ export const ProfileDataForm = ({onSubmit, profile}) => {
                                      defaultValue={profile.fullName}/></div>
                     <div>Обо мне: <input {...register("aboutMe")} placeholder={profile.aboutMe}
                                          defaultValue={profile.aboutMe}/></div>
-                    <div>Ищу работу: <input {...register("lookingForAJob")} type="checkbox"/></div>
+                    <div>Ищу работу: <input {...register("lookingForAJob")} type="checkbox"
+                    defaultValue={profile.lookingForAJob}/></div>
                     <div>Мои навыки: <input {...register("lookingForAJobDescription")}
                                             placeholder={profile.lookingForAJobDescription}
                                             defaultValue={profile.lookingForAJobDescription}/></div>

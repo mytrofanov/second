@@ -77,6 +77,10 @@ const ProfileData = ({profile, isOwner, goToEditMode}) => {
             }
         </div>
         {isOwner && <button className={s.editProfile} onClick={goToEditMode}> 🛠 Редактировать профиль</button>}
+        <div className={s.profileError}>
+            {profile.error  &&  profile.error }
+
+        </div>
     </div>
 }
 

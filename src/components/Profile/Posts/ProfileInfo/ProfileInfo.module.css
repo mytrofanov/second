@@ -39,6 +39,10 @@
 .ProfileData {
     padding: 5px 0 15px 0;
 }
+.profileError {
+    color: red;
+    font-size: large;
+}
 .editProfile {
     background-color: aliceblue;
     font-size: 14px;
