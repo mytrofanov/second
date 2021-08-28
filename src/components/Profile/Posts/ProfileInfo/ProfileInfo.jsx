@@ -4,8 +4,9 @@ import Preloader from "../../../common/preloader/preloader";
 import mask from "./../../../../assets/images/mask.jpg";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import {ProfileForm} from "./ProfileForm";
+import {saveProfileForm} from "../../../../Redux/profile-reducer";
 
-const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile, setEditMode, editMode}) => {
+const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfileForm, setEditMode, editMode}) => {
     console.log("ProfileInfo:" + editMode);
 
 
@@ -20,9 +21,9 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
             savePhoto(e.target.files[0])
         }
     }
-    const onSubmit = (values) => {
-        saveProfile(values)
-
+    const onSubmit = () => {
+        console.log("Сохранение формы")
+        saveProfileForm()
     }
 
     return (
@@ -37,8 +38,8 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
                 <div className={s.status}>
                     <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 </div>
-                {editMode ? <ProfileForm profile={profile} onSubmit={onSubmit()}/> :
-                    <ProfileData profile={profile} isOwner={isOwner}  />
+                {editMode ? <ProfileForm profile={profile} onSubmit={onSubmit}/> :
+                    <ProfileData profile={profile} isOwner={isOwner} setEditMode={setEditMode} />
                 }
 
 
@@ -50,7 +51,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
 }
 
 
-const ProfileData = ({profile, isOwner, onSubmit}) => {
+const ProfileData = ({profile, isOwner, setEditMode}) => {
 
     return <div className={s.ProfileData}>
         <div className={s.about}>
@@ -72,7 +73,7 @@ const ProfileData = ({profile, isOwner, onSubmit}) => {
             })
             }
         </div>
-        {isOwner && <button className={s.editProfile} onSubmit={onSubmit}> 🛠 Редактировать профиль</button>}
+        {isOwner && <button className={s.editProfile} onClick={()=>{setEditMode(true)}}> 🛠 Редактировать профиль</button>}
         <div className={s.profileError}>
             {profile.error && profile.error}
         </div>

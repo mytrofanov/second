@@ -21,7 +21,7 @@ let initialState = {
         {id: 9, message: 'Nine post', count: 7, discount: 2}
     ],
     profile: null,
-    editMode: true,
+    editMode: false,
     status: ""
 
 
@@ -104,13 +104,19 @@ export const updateStatus = (status) => async (dispatch) => {
         dispatch(setStatus(status));
     }
 }
-export const saveProfile = (profile) => async (dispatch, getState) => {
+export const saveProfileForm = (profile) => async (dispatch, getState) => {
+    console.log("Запуск санки")
     let userId = getState().auth.userId
     let response = await profileAPI.saveProfile(profile);
+    if (response==undefined) {
+        dispatch (saveProfileError("Ошибка сервера"))
+    } else
     if (response.data.resultCode === 0) {
         dispatch(getUserProfile(userId));
         dispatch(setEditMode(false));
+        console.log("Успешное выполнение санки")
     } else dispatch(saveProfileError(response.data.messages[0]))
+
 
 }
 

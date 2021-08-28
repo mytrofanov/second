@@ -7,6 +7,7 @@ const instance = axios.create({
     baseURL: `https://social-network.samuraijs.com/api/1.0/`
 })
 
+
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
@@ -48,7 +49,23 @@ export const profileAPI = {
         return instance.put('profile/status', {status: status})
     },
     saveProfile(profile) {
-        return instance.put('profile', profile);
+        return instance.put('profile', profile)
+            .catch(function (error) {
+                if (error.response) {
+                    // Request made and server responded
+                    console.log("data:" , error.response.data);
+                    console.log("status:" , error.response.status);
+                    console.log("headers:" , error.response.headers);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    console.log("request:" , error.request);
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log("Error-message:", error.message);
+                }
+
+            });
+
     },
     savePhoto(file) {
         const formData = new FormData();
