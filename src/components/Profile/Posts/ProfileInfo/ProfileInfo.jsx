@@ -6,7 +6,7 @@ import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import {ProfileForm} from "./ProfileForm";
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfileForm, setEditMode, editMode}) => {
-    console.log("ProfileInfo:" + editMode);
+
     const callEditMode = (mode) => {
         setEditMode(mode)
     }
