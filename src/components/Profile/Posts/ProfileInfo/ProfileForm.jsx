@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import s from "./ProfileInfo.module.css";
 import {useForm} from "react-hook-form";
+
 
 export const ProfileForm = ({profile, onSubmit, callEditMode}) => {
 
@@ -25,20 +26,11 @@ export const ProfileDataForm = ({onSubmit, profile, callEditMode}) => {
         formState: {errors}
     } = useForm();
 
-    const profileError = profile.error;
-    const websiteError = (profileError) => {
-        console.log(profileError)
-        let result = profileError[0].match(/Website(Website)/);
-        let mistake1 = result.length
-        let mistake2 = result[1]
-        let mistake = result[0]
-        return <div>
-            <div> {mistake} </div>
-            <div> {mistake1} </div>
-            <div> {mistake2} </div>
 
-        </div>
-    }
+ // +.log(profileError.substr(-7) == 'Website')
+
+    let [profileError, setProfileError] = useState(profile.error)
+    console.log(profileError);
 
 
     return (
