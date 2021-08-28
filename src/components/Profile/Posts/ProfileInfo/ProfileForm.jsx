@@ -2,15 +2,15 @@ import React, {useState} from "react";
 import s from "./ProfileInfo.module.css";
 import {useForm} from "react-hook-form";
 
-export const ProfileForm = ({profile, onSubmit}) => {
+export const ProfileForm = ({profile, onSubmit, callEditMode}) => {
 
 
     return <div>
-        <ProfileDataForm profile={profile} onSubmit={onSubmit}/>
+        <ProfileDataForm profile={profile} onSubmit={onSubmit} callEditMode={callEditMode}/>
     </div>
 }
 
-export const ProfileDataForm = ({onSubmit, profile}) => {
+export const ProfileDataForm = ({onSubmit, profile, callEditMode}) => {
 
     const inputCreator = (divName, inputName, placeholder) => {
         return <div>
@@ -24,6 +24,22 @@ export const ProfileDataForm = ({onSubmit, profile}) => {
         register, handleSubmit,
         formState: {errors}
     } = useForm();
+
+    const profileError = profile.error;
+    const websiteError = (profileError) => {
+        console.log(profileError)
+        let result = profileError[0].match(/Website(Website)/);
+        let mistake1 = result.length
+        let mistake2 = result[1]
+        let mistake = result[0]
+        return <div>
+            <div> {mistake} </div>
+            <div> {mistake1} </div>
+            <div> {mistake2} </div>
+
+        </div>
+    }
+
 
     return (
         <div className={s.loginPage}>
@@ -49,9 +65,12 @@ export const ProfileDataForm = ({onSubmit, profile}) => {
                 </div>
 
                 <input className={s.editProfile} type="submit" value="💾 Save"/>
+                <button className={s.editProfile} onClick={callEditMode}><b>↪</b> Вернуться без изменений</button>
                 <div className={s.profileError}>
-                    {profile.error && profile.error}
+                    {profileError && profileError}
                 </div>
+
+
             </form>
 
         </div>

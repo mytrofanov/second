@@ -116,7 +116,7 @@ export const saveProfileForm = (profile) => async (dispatch, getState) => {
         dispatch(setEditMode(false));
     }
     if (response.data.resultCode === 1) {
-        dispatch(saveProfileError(response.data.messages[0]))
+        dispatch(saveProfileError(response.data.messages))
     }
 
 

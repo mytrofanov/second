@@ -3,7 +3,7 @@ import * as axios from "axios";
 
 const instance = axios.create({
     withCredentials: true,
-    headers: {"API-KEY": "d0f249f5-23ff-48d0-b8e9-a154edff15d4"},
+    headers: {"API-KEY": "7d870823-54dd-449f-8b28-49f59a10c313"},
     baseURL: `https://social-network.samuraijs.com/api/1.0/`
 })
 
@@ -49,7 +49,7 @@ export const profileAPI = {
         return instance.put('profile/status', {status: status})
     },
     saveProfile(profile) {
-        return instance.put('profile', profile)
+        return instance.put(`profile`, profile )
             .catch(function (error) {
                 if (error.response) {
                     // Request made and server responded

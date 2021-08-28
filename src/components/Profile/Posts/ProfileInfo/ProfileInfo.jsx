@@ -4,11 +4,10 @@ import Preloader from "../../../common/preloader/preloader";
 import mask from "./../../../../assets/images/mask.jpg";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import {ProfileForm} from "./ProfileForm";
-import {saveProfileForm} from "../../../../Redux/profile-reducer";
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfileForm, setEditMode, editMode}) => {
     console.log("ProfileInfo:" + editMode);
-    const callEditMode =(mode)=>{
+    const callEditMode = (mode) => {
         setEditMode(mode)
     }
 
@@ -23,9 +22,8 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
             savePhoto(e.target.files[0])
         }
     }
-    const onSubmit = () => {
-        console.log("Сохранение формы")
-        saveProfileForm()
+    const onSubmit = (data) => {
+        saveProfileForm(data)
     }
 
     return (
@@ -40,8 +38,12 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
                 <div className={s.status}>
                     <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 </div>
-                {editMode ? <ProfileForm profile={profile} onSubmit={onSubmit}/> :
-                    <ProfileData profile={profile} isOwner={isOwner} setEditMode={()=>{callEditMode(true)}} />
+                {editMode ? <ProfileForm profile={profile} onSubmit={onSubmit} callEditMode={() => {
+                        callEditMode(false)
+                    }}/> :
+                    <ProfileData profile={profile} isOwner={isOwner} setEditMode={() => {
+                        callEditMode(true)
+                    }}/>
                 }
 
 
@@ -75,7 +77,9 @@ const ProfileData = ({profile, isOwner, setEditMode}) => {
             })
             }
         </div>
-        {isOwner && <button className={s.editProfile} onClick={()=>{setEditMode(true)}}> 🛠 Редактировать профиль</button>}
+        {isOwner && <button className={s.editProfile} onClick={() => {
+            setEditMode(true)
+        }}> 🛠 Редактировать профиль</button>}
         <div className={s.profileError}>
             {profile.error && profile.error}
         </div>
