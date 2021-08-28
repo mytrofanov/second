@@ -56,6 +56,7 @@ export const profileAPI = {
                     console.log("data:" , error.response.data);
                     console.log("status:" , error.response.status);
                     console.log("headers:" , error.response.headers);
+                    return error.response
                 } else if (error.request) {
                     // The request was made but no response was received
                     console.log("request:" , error.request);
