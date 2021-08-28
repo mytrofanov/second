@@ -8,7 +8,9 @@ import {saveProfileForm} from "../../../../Redux/profile-reducer";
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfileForm, setEditMode, editMode}) => {
     console.log("ProfileInfo:" + editMode);
-
+    const callEditMode =(mode)=>{
+        setEditMode(mode)
+    }
 
     if (!profile) {
         return <Preloader/>
@@ -39,7 +41,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
                     <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 </div>
                 {editMode ? <ProfileForm profile={profile} onSubmit={onSubmit}/> :
-                    <ProfileData profile={profile} isOwner={isOwner} setEditMode={setEditMode} />
+                    <ProfileData profile={profile} isOwner={isOwner} setEditMode={()=>{callEditMode(true)}} />
                 }
 
 

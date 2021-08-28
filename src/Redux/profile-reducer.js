@@ -105,17 +105,15 @@ export const updateStatus = (status) => async (dispatch) => {
     }
 }
 export const saveProfileForm = (profile) => async (dispatch, getState) => {
-    console.log("Запуск санки")
     let userId = getState().auth.userId
     let response = await profileAPI.saveProfile(profile);
-    if (response.status==500) {
-        dispatch (saveProfileError("Ошибка сервера.Статус: " + response.status + "  Сообщение сервера:  " +
+    if (response.status == 500) {
+        dispatch(saveProfileError("Ошибка сервера.Статус: " + response.status + "  Сообщение сервера:  " +
             response.data.message))
     }
     if (response.data.resultCode === 0) {
         dispatch(getUserProfile(userId));
         dispatch(setEditMode(false));
-        console.log("Успешное выполнение санки")
     }
     if (response.data.resultCode === 1) {
         dispatch(saveProfileError(response.data.messages[0]))
