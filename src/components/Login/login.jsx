@@ -6,7 +6,7 @@ import {loginReducer} from "../../Redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 
 
-export const LoginForm = ({onSubmit}) => {
+export const LoginForm = ({onSubmit, captureURL}) => {
 
     const {
         setError,
@@ -37,6 +37,13 @@ export const LoginForm = ({onSubmit}) => {
                         <span>This field cannot exceed 30 characters</span>
                     )}
                 </div>
+                <div> {captureURL && <img src={captureURL}/>}
+                    {captureURL &&
+                    <div><input {...register("captcha")}
+                                placeholder={"введите символы сюда"}
+                                type={"text"}/></div>}
+                </div>
+
                 <div>
                     <input {...register("rememberMe")} type="checkbox"/>
                     Remember me
@@ -56,21 +63,28 @@ export const LoginForm = ({onSubmit}) => {
     )
 }
 
-const login = ({isAuth, loginReducer, authError}) => {
-    const onSubmit = data => loginReducer(data.email, data.password, data.rememberMe);
+const login = ({isAuth, loginReducer, authError, captureURL}) => {
+    const onSubmit = data => loginReducer(data.email, data.password, data.rememberMe, data.captcha);
+
+
     if (isAuth) {
         return <Redirect to={"/profile"}/>
     }
 
     return <div className={s.loginBlock}>
-        <LoginForm onSubmit={onSubmit}/>
+        <LoginForm onSubmit={onSubmit} captureURL={captureURL}/>
         <div className={s.error}>
             {authError}
         </div>
+
+
     </div>
 }
 
-const mapStateToProps = (state) => ({isAuth: state.auth.isAuth, authError: state.auth.authError})
+const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth, authError: state.auth.authError,
+    captureURL: state.auth.captureURL
+})
 
 
 export default connect(mapStateToProps, {loginReducer})(login);

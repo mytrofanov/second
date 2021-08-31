@@ -1,7 +1,8 @@
-import {authAPI} from "../API/api";
+import {authAPI, securityAPI} from "../API/api";
 
 const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA';
 const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
+const SET_CAPTCHA_URL = 'SET_CAPTCHA_URL';
 
 
 let initialState = {
@@ -9,7 +10,8 @@ let initialState = {
     email: null,
     login: null,
     isAuth: false,
-    authError: null
+    authError: null,
+    captureURL: null
 };
 
 const authReducer = (state = initialState, action) => {
@@ -26,6 +28,11 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 authError: action.errorMessage
             }
+        case SET_CAPTCHA_URL:
+            return {
+                ...state,
+                ...action.payload
+            }
     }
 }
 export const setAuthUserData = (userId, email, login, isAuth) =>
@@ -33,6 +40,9 @@ export const setAuthUserData = (userId, email, login, isAuth) =>
 
 export const setAuthError = (errorMessage) =>
     ({type: SET_AUTH_ERROR, errorMessage})
+
+export const setCaptchaURL = (captureURL) =>
+    ({type: SET_CAPTCHA_URL, payload: {captureURL}})
 
 export const getAuthUserData = () => async (dispatch) => {
     let response = await authAPI.me();
@@ -43,13 +53,19 @@ export const getAuthUserData = () => async (dispatch) => {
 }
 
 
-export const loginReducer = (email, password, rememberMe) => async (dispatch) => {
-    let response = await authAPI.login(email, password, rememberMe);
+export const loginReducer = (email, password, rememberMe, captcha) => async (dispatch) => {
+    let response = await authAPI.login(email, password, rememberMe, captcha);
+    const errorMessage = response.data.messages.length > 0 && response.data.messages[0] ;
 
     if (response.data.resultCode === 0) {
         dispatch(getAuthUserData())
+        dispatch(setAuthError(''))
+        dispatch (setCaptchaURL(''));
+    }
+    if (response.data.resultCode === 10) {
+        dispatch (getCaptureUrl())
+        dispatch(setAuthError(errorMessage))
     } else {
-        const errorMessage = response.data.messages.length > 0 ? response.data.messages[0] : "ошибка авторизации";
         dispatch(setAuthError(errorMessage))
     }
 }
@@ -62,6 +78,13 @@ export const logoutReducer = () => async (dispatch) => {
     }
 }
 
+export const getCaptureUrl = () => async (dispatch) => {
+    const response = await securityAPI.getCaptureUrl();
+    const captureURL = response.data.url;
+    dispatch (setCaptchaURL(captureURL));
+      
+
+}
 
 export default authReducer;
 
