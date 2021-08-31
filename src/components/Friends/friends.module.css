@@ -6,7 +6,12 @@
 
 .friend {
     padding-bottom: 10px;
+    max-width: 200px;
+    word-wrap:break-word;
+
 }
+
+
 .friends {
     font-size: large;
     color: darkblue;

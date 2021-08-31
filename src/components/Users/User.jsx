@@ -32,8 +32,10 @@ let User = ({user,followingInProgress, unfollow,follow }) => {
         </span>
             <span>
             <span className={styles.userName}>
+                <div className={styles.userBlock}>
                 <div>{user.name}</div>
                 <div>{user.status}</div>
+                    </div>
             </span>
 
         </span>

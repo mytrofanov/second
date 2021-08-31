@@ -7,7 +7,9 @@ const ProfileStatusWithHooks = (props) => {
     let [status, setStatus] = useState(props.status);
 
     const activateEditMode = () => {
-        setEditMode(true)
+        if (props.isOwner) {
+            setEditMode(true)
+        }
     }
     const deactivateEditMode = () => {
         setEditMode(false);
@@ -24,7 +26,7 @@ const ProfileStatusWithHooks = (props) => {
         <div className={s.status}>
             {!editMode &&
             <div>
-                  <span className={s.about} onDoubleClick={activateEditMode}>Статус: &nbsp;
+                  <span className={s.about}  onDoubleClick={activateEditMode} data-title="Double click for editing">Статус: &nbsp;
                       {props.status||"-------"}  </span>
             </div>
             }

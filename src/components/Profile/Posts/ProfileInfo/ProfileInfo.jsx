@@ -36,7 +36,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
 
                 </div>
                 <div className={s.status}>
-                    <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
+                    <ProfileStatusWithHooks status={status} updateStatus={updateStatus} isOwner={isOwner}/>
                 </div>
                 {editMode ? <ProfileForm profile={profile} onSubmit={onSubmit} callEditMode={() => {
                         callEditMode(false)

@@ -14,5 +14,9 @@
 }
 
 .userName {
-   padding-bottom: 15px;
+    padding-bottom: 15px;
+}
+.userBlock {
+    max-width: 200px;
+    word-wrap:break-word;
 }
