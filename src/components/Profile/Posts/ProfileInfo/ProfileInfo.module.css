@@ -38,19 +38,6 @@
 
 }
 
-.about:hover::after{
-    content: attr(data-title);
-    position: absolute;
-    right: 50px; top: -30px; /* Положение подсказки */
-    z-index: 1; /* Отображаем подсказку поверх других элементов */
-    background: rgba(255,255,230,0.9); /* Полупрозрачный цвет фона */
-    font-family: Arial, sans-serif; /* Гарнитура шрифта */
-    font-size: 11px; /* Размер текста подсказки */
-    padding: 5px 10px; /* Поля */
-    border: 1px solid #333; /* Параметры рамки */
-    border-radius: 10px;
-}
-
 .ProfileData {
     padding: 5px 0 15px 0;
 }
@@ -70,7 +57,35 @@
     padding-top: 15px;
     max-width: 300px;
     max-height: 50px;
+    word-wrap:break-word;
 }
+
+.aboutStatus  {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    position: relative;
+
+}
+
+.aboutStatus:hover::after{
+    content: attr(data-title);
+    position: absolute;
+    right: 50px; top: -25px; /* Положение подсказки */
+    z-index: 1; /* Отображаем подсказку поверх других элементов */
+    background: rgba(255,255,230,0.9); /* Полупрозрачный цвет фона */
+    font-family: Arial, sans-serif; /* Гарнитура шрифта */
+    font-size: 11px; /* Размер текста подсказки */
+    padding: 5px 10px; /* Поля */
+    border: 1px solid #333; /* Параметры рамки */
+    border-radius: 10px;
+}
+
+
+
+
 .contact {
     padding-bottom: 5px;
 }
