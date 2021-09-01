@@ -23,9 +23,11 @@ const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileCo
 
 
 class App extends React.Component {
+
+
     componentDidMount() {
         this.props.initializeApp();
-
+        document.title = `Mytrofanov React App  ✅`;
     }
 
 
