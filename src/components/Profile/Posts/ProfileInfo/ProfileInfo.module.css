@@ -5,7 +5,7 @@
     grid-template-areas:
   "p t"
   "m m";
-    grid-template-rows: 2fr 1fr;
+    grid-template-rows: 300px 100px;
     grid-template-columns: 4fr 6fr;
 }
 
@@ -69,6 +69,7 @@
     grid-area: m;
     padding-top: 15px;
     max-width: 300px;
+    max-height: 50px;
 }
 .contact {
     padding-bottom: 5px;
