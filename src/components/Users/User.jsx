@@ -4,15 +4,16 @@ import userPhoto from "../../assets/images/user.png";
 import {NavLink} from "react-router-dom";
 
 
-let User = ({user,followingInProgress, unfollow,follow }) => {
+let User = ({user, followingInProgress, unfollow, follow}) => {
 
     return (
-    <div>
+        <div>
         <span>
             <div>
 
                 <NavLink to={'/profile/' + user.id}>
-                <img src={user.photos.small != null ? user.photos.small : userPhoto} className={styles.usersPhoto}/>
+                <img src={user.photos.small != null ? user.photos.small : userPhoto}
+                     alt={"Users photo"} className={styles.usersPhoto}/>
               </NavLink>
             </div>
             <div>
@@ -42,7 +43,6 @@ let User = ({user,followingInProgress, unfollow,follow }) => {
         </div>)
 
 }
-
 
 
 export default User;

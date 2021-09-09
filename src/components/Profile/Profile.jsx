@@ -1,7 +1,6 @@
 import React from 'react';
 import ProfileInfo from "./Posts/ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./Posts/MyPostsContainer";
-import {saveProfileForm} from "../../Redux/profile-reducer";
 
 
 const Profile = (props) => {

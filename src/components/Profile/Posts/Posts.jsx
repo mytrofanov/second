@@ -1,61 +1,57 @@
-    import React from 'react';
-    import Post from './Post/Post';
-    import s from './Posts.module.css'
-    import {useForm} from "react-hook-form";
+import React from 'react';
+import Post from './Post/Post';
+import s from './Posts.module.css'
+import {useForm} from "react-hook-form";
 
-    window.props = [];
-    const Posts = React.memo(props => {
-
-
-
-        window.props.push(props);
-
-        let postsElements =
-            [...props.posts].reverse().map(p => <Post message={p.message} count={p.count} discount={p.discount}/>)
-
-        let newPostElement = React.createRef();
+window.props = [];
+const Posts = React.memo(props => {
 
 
-        let addNewPost = (value) => {
-            props.addPost(value.newPost);
+    window.props.push(props);
 
-        }
+    let postsElements =
+        [...props.posts].reverse().map(p => <Post message={p.message} count={p.count} discount={p.discount}/>)
 
-        return (
+    let addNewPost = (value) => {
+        props.addPost(value.newPost);
+
+    }
+
+    return (
+
+        <div>
 
             <div>
-
-                <div>
-                    <NewPostForm onSubmit={addNewPost}/>
-                </div>
-
-                <div className={s.post}> New Posts</div>
-
-                {postsElements}
-
+                <NewPostForm onSubmit={addNewPost}/>
             </div>
-        )
-    });
 
-    export default Posts;
+            <div className={s.post}> New Posts</div>
+
+            {postsElements}
+
+        </div>
+    )
+});
+
+export default Posts;
 
 
-    export const NewPostForm = (props) => {
+export const NewPostForm = (props) => {
 
-        const {
-            register, handleSubmit,
-            formState: {errors}
-        } = useForm();
-        const onSubmit = data => props.onSubmit(data);
-        return (
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <input {...register("newPost", {required: true, maxLength: 30}
-                )} placeholder="enter your post"/>
-                <input type="Submit" value="Send Message"/>
-                {errors?.newPost?.type === "required" && <span>This field is required</span>}
-                {errors?.newPost?.type === "maxLength" && (
-                    <span>This field cannot exceed 30 characters</span>
-                )}
-            </form>
-        );
-    }
+    const {
+        register, handleSubmit,
+        formState: {errors}
+    } = useForm();
+    const onSubmit = data => props.onSubmit(data);
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <input {...register("newPost", {required: true, maxLength: 30}
+            )} placeholder="enter your post"/>
+            <input type="Submit" value="Send Message"/>
+            {errors?.newPost?.type === "required" && <span>This field is required</span>}
+            {errors?.newPost?.type === "maxLength" && (
+                <span>This field cannot exceed 30 characters</span>
+            )}
+        </form>
+    );
+}

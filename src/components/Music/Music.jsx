@@ -1,8 +1,7 @@
 import  React from 'react';
-import Preloader from "../common/preloader/preloader";
 import s from "./Music.module.css"
 
-const Music = (props) => {
+const Music = () => {
     return  (
         <div className={s.blockMusic}>
             Music

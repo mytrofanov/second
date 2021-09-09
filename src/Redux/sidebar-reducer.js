@@ -24,12 +24,9 @@ const sidebarReducer = (state = initialState, action) => {
         case SET_TOTAL_FRIENDS_COUNT: {
             return {...state, totalFriendsCount: action.totalFriendsCount}
         }
-
         default:
             return state;
     }
-
-    return state;
 }
 
 export const setFriends = (newFriends) => ({type: SET_FRIENDS, newFriends})

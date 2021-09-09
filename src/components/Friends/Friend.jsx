@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./friends.module.css";
 import userPhoto from "../../assets/images/user.png";
-import {NavLink, Route} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 
 let Friend = ({friend, followingInProgress, unfollow, follow}) => {
@@ -11,7 +11,8 @@ let Friend = ({friend, followingInProgress, unfollow, follow}) => {
             {friend=!undefined?
                 <div className={s.friend}>
                 <NavLink to={'/profile/' + friend.id}>
-                    <img src={friend.photos.small != null ? friend.photos.small : userPhoto} className={s.usersPhoto}/>
+                    <img  src={friend.photos.small != null ? friend.photos.small : userPhoto}
+                          alt={"photo of user"} className={s.usersPhoto}/>
                 </NavLink>
                 <div>{friend.name}</div>
                 <div>{friend.status}</div>

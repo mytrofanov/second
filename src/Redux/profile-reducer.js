@@ -43,7 +43,7 @@ const profileReducer = (state = initialState, action) => {
         case DELETE_POST: {
             return {
                 ...state,
-                posts: state.posts.filter(p => p.id != action.id)
+                posts: state.posts.filter(p => p.id !== action.id)
             };
         }
         case SET_USER_PROFILE: {
@@ -107,7 +107,7 @@ export const updateStatus = (status) => async (dispatch) => {
 export const saveProfileForm = (profile) => async (dispatch, getState) => {
     let userId = getState().auth.userId
     let response = await profileAPI.saveProfile(profile);
-    if (response.status == 500) {
+    if (response.status === 500) {
         dispatch(saveProfileError("Ошибка сервера.Статус: " + response.status + "  Сообщение сервера:  " +
             response.data.message))
     }

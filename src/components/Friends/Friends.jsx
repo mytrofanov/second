@@ -4,12 +4,13 @@ import s from "./friends.module.css"
 
 
 let Friends = ({totalFriendsCount, friends}) => {
+
+
     return <div className={s.friendsBlock}>
 
-
-        {friends.slice(0, 3).map(u =>
-            <Friend friend={u}
-            />
+        {friends===undefined? "Ошибка сервера" :
+            friends.slice(0, 3).map(u =>
+            <Friend friend={u} />
         )
         }
         <div className={s.friends}>

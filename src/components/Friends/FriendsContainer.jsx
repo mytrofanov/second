@@ -13,15 +13,19 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 class FriendsContainer extends React.Component {
+
+
     componentDidMount() {
         let {currentFriendsPage, friendsPageSize, friend} = this.props;
         this.props.getFriends(currentFriendsPage, friendsPageSize, friend);
+
     }
 
     onFriendsPageChanged = (currentFriendsPage) => {
         let {friendsPageSize} = this.props;
         this.props.getFriends(currentFriendsPage, friendsPageSize);
     }
+
 
     render() {
         return <>
@@ -39,13 +43,14 @@ class FriendsContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => {
-    return {
+       return {
         friends: getFriends(state),
         totalFriendsCount: getTotalFriendsCount(state),
         friendsPageSize: getFriendsPageSize(state),
         currentFriendsPage: getCurrentFriendsPage(state)
     }
 }
+
 
 export default compose(
     connect(mapStateToProps, {

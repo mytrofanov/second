@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from './ProfileInfo.module.css';
 import Preloader from "../../../common/preloader/preloader";
 import mask from "./../../../../assets/images/mask.jpg";
@@ -30,7 +30,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
         <div>
             <div className={s.ProfileInfo}>
                 <div className={s.container}>
-                    <img className={s.about} src={ava}/>
+                    <img alt={"ava"} className={s.about} src={ava}/>
                     {isOwner && <div className={s.overlay}>🖋</div>}
                     {isOwner && <input type={"file"} className={s.bigPen} onChange={selectPhoto}/>}
 

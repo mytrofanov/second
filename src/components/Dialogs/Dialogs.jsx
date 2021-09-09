@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Dialogs.module.css';
-import {NavLink, Redirect} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
 
@@ -9,7 +9,7 @@ const DialogItem = (props) => {
 
     return (
         <div className={s.dialog + ' ' + s.active}>
-            <img className={s.ava} src={props.avatar}/>"
+            <img alt={"Avatar"} className={s.ava} src={props.avatar}/>"
             <NavLink to={path}> {props.name}</NavLink>
         </div>
     )

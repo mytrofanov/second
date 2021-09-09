@@ -9,7 +9,6 @@ import {Redirect} from "react-router-dom";
 export const LoginForm = ({onSubmit, captureURL}) => {
 
     const {
-        setError,
         register, handleSubmit,
         formState: {errors}
     } = useForm();
@@ -37,7 +36,7 @@ export const LoginForm = ({onSubmit, captureURL}) => {
                         <span>This field cannot exceed 30 characters</span>
                     )}
                 </div>
-                <div> {captureURL && <img src={captureURL}/>}
+                <div> {captureURL && <img alt={"Капча"} src={captureURL}/>}
                     {captureURL &&
                     <div><input {...register("captcha")}
                                 placeholder={"введите символы сюда"}
