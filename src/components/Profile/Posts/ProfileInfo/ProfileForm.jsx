@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import s from "./ProfileInfo.module.css";
 import {useForm} from "react-hook-form";
 
@@ -21,12 +21,16 @@ export const ProfileDataForm = ({onSubmit, profile, callEditMode}) => {
     }
 
     const {
+        setError,
         register, handleSubmit,
         formState: {errors}
     } = useForm();
 
 
-    const profileError = profile.error;
+ // +.log(profileError.substr(-7) == 'Website')
+
+    let [profileError, setProfileError] = useState(profile.error)
+    console.log(profileError);
 
 
     return (
@@ -38,7 +42,8 @@ export const ProfileDataForm = ({onSubmit, profile, callEditMode}) => {
                                      defaultValue={profile.fullName}/></div>
                     <div>Обо мне: <input {...register("aboutMe")} placeholder={profile.aboutMe}
                                          defaultValue={profile.aboutMe}/></div>
-                    <div>Ищу работу: <input {...register("lookingForAJob")} type="Checkbox"/></div>
+                    <div>Ищу работу: <input {...register("lookingForAJob")} type="checkbox"
+                                            defaultValue={profile.lookingForAJob}/></div>
                     <div>Мои навыки: <input {...register("lookingForAJobDescription")}
                                             placeholder={profile.lookingForAJobDescription}
                                             defaultValue={profile.lookingForAJobDescription}/></div>

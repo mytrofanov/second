@@ -1,5 +1,5 @@
 
-import {getAuthUserData} from "./auth-reducer";
+import {getAuthUserData} from "./auth-reducer"
 
 const SET_INITIALIZED = 'SET_INITIALIZED';
 

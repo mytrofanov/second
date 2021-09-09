@@ -1,20 +1,22 @@
 import {authAPI, securityAPI} from "../API/api";
 
+
 const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA';
 const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
 const SET_CAPTCHA_URL = 'SET_CAPTCHA_URL';
 
-
 let initialState = {
-    userId: null,
-    email: null,
-    login: null,
+    userId: null as number | null,
+    email: null as string | null,
+    login: null as string,
     isAuth: false,
-    authError: null,
-    captureURL: null
+    authError: null as string | number | null,
+    captureURL: null as string | null
 };
 
-const authReducer = (state = initialState, action) => {
+export type initialStateType = typeof initialState;
+
+const authReducer = (state = initialState, action: any): initialStateType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -35,13 +37,34 @@ const authReducer = (state = initialState, action) => {
             }
     }
 }
-export const setAuthUserData = (userId, email, login, isAuth) =>
+type SetAuthUserDataActionPayloadType = {
+    userId: number | null,
+    email: string | null,
+    login: string | null,
+    isAuth: boolean
+}
+
+type SetAuthUserDataActionType = {
+    type: typeof SET_USER_DATA,
+    payload: SetAuthUserDataActionPayloadType
+}
+type  setAuthErrorType = {
+    type: typeof SET_AUTH_ERROR,
+    errorMessage: string|null
+}
+type setCaptchaURLType = {
+    type: typeof SET_CAPTCHA_URL,
+    payload: {captureURL: string}
+}
+
+export const setAuthUserData = (userId: number | null, email: string | null,
+                                login: string | null, isAuth: boolean): SetAuthUserDataActionType =>
     ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}})
 
-export const setAuthError = (errorMessage) =>
+export const setAuthError = (errorMessage:string|null):setAuthErrorType =>
     ({type: SET_AUTH_ERROR, errorMessage})
 
-export const setCaptchaURL = (captureURL) =>
+export const setCaptchaURL = (captureURL:string):setCaptchaURLType =>
     ({type: SET_CAPTCHA_URL, payload: {captureURL}})
 
 export const getAuthUserData = () => async (dispatch) => {
@@ -55,15 +78,15 @@ export const getAuthUserData = () => async (dispatch) => {
 
 export const loginReducer = (email, password, rememberMe, captcha) => async (dispatch) => {
     let response = await authAPI.login(email, password, rememberMe, captcha);
-    const errorMessage = response.data.messages.length > 0 && response.data.messages[0] ;
+    const errorMessage = response.data.messages.length > 0 && response.data.messages[0];
 
     if (response.data.resultCode === 0) {
         dispatch(getAuthUserData())
         dispatch(setAuthError(''))
-        dispatch (setCaptchaURL(''));
+        dispatch(setCaptchaURL(''));
     }
     if (response.data.resultCode === 10) {
-        dispatch (getCaptureUrl())
+        dispatch(getCaptureUrl())
         dispatch(setAuthError(errorMessage))
     } else {
         dispatch(setAuthError(errorMessage))
@@ -81,8 +104,8 @@ export const logoutReducer = () => async (dispatch) => {
 export const getCaptureUrl = () => async (dispatch) => {
     const response = await securityAPI.getCaptureUrl();
     const captureURL = response.data.url;
-    dispatch (setCaptchaURL(captureURL));
-      
+    dispatch(setCaptchaURL(captureURL));
+
 
 }
 
