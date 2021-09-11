@@ -6,14 +6,14 @@ import s from "./friends.module.css"
 let Friends = ({totalFriendsCount, friends}) => {
 
 
-    return <div className={s.friendsBlock}>
+    return <div className={s.friendsBlock} >
 
         {friends===undefined? "Ошибка сервера" :
             friends.slice(0, 3).map(u =>
-            <Friend friend={u} />
+            <Friend friend={u}  id={u.name+u.id} />
         )
         }
-        <div className={s.friends}>
+        <div className={s.friends} >
             <div>Всего друзей:</div>
             <div>{totalFriendsCount}</div>
         </div>
