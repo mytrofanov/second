@@ -21,19 +21,14 @@ export const ProfileDataForm = ({onSubmit, profile, callEditMode}) => {
     }
 
     const {
-        setError,
         register, handleSubmit,
         formState: {errors}
     } = useForm();
 
 
- // +.log(profileError.substr(-7) == 'Website')
+    const profileError = profile.error;
 
-    let [profileError, setProfileError] = useState(profile.error)
-    console.log(profileError);
-
-
-    return (
+     return (
         <div className={s.loginPage}>
             <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
 
@@ -42,8 +37,7 @@ export const ProfileDataForm = ({onSubmit, profile, callEditMode}) => {
                                      defaultValue={profile.fullName}/></div>
                     <div>Обо мне: <input {...register("aboutMe")} placeholder={profile.aboutMe}
                                          defaultValue={profile.aboutMe}/></div>
-                    <div>Ищу работу: <input {...register("lookingForAJob")} type="checkbox"
-                                            defaultValue={profile.lookingForAJob}/></div>
+                    <div>Ищу работу: <input {...register("lookingForAJob")} type="checkbox"/></div>
                     <div>Мои навыки: <input {...register("lookingForAJobDescription")}
                                             placeholder={profile.lookingForAJobDescription}
                                             defaultValue={profile.lookingForAJobDescription}/></div>
