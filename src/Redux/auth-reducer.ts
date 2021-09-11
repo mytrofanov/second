@@ -5,13 +5,14 @@ const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA';
 const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
 const SET_CAPTCHA_URL = 'SET_CAPTCHA_URL';
 
-let initialState = {
-    userId: null as number | null,
-    email: null as string | null,
-    login: null as string,
+let initialState: { isAuth: boolean; authError: string | number | null; login: null | string; userId: number | null; email: string | null; captureURL: string | null };
+initialState = {
+    userId: null,
+    email: null,
+    login: null,
     isAuth: false,
-    authError: null as string | number | null,
-    captureURL: null as string | null
+    authError: null,
+    captureURL: null
 };
 
 export type initialStateType = typeof initialState;
