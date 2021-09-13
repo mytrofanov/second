@@ -1,5 +1,5 @@
 import React from "react";
-import {connect} from "react-redux";
+import {connect, DefaultRootState} from "react-redux";
 import {
     follow,
     unfollow, toggleFollowingProgress, requestUsers,
@@ -14,22 +14,43 @@ import {
     getPageSize, getUsers,
     totalUsersCount
 } from "../../Redux/usersSelectors";
+import {UsersType} from "../../types/Types";
+import {AppStateType} from "../../Redux/redux-store";
 
 
+type mapStateToPropsType =  {
+    currentPage: number
+    pageSize:number
+    users: Array<UsersType>
+    totalUsersCount: number
+    isFetching: boolean
+    followingInProgress: Array<number>
+}
 
-class UsersContainer extends React.Component {
+type MapDispatchToPropsType = {
+    getUsers: (currentPage:number, pageSize:number)=> Array<UsersType>
+    follow: (userId:number)=>void
+    unfollow: (userId:number)=>void
+    }
+type OwnPropsType = {
+    pageTitle: string
+}
+type PropsType = mapStateToPropsType &  MapDispatchToPropsType & OwnPropsType
+
+class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
         let {currentPage,pageSize } = this.props;
         this.props.getUsers(currentPage, pageSize);
     }
 
-    onPageChanged = (pageNumber) => {
+    onPageChanged = (pageNumber:number) => {
         let {pageSize} = this.props;
         this.props.getUsers(pageNumber, pageSize);
     }
 
     render() {
         return <>
+            <h2>{this.props.pageTitle}</h2>
             {this.props.isFetching ? <Preloader/> : null}
             <Users totalUsersCount={this.props.totalUsersCount}
                    pageSize={this.props.pageSize}
@@ -47,7 +68,7 @@ class UsersContainer extends React.Component {
 }
 
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
@@ -60,7 +81,8 @@ let mapStateToProps = (state) => {
 
 
 export default compose(
-    connect(mapStateToProps, {
+    // <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>
+    connect<mapStateToPropsType, AppStateType, MapDispatchToPropsType>(mapStateToProps, {
         follow, unfollow, toggleFollowingProgress, getUsers: requestUsers
     }),
 )(UsersContainer);
