@@ -12,19 +12,19 @@ type FriendsType = {
     status: string
     photos: PhotosType | null
     followed: boolean
-    uniqueUrlName: null |string
+    uniqueUrlName: null | string
 }
 
 let initialState = {
-    friends: []  as Array <FriendsType>,
-    friendsPageSize:3,
+    friends: [] as Array<FriendsType>,
+    friendsPageSize: 3,
     totalFriendsCount: 0,
     currentFriendsPage: 1
 };
 
 type InitialStateType = typeof initialState
 
-const sidebarReducer = (state = initialState, action:any):InitialStateType => {
+const sidebarReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case SET_FRIENDS: {
             return {...state, friends: action.newFriends} as InitialStateType
@@ -42,15 +42,16 @@ const sidebarReducer = (state = initialState, action:any):InitialStateType => {
 
 type SetFriendsType = {
     type: typeof SET_FRIENDS
-    newFriends: FriendsType
+    newFriends: Array<FriendsType>
 }
-export const setFriends = (newFriends:FriendsType) => ({type: SET_FRIENDS, newFriends})
+export const setFriends = (newFriends: Array<FriendsType>): SetFriendsType =>
+    ({type: SET_FRIENDS, newFriends})
 
 type SetCurrentFriendsPageType = {
     type: typeof SET_CURRENT_FRIENDS_PAGE
     currentFriendsPage: number
 }
-export const setCurrentFriendsPage = (currentFriendsPage: number):SetCurrentFriendsPageType =>
+export const setCurrentFriendsPage = (currentFriendsPage: number): SetCurrentFriendsPageType =>
     ({type: SET_CURRENT_FRIENDS_PAGE, currentFriendsPage})
 
 
@@ -58,14 +59,17 @@ type SetTotalFriendsCountType = {
     type: typeof SET_TOTAL_FRIENDS_COUNT
     totalFriendsCount: number
 }
-export const setTotalFriendsCount = (totalFriendsCount:number):SetTotalFriendsCountType => ({type: SET_TOTAL_FRIENDS_COUNT, totalFriendsCount})
+export const setTotalFriendsCount = (totalFriendsCount: number): SetTotalFriendsCountType => ({
+    type: SET_TOTAL_FRIENDS_COUNT,
+    totalFriendsCount
+})
 
-export const requestFriends = (currentFriendsPage:number, friendsPageSize:number, friend:boolean) => {
-    return async (dispatch:any) => {
+export const requestFriends = (currentFriendsPage: number, friendsPageSize: number, friend: boolean) => {
+    return async (dispatch: any) => {
         dispatch(toggleIsFetching(true));
         dispatch(setCurrentFriendsPage(currentFriendsPage))
 
-        let data = await usersAPI.getFriends(currentFriendsPage, friendsPageSize, friend) ;
+        let data = await usersAPI.getFriends(currentFriendsPage, friendsPageSize, friend);
         let newFriends = data.data.items;
         dispatch(toggleIsFetching(false));
         dispatch(setFriends(newFriends));
