@@ -1,4 +1,13 @@
 const SEND_MESSAGE = 'SEND_MESSAGE';
+type DialogsType = {
+    id: number
+    name: string
+    ava: string
+}
+type MessagesType = {
+    id: number
+    message: string
+}
 
 let initialState = {
     dialogs: [
@@ -25,18 +34,21 @@ let initialState = {
             name: 'Pablo',
             ava: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYNPFMEDOAjlZxz1E1bSrNI-PlOq2m1tRh0g&usqp=CAU'
         }
-    ],
+    ] as Array<DialogsType>,
     messages: [
         {id: 1, message: 'Hi!'},
         {id: 2, message: 'How are you doing?'},
         {id: 3, message: 'Whats up?'},
         {id: 4, message: 'Yo'},
         {id: 5, message: 'Yo'},
-    ]
+    ] as Array<MessagesType>
 
 };
 
-const dialogsReducer = (state = initialState, action) => {
+type InitialStateType = typeof initialState
+
+
+const dialogsReducer = (state = initialState, action: any): InitialStateType => {
 
     switch (action.type) {
         case SEND_MESSAGE:
@@ -49,8 +61,13 @@ const dialogsReducer = (state = initialState, action) => {
             return state;
     }
 }
+type SendMessageCreatorActionType = {
+    type: typeof SEND_MESSAGE
+    newMessageBody: string
+}
 
-export const sendMessageCreator = (newMessageBody) => ({type: SEND_MESSAGE, newMessageBody})
+export const sendMessageCreator = (newMessageBody: string): SendMessageCreatorActionType =>
+    ({type: SEND_MESSAGE, newMessageBody})
 
 
 export default dialogsReducer;
