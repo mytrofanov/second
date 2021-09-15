@@ -6,6 +6,7 @@ import {useForm} from "react-hook-form";
 type DialogItemPropsType = {
     id: number
     avatar?: string
+    ava?:string
     name: string
 }
 type MessagePropsType = {
