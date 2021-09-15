@@ -2,7 +2,6 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
 import {useForm} from "react-hook-form";
-import dialogsReducer from "../../Redux/dialogs-reducer";
 
 type DialogItemPropsType = {
     id: number
