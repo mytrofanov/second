@@ -1,12 +1,37 @@
 import React from 'react';
-import {useForm} from "react-hook-form";
+import {SubmitHandler, useForm} from "react-hook-form";
 import s from './login.module.css';
 import {connect} from "react-redux";
 import {loginReducer} from "../../Redux/auth-reducer";
 import {Redirect} from "react-router-dom";
+import {AppStateType} from "../../Redux/redux-store";
 
+type LoginFormPropsType = {
+    onSubmit: SubmitHandler<FormValues>
+    captureURL: string
 
-export const LoginForm = ({onSubmit, captureURL}) => {
+}
+type LoginPropsType = {
+    isAuth: boolean
+    loginReducer: (email:string, password:string, rememberMe:string, captcha:string)=>void
+    authError: string | null
+    captureURL: string
+   }
+
+type FormValues = {
+    email:string
+    password:string
+    rememberMe:string
+    captcha:string
+};
+type MapStateToPropsType = {
+    isAuth:boolean
+    captureURL:string | null
+    authError: any
+}
+type AllFormPropsType = FormValues & LoginPropsType & LoginFormPropsType
+
+export const LoginForm: React.FC<LoginFormPropsType> = ({onSubmit, captureURL}) => {
 
     const {
         register, handleSubmit,
@@ -36,7 +61,7 @@ export const LoginForm = ({onSubmit, captureURL}) => {
                         <span>This field cannot exceed 30 characters</span>
                     )}
                 </div>
-                <div> {captureURL && <img alt={"Капча"} src={captureURL}/>}
+                <div> {captureURL && <img alt={"Угадай надпись"} src={captureURL}/>}
                     {captureURL &&
                     <div><input {...register("captcha")}
                                 placeholder={"введите символы сюда"}
@@ -62,9 +87,12 @@ export const LoginForm = ({onSubmit, captureURL}) => {
     )
 }
 
-const login = ({isAuth, loginReducer, authError, captureURL}) => {
-    const onSubmit = data => loginReducer(data.email, data.password, data.rememberMe, data.captcha);
+// @ts-ignore
+const login:any = ({isAuth, loginReducer, authError, captureURL}) => {
 
+
+    const onSubmit:SubmitHandler<FormValues>  = data =>
+        loginReducer(data.email, data.password, data.rememberMe, data.captcha);
 
     if (isAuth) {
         return <Redirect to={"/profile"}/>
@@ -80,10 +108,18 @@ const login = ({isAuth, loginReducer, authError, captureURL}) => {
     </div>
 }
 
-const mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth, authError: state.auth.authError,
+const mapStateToProps = (state:AppStateType):MapStateToPropsType => ({
+    isAuth: state.auth.isAuth,
+    authError: state.auth.authError,
     captureURL: state.auth.captureURL
 })
 
+type MapDispatchToPropsType = {
+    loginReducer: (email: string, password: string,
+                   rememberMe: boolean, captcha: string)=>void
+}
 
-export default connect(mapStateToProps, {loginReducer})(login);
+//<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>
+
+export default connect<MapStateToPropsType,MapDispatchToPropsType,AllFormPropsType, AppStateType>
+(mapStateToProps, {loginReducer})(login);
