@@ -51,24 +51,24 @@ type SetAuthUserDataActionType = {
 }
 type  setAuthErrorType = {
     type: typeof SET_AUTH_ERROR,
-    errorMessage: string|null
+    errorMessage: string | null
 }
 type setCaptchaURLType = {
     type: typeof SET_CAPTCHA_URL,
-    payload: {captureURL: string}
+    payload: { captureURL: string }
 }
 
 export const setAuthUserData = (userId: number | null, email: string | null,
                                 login: string | null, isAuth: boolean): SetAuthUserDataActionType =>
     ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}})
 
-export const setAuthError = (errorMessage:string|null):setAuthErrorType =>
+export const setAuthError = (errorMessage: string | null): setAuthErrorType =>
     ({type: SET_AUTH_ERROR, errorMessage})
 
-export const setCaptchaURL = (captureURL:string):setCaptchaURLType =>
+export const setCaptchaURL = (captureURL: string): setCaptchaURLType =>
     ({type: SET_CAPTCHA_URL, payload: {captureURL}})
 
-export const getAuthUserData = () => async (dispatch) => {
+export const getAuthUserData = () => async (dispatch: any) => {
     let response = await authAPI.me();
     if (response.data.resultCode === 0) {
         let {id, login, email} = response.data.data;
@@ -77,7 +77,8 @@ export const getAuthUserData = () => async (dispatch) => {
 }
 
 
-export const loginReducer = (email, password, rememberMe, captcha) => async (dispatch) => {
+export const loginReducer = (email: string, password: string,
+                             rememberMe: boolean, captcha: string) => async (dispatch: any) => {
     let response = await authAPI.login(email, password, rememberMe, captcha);
     const errorMessage = response.data.messages.length > 0 && response.data.messages[0];
 
@@ -94,7 +95,7 @@ export const loginReducer = (email, password, rememberMe, captcha) => async (dis
     }
 }
 
-export const logoutReducer = () => async (dispatch) => {
+export const logoutReducer = () => async (dispatch: any) => {
     let response = await authAPI.logout();
 
     if (response.data.resultCode === 0) {
@@ -102,7 +103,7 @@ export const logoutReducer = () => async (dispatch) => {
     }
 }
 
-export const getCaptureUrl = () => async (dispatch) => {
+export const getCaptureUrl = () => async (dispatch: any) => {
     const response = await securityAPI.getCaptureUrl();
     const captureURL = response.data.url;
     dispatch(setCaptchaURL(captureURL));
