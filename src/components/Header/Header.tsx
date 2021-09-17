@@ -3,11 +3,16 @@ import s from './Header.module.css';
 import {NavLink} from "react-router-dom";
 import logo from "../../assets/images/Screenshot_1.jpg";
 
-const Header = (props) => {
+type HeaderPropsType = {
+    isAuth: boolean
+    login: string | null
+    logoutReducer: ()=> void
+}
+
+const Header: React.FC<HeaderPropsType> = (props) => {
        return (
         <header className={s.header}>
-            <img src={logo} className={s.logo}
-                alt='Логотип'></img>
+            <img src={logo} className={s.logo} alt='Логотип'/>
             <div className={s.loginBlock}>
                 {props.isAuth
                     ?
