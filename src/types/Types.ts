@@ -30,3 +30,29 @@ export type UsersType = {
     followed: boolean
     uniqueUrlName: null |string
 }
+export type UsersMapStateToPropsType = {
+    currentPage: number
+    pageSize: number
+    users: Array<UsersType>
+    totalUsersCount: number
+    isFetching: boolean
+    followingInProgress: Array<number>
+}
+
+export type UsersMapDispatchToPropsType = {
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+}
+export type UsersOwnPropsType = {
+    pageTitle: string
+}
+
+export type FriendsType = {
+    id: number
+    name: string
+    status: string
+    photos: PhotosType | null
+    followed: boolean
+    uniqueUrlName: null | string
+}

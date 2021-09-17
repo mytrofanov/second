@@ -1,19 +1,12 @@
 import {usersAPI} from "../API/api";
 import {toggleIsFetching} from "./users-reducer";
-import {PhotosType} from "../types/Types";
+import {FriendsType} from "../types/Types";
 
 const SET_FRIENDS = 'SET_FRIENDS';
 const SET_CURRENT_FRIENDS_PAGE = 'SET_CURRENT_FRIENDS_PAGE';
 const SET_TOTAL_FRIENDS_COUNT = 'SET_TOTAL_FRIENDS_COUNT';
 
-type FriendsType = {
-    id: number
-    name: string
-    status: string
-    photos: PhotosType | null
-    followed: boolean
-    uniqueUrlName: null | string
-}
+
 
 let initialState = {
     friends: [] as Array<FriendsType>,
@@ -64,12 +57,12 @@ export const setTotalFriendsCount = (totalFriendsCount: number): SetTotalFriends
     totalFriendsCount
 })
 
-export const requestFriends = (currentFriendsPage: number, friendsPageSize: number, friend: boolean) => {
+export const requestFriends = (currentFriendsPage: number, friendsPageSize: number, followed: boolean) => {
     return async (dispatch: any) => {
         dispatch(toggleIsFetching(true));
         dispatch(setCurrentFriendsPage(currentFriendsPage))
 
-        let data = await usersAPI.getFriends(currentFriendsPage, friendsPageSize, friend);
+        let data = await usersAPI.getFriends(currentFriendsPage, friendsPageSize, followed);
         let newFriends = data.data.items;
         dispatch(toggleIsFetching(false));
         dispatch(setFriends(newFriends));

@@ -16,8 +16,8 @@ export const usersAPI = {
             });
     },
 
-    getFriends(currentFriendsPage = 1, friendsPageSize = 10, friend = true) {
-        return instance.get(`users?page=${currentFriendsPage}&count=${friendsPageSize}&friend=${friend}`)
+    getFriends(currentFriendsPage = 1, friendsPageSize = 10, followed = true) {
+        return instance.get(`users?page=${currentFriendsPage}&count=${friendsPageSize}&friend=${followed}`)
     },
 
 // в delete параметр withCredentials отправляется вторым

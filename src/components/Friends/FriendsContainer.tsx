@@ -10,20 +10,42 @@ import {connect} from "react-redux";
 import {requestFriends} from "../../Redux/sidebar-reducer";
 import Sidebar from "../Sidebar/Sidebar";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {AppStateType} from "../../Redux/redux-store";
+import {FriendsType} from "../../types/Types";
+
+type FriendsContainerType = {
+    currentFriendsPage: number
+    friendsPageSize: number
+    friend: boolean
+    getFriends: (currentPage: number, pageSize: number, followed: boolean) => void
+    isFetching: boolean
+    friends: Array<FriendsType>
+    totalFriendsCount: number
+    followed: boolean
+}
 
 
-class FriendsContainer extends React.Component {
+class FriendsContainer extends React.Component<FriendsContainerType> {
 
-
-    componentDidMount() {
+    refreshFriends() {
         let {currentFriendsPage, friendsPageSize, friend} = this.props;
         this.props.getFriends(currentFriendsPage, friendsPageSize, friend);
+    }
+
+    componentDidMount() {
+        this.refreshFriends()
+    }
+
+    componentDidUpdate(prevProps: Readonly<FriendsContainerType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (prevProps.totalFriendsCount !== this.props.totalFriendsCount) {
+            this.refreshFriends()
+        }
 
     }
 
-    onFriendsPageChanged = (currentFriendsPage) => {
-        let {friendsPageSize} = this.props;
-        this.props.getFriends(currentFriendsPage, friendsPageSize);
+    onFriendsPageChanged = (currentFriendsPage: number) => {
+        let {friendsPageSize, friend} = this.props;
+        this.props.getFriends(currentFriendsPage, friendsPageSize, friend);
     }
 
 
@@ -42,8 +64,8 @@ class FriendsContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
-       return {
+let mapStateToProps = (state: AppStateType) => {
+    return {
         friends: getFriends(state),
         totalFriendsCount: getTotalFriendsCount(state),
         friendsPageSize: getFriendsPageSize(state),
@@ -55,5 +77,5 @@ let mapStateToProps = (state) => {
 export default compose(
     connect(mapStateToProps, {
         getFriends: requestFriends
-    }),withAuthRedirect
+    }), withAuthRedirect
 )(FriendsContainer);
