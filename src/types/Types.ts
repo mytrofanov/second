@@ -4,7 +4,7 @@ export type ProfileType = {
     lookingForAJobDescription: string
     fullName: string
     contacts: ContactsType
-    photos: PhotosType
+    photos?: PhotosType
 }
 export type ContactsType = {
     github: string
