@@ -1,16 +1,23 @@
 import React from "react";
 import Friend from "./Friend";
 import s from "./friends.module.css"
+import {FriendsType} from "../../types/Types";
 
+type FriendsPropsType = {
+    totalFriendsCount: number
+    friends: Array<FriendsType>
 
-let Friends = ({totalFriendsCount, friends}) => {
+}
+
+let Friends: React.FC<FriendsPropsType> = ({totalFriendsCount, friends}) => {
+
 
 
     return <div className={s.friendsBlock} >
 
         {friends===undefined? "Ошибка сервера" :
             friends.slice(0, 3).map(u =>
-            <Friend friend={u}  id={u.name+u.id} />
+            <Friend friend={u}   />
         )
         }
         <div className={s.friends} >

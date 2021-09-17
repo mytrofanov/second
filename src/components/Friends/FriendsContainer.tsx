@@ -17,7 +17,6 @@ import {getFollowingInProgress} from "../../Redux/usersSelectors";
 type FriendsContainerType = {
     currentFriendsPage: number
     friendsPageSize: number
-    friend: boolean
     getFriends: (currentPage: number, pageSize: number, followed: boolean) => void
     isFetching: boolean
     friends: Array<FriendsType>
@@ -30,8 +29,8 @@ type FriendsContainerType = {
 class FriendsContainer extends React.Component<FriendsContainerType> {
 
     refreshFriends() {
-        let {currentFriendsPage, friendsPageSize, friend} = this.props;
-        this.props.getFriends(currentFriendsPage, friendsPageSize, friend);
+        let {currentFriendsPage, friendsPageSize, followed} = this.props;
+        this.props.getFriends(currentFriendsPage, friendsPageSize, followed);
     }
 
     componentDidMount() {
@@ -46,8 +45,8 @@ class FriendsContainer extends React.Component<FriendsContainerType> {
     }
 
     onFriendsPageChanged = (currentFriendsPage: number) => {
-        let {friendsPageSize, friend} = this.props;
-        this.props.getFriends(currentFriendsPage, friendsPageSize, friend);
+        let {friendsPageSize, followed} = this.props;
+        this.props.getFriends(currentFriendsPage, friendsPageSize, followed);
     }
 
 
