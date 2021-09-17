@@ -12,6 +12,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {AppStateType} from "../../Redux/redux-store";
 import {FriendsType} from "../../types/Types";
+import {getFollowingInProgress} from "../../Redux/usersSelectors";
 
 type FriendsContainerType = {
     currentFriendsPage: number
@@ -22,6 +23,7 @@ type FriendsContainerType = {
     friends: Array<FriendsType>
     totalFriendsCount: number
     followed: boolean
+    followingInProgress: Array<number>
 }
 
 
@@ -37,9 +39,9 @@ class FriendsContainer extends React.Component<FriendsContainerType> {
     }
 
     componentDidUpdate(prevProps: Readonly<FriendsContainerType>, prevState: Readonly<{}>, snapshot?: any) {
-        if (prevProps.totalFriendsCount !== this.props.totalFriendsCount) {
+        if (prevProps.followingInProgress !== this.props.followingInProgress) {
             this.refreshFriends()
-        }
+        } //Обновляем друзей, если была попытка подписки-отписки
 
     }
 
@@ -69,7 +71,8 @@ let mapStateToProps = (state: AppStateType) => {
         friends: getFriends(state),
         totalFriendsCount: getTotalFriendsCount(state),
         friendsPageSize: getFriendsPageSize(state),
-        currentFriendsPage: getCurrentFriendsPage(state)
+        currentFriendsPage: getCurrentFriendsPage(state),
+        followingInProgress:getFollowingInProgress(state)
     }
 }
 
