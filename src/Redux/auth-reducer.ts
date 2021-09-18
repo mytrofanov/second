@@ -1,4 +1,7 @@
 import {authAPI, securityAPI} from "../API/api";
+import {Dispatch} from "redux";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 
 
 const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA';
@@ -17,7 +20,7 @@ initialState = {
 
 export type initialStateType = typeof initialState;
 
-const authReducer = (state = initialState, action: any): initialStateType => {
+const authReducer = (state = initialState, action: AuthActionType): initialStateType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -57,6 +60,7 @@ type setCaptchaURLType = {
     type: typeof SET_CAPTCHA_URL,
     payload: { captureURL: string }
 }
+type AuthActionType = SetAuthUserDataActionType | setAuthErrorType | setCaptchaURLType
 
 export const setAuthUserData = (userId: number | null, email: string | null,
                                 login: string | null, isAuth: boolean): SetAuthUserDataActionType =>
@@ -68,7 +72,7 @@ export const setAuthError = (errorMessage: string | null): setAuthErrorType =>
 export const setCaptchaURL = (captureURL: string): setCaptchaURLType =>
     ({type: SET_CAPTCHA_URL, payload: {captureURL}})
 
-export const getAuthUserData = () => async (dispatch: any) => {
+export const getAuthUserData = () => async (dispatch: DispatchType) => {
     let response = await authAPI.me();
     if (response.data.resultCode === 0) {
         let {id, login, email} = response.data.data;
@@ -76,26 +80,29 @@ export const getAuthUserData = () => async (dispatch: any) => {
     }
 }
 
+type DispatchType = Dispatch<AuthActionType>
+type ThunkActionType = ThunkAction<Promise<void>, AppStateType, any, AuthActionType>
 
 export const loginReducer = (email: string, password: string,
-                             rememberMe: boolean, captcha: string) => async (dispatch: any) => {
-    let response = await authAPI.login(email, password, rememberMe, captcha);
-    const errorMessage = response.data.messages.length > 0 && response.data.messages[0];
+                             rememberMe: boolean, captcha: string): ThunkActionType =>
+    async (dispatch) => {
+        let response = await authAPI.login(email, password, rememberMe, captcha);
+        const errorMessage = response.data.messages.length > 0 && response.data.messages[0];
 
-    if (response.data.resultCode === 0) {
-        dispatch(getAuthUserData())
-        dispatch(setAuthError(''))
-        dispatch(setCaptchaURL(''));
+        if (response.data.resultCode === 0) {
+            dispatch(getAuthUserData())
+            dispatch(setAuthError(''))
+            dispatch(setCaptchaURL(''));
+        }
+        if (response.data.resultCode === 10) {
+            dispatch(getCaptureUrl())
+            dispatch(setAuthError(errorMessage))
+        } else {
+            dispatch(setAuthError(errorMessage))
+        }
     }
-    if (response.data.resultCode === 10) {
-        dispatch(getCaptureUrl())
-        dispatch(setAuthError(errorMessage))
-    } else {
-        dispatch(setAuthError(errorMessage))
-    }
-}
 
-export const logoutReducer = () => async (dispatch: any) => {
+export const logoutReducer = () => async (dispatch:DispatchType) => {
     let response = await authAPI.logout();
 
     if (response.data.resultCode === 0) {
@@ -103,7 +110,7 @@ export const logoutReducer = () => async (dispatch: any) => {
     }
 }
 
-export const getCaptureUrl = () => async (dispatch: any) => {
+export const getCaptureUrl = () => async (dispatch: DispatchType) => {
     const response = await securityAPI.getCaptureUrl();
     const captureURL = response.data.url;
     dispatch(setCaptchaURL(captureURL));
