@@ -1,5 +1,5 @@
 import {profileAPI, usersAPI} from "../API/api";
-import {PhotosType, ProfileType} from "../types/Types";
+import {PhotosType, PostsType, ProfileType} from "../types/Types";
 
 const ADD_POST = 'ADD-POST';
 const DELETE_POST = 'DELETE_POST';
@@ -9,12 +9,7 @@ const SET_PHOTO = 'SET_PHOTO';
 const SET_PROFILE_ERROR = 'SET_PROFILE_ERROR';
 const SET_EDIT_MODE = 'SET_EDIT_MODE';
 
-type PostsType = {
-    id: number
-    message: string
-    count: number
-    discount: number
-}
+
 let initialState = {
     posts: [
         {id: 1, message: 'First post', count: 5, discount: 0},

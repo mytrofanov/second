@@ -69,3 +69,10 @@ export type FriendsType = {
     followed: boolean
     uniqueUrlName: null | string
 }
+
+export type PostsType = {
+    id: number
+    message: string
+    count: number
+    discount: number
+}

@@ -2,19 +2,22 @@ import React from 'react';
 import Post from './Post/Post';
 import s from './Posts.module.css'
 import {useForm} from "react-hook-form";
+import {PostsType} from "../../../types/Types";
 
-window.props = [];
-const Posts = React.memo(props => {
+export type MapPropsType = {
+    posts: Array<PostsType>
+}
+export type DispatchPropsType = {
+    addPost: (newPostText: string) => void
+}
 
-
-    window.props.push(props);
+const Posts: React.FC<MapPropsType & DispatchPropsType > = React.memo(props => {
 
     let postsElements =
         [...props.posts].reverse().map(p => <Post message={p.message} count={p.count} discount={p.discount}/>)
 
-    let addNewPost = (value) => {
+    let addNewPost = (value:any) => {
         props.addPost(value.newPost);
-
     }
 
     return (
@@ -36,13 +39,13 @@ const Posts = React.memo(props => {
 export default Posts;
 
 
-export const NewPostForm = (props) => {
+export const NewPostForm = (props:any) => {
 
     const {
         register, handleSubmit,
         formState: {errors}
     } = useForm();
-    const onSubmit = data => props.onSubmit(data);
+    const onSubmit = (data:any) => props.onSubmit(data);
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <input {...register("newPost", {required: true, maxLength: 30}
@@ -54,4 +57,4 @@ export const NewPostForm = (props) => {
             )}
         </form>
     );
-}
+};
