@@ -11,7 +11,7 @@ export type ProfileType = {
 export type ProfilePropsType = {
     profile: ProfileType | null
     status: string | null
-    updateStatus: (status:string)=>void
+    updateStatus: (status:string | null)=>void
     isOwner: boolean
     savePhoto: (file: File)=>void
     saveProfileForm: (profile:ProfileType)=> Promise<any>
@@ -38,7 +38,7 @@ export type PhotosType = {
 export type UsersType = {
     id: number
     name: string
-    status: string
+    status: string | null
     photos: PhotosType | null
     followed: boolean
     uniqueUrlName: null |string
@@ -64,7 +64,7 @@ export type UsersOwnPropsType = {
 export type FriendsType = {
     id: number
     name: string
-    status: string
+    status: string | null
     photos: PhotosType | null
     followed: boolean
     uniqueUrlName: null | string
