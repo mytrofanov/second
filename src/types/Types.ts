@@ -11,7 +11,7 @@ export type ProfileType = {
 export type ProfilePropsType = {
     profile: ProfileType | null
     status: string | null
-    updateStatus: (id:number)=>void
+    updateStatus: (status:string)=>void
     isOwner: boolean
     savePhoto: (file: File)=>void
     saveProfileForm: (profile:ProfileType)=> Promise<any>
