@@ -7,28 +7,31 @@ import {
     savePhoto,
     saveProfileForm, setEditMode, updateStatus
 } from "../../Redux/profile-reducer";
-import {withRouter} from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from "redux";
 import {ProfileType} from "../../types/Types";
 import {AppStateType} from "../../Redux/redux-store";
 
-type ProfileContainerPropsType = {
-    userId: number
-    getUserProfile:(userId:number)=>void
-    getStatus:(userId:number)=>void
-    updateStatus: (id:number)=>void
-    savePhoto: (file:any)=>void
-    saveProfileForm: (profile:ProfileType)=>void
-    setEditMode: (editMode:boolean)=>void
-
-}
-
 type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 
-class ProfileContainer extends React.Component<ProfileContainerPropsType> {
+type MapDispatchPropsType = {
+    getUserProfile:(userId:number | null)=>void
+    getStatus:(userId:number | null)=>void
+    updateStatus: (id:number)=>void
+    savePhoto: (file: File)=>void
+    saveProfileForm: (profile:ProfileType)=>void
+    setEditMode: (editMode:boolean)=>void
+}
+type PathParamsType = {
+    userId: string
+}
+
+type PropsType = MapStateToPropsType & MapDispatchPropsType & RouteComponentProps<PathParamsType>;
+
+class ProfileContainer extends React.Component<PropsType> {
 
     refreshProfile() {
-        let userId = this.props.match.params.userId;
+        let userId: number | null = +this.props.match.params.userId;
         if (!userId) {
             userId = this.props.authorizedUserId;
             if (!userId) {
@@ -43,7 +46,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         this.refreshProfile();
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps: PropsType, prevState: PropsType) {
         if ( this.props.match.params.userId !==  prevProps.match.params.userId)
         {
             this.refreshProfile();
@@ -80,7 +83,7 @@ let mapStateToProps = (state: AppStateType) => {
 })};
 
 
-export default compose(
+export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         getUserProfile, getStatus,
         updateStatus, savePhoto, saveProfileForm, setEditMode
