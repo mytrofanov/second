@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import s from './ProfileInfo.module.css';
 
 type ProfileStatusWithHookPropsType = {
-    status: string
-    updateStatus: (status:string)=>void
+    status: string | null
+    updateStatus: (status:string | null)=>void
     isOwner: boolean
 }
 
@@ -39,7 +39,7 @@ const ProfileStatusWithHooks:React.FC<ProfileStatusWithHookPropsType> =
             }
             {editMode &&
             <div>
-                <input className={s.about} value={status}
+                <input className={s.about} value={status!}
                        autoFocus={true} onChange={onStatusChange}
                        onBlur={deactivateEditMode}/>
             </div>
