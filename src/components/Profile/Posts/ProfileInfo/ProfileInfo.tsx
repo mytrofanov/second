@@ -4,25 +4,30 @@ import Preloader from "../../../common/preloader/preloader";
 import mask from "./../../../../assets/images/mask.jpg";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import {ProfileForm} from "./ProfileForm";
+import {ContactsType, ProfilePropsType, ProfileType} from "../../../../types/Types";
 
-const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfileForm, setEditMode, editMode}) => {
 
-    const callEditMode = (mode) => {
-        setEditMode(mode)
+
+const ProfileInfo: React.FC<ProfilePropsType>= ({profile, status,
+                                                    updateStatus, isOwner, savePhoto,
+                                                    saveProfileForm, setEditMode, editMode}) => {
+
+    const callEditMode = (editMode:boolean) => {
+        setEditMode(editMode)
     }
 
     if (!profile) {
         return <Preloader/>
     }
-    const ava = !profile.photos.large ? mask : profile.photos.large;
+    const ava:string = !profile.photos!.large ? mask : profile.photos!.large;
     //подставляю маску вместо аватарки если ее нет у юзера
 
-    const selectPhoto = (e) => {
+    const selectPhoto = (e:any) => {
         if (e.target.files.length) {
             savePhoto(e.target.files[0])
         }
     }
-    const onSubmit = (data) => {
+    const onSubmit = (data:any) => {
         saveProfileForm(data)
     }
 
@@ -53,9 +58,13 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
 
     )
 }
+type ProfileDataPropsType = {
+    profile: ProfileType
+    isOwner: boolean
+    setEditMode: (editMode:boolean)=>void
+}
 
-
-const ProfileData = ({profile, isOwner, setEditMode}) => {
+const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, setEditMode}) => {
 
     return <div className={s.ProfileData}>
         <div className={s.about}>
@@ -73,7 +82,7 @@ const ProfileData = ({profile, isOwner, setEditMode}) => {
         <div>
             <b>Контакты:</b>
             {Object.keys(profile.contacts).map(key => {
-                return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+                return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]}/>
             })
             }
         </div>
@@ -85,8 +94,12 @@ const ProfileData = ({profile, isOwner, setEditMode}) => {
         </div>
     </div>
 }
+type ContactPropsType = {
+    contactTitle: string
+    contactValue: string
+}
 
-const Contact = ({contactTitle, contactValue}) => {
+const Contact: React.FC<ContactPropsType> = ({contactTitle, contactValue}) => {
     return <div className={s.contact}>{contactTitle}: {contactValue}</div>
 }
 

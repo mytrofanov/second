@@ -5,7 +5,20 @@ export type ProfileType = {
     fullName: string
     contacts: ContactsType
     photos?: PhotosType
+    aboutMe?: string
+    error?: string
 }
+export type ProfilePropsType = {
+    profile: ProfileType | null
+    status: string | null
+    updateStatus: (id:number)=>void
+    isOwner: boolean
+    savePhoto: (file: File)=>void
+    saveProfileForm: (profile:ProfileType)=> Promise<any>
+    setEditMode: (editMode:boolean)=>void
+    editMode: boolean
+}
+
 export type ContactsType = {
     github: string
     vk: string

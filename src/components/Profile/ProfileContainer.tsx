@@ -19,7 +19,7 @@ type ProfileDispatchPropsType = {
     getStatus:(userId:number | null)=>void
     updateStatus: (id:number)=>void
     savePhoto: (file: File)=>void
-    saveProfileForm: (profile:ProfileType)=>void
+    saveProfileForm: (profile:ProfileType)=>Promise<any>
     setEditMode: (editMode:boolean)=>void
 }
 type PathParamsType = {

@@ -116,7 +116,7 @@ type savePhotoSuccessType = {
     type: typeof SET_PHOTO
     photos: PhotosType
 }
-export const savePhotoSuccess = (photos: PhotosType) => ({type: SET_PHOTO, photos})
+export const savePhotoSuccess = (photos: PhotosType):savePhotoSuccessType => ({type: SET_PHOTO, photos})
 
 type saveProfileErrorType = {
     type: typeof SET_PROFILE_ERROR
