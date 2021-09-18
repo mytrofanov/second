@@ -14,7 +14,7 @@ import {AppStateType} from "../../Redux/redux-store";
 
 type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 
-type MapDispatchPropsType = {
+type ProfileDispatchPropsType = {
     getUserProfile:(userId:number | null)=>void
     getStatus:(userId:number | null)=>void
     updateStatus: (id:number)=>void
@@ -26,7 +26,7 @@ type PathParamsType = {
     userId: string
 }
 
-type PropsType = MapStateToPropsType & MapDispatchPropsType & RouteComponentProps<PathParamsType>;
+type PropsType = MapStateToPropsType & ProfileDispatchPropsType & RouteComponentProps<PathParamsType>;
 
 class ProfileContainer extends React.Component<PropsType> {
 
