@@ -31,12 +31,12 @@ export type ContactsType = {
 }
 
 export type PhotosType = {
-    small: string | null
-    large: string | null
+    small: string | null | undefined
+    large: string | null | undefined
 }
 
 export type UsersType = {
-    id: number
+    id: number | null
     name: string
     status: string | null
     photos: PhotosType | null
@@ -53,8 +53,8 @@ export type UsersMapStateToPropsType = {
 }
 
 export type UsersMapDispatchToPropsType = {
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
+    follow: (userId: number | null) => void
+    unfollow: (userId: number | null) => void
     getUsers: (currentPage: number, pageSize: number) => void
 }
 export type UsersOwnPropsType = {

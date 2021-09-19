@@ -10,8 +10,8 @@ type PropsType = {
     users: Array<UsersType>
     followingInProgress: Array<number>
     onPageChanged: (pageNumber:number)=> void
-    unfollow: (userId:number)=> void
-    follow: (userId:number)=> void
+    unfollow: (userId:number | null)=> void
+    follow: (userId:number | null)=> void
 }
 
 

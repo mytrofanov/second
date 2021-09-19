@@ -1,4 +1,4 @@
-import {authAPI, securityAPI} from "../API/api";
+import {authAPI, ResultCodeType, ResultCodeTypeWithCaptcha, securityAPI} from "../API/api";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
@@ -79,8 +79,8 @@ export const setCaptchaURL = (captureURL: string): setCaptchaURLType =>
 
 export const getAuthUserData = () => async (dispatch: DispatchType) => {
     let response = await authAPI.me();
-    if (response.data.resultCode === 0) {
-        let {id, login, email} = response.data.data;
+    if (response.resultCode === ResultCodeType.success) {
+        let {id, login, email} = response.data;
         dispatch(setAuthUserData(id, email, login, true));
     }
 }
@@ -92,14 +92,14 @@ export const loginReducer = (email: string, password: string,
                              rememberMe: boolean, captcha: string): ThunkActionType =>
     async (dispatch) => {
         let response = await authAPI.login(email, password, rememberMe, captcha);
-        const errorMessage = response.data.messages.length > 0 && response.data.messages[0];
+        const errorMessage = response.messages.length > 0 && response.messages[0];
 
-        if (response.data.resultCode === 0) {
+        if (response.resultCode === ResultCodeType.success) {
             dispatch(getAuthUserData())
             dispatch(setAuthError(''))
             dispatch(setCaptchaURL(''));
         }
-        if (response.data.resultCode === 10) {
+        if (response.resultCode === ResultCodeTypeWithCaptcha.captchaRequired) {
             dispatch(getCaptureUrl())
             dispatch(setAuthError(errorMessage))
         } else {
@@ -110,7 +110,7 @@ export const loginReducer = (email: string, password: string,
 export const logoutReducer = () => async (dispatch:DispatchType) => {
     let response = await authAPI.logout();
 
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === ResultCodeType.success) {
         dispatch(setAuthUserData(null, null, null, false))
     }
 }

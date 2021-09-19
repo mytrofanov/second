@@ -1,6 +1,6 @@
 import {profileAPI, usersAPI} from "../API/api";
 import {PhotosType, PostsType, ProfileType} from "../types/Types";
-import {Action, Dispatch} from "redux";
+import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
 
@@ -91,9 +91,7 @@ type ProfileActionType = AddPostActionCreatorType | DeletePostType | SetUserProf
     savePhotoSuccessType | saveProfileErrorType | setEditModeType
 // типизация Санок
 type DispatchType = Dispatch<ProfileActionType>
-type GetStateType = () => AppStateType
 type ThunkActionType  = ThunkAction<Promise<void>, AppStateType, any , ProfileActionType>;
-type ExtendedType = ThunkActionType & ProfileActionType
 
 
 type AddPostActionCreatorType = {
@@ -138,11 +136,11 @@ type setEditModeType = {
 }
 export const setEditMode = (editMode:boolean):setEditModeType => ({type: SET_EDIT_MODE, editMode})
 
-export const getUserProfile = (userId:number|null):ThunkActionType => async (dispatch:DispatchType) => {
+export const getUserProfile = (userId: number | null):ThunkActionType => async (dispatch:DispatchType) => {
     let response = await usersAPI.getProfile(userId);
     dispatch(setUserProfile(response.data));
 }
-export const getStatus = (userId:number) => async (dispatch:DispatchType) => {
+export const getStatus = (userId:number | null) => async (dispatch:DispatchType) => {
     let response = await profileAPI.getStatus(userId);
     dispatch(setStatus(response.data));
 }
