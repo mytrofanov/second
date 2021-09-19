@@ -105,7 +105,7 @@ type setTotalUsersCountType = {
 export const setTotalUsersCount = (totalUsersCount: number): setTotalUsersCountType =>
     ({type: SET_TOTAL_USERS_COUNT, count: totalUsersCount})
 
-type toggleIsFetchingType = {
+export type toggleIsFetchingType = {
     type: typeof TOGGLE_IS_FETCHING
     isFetching: boolean
     }

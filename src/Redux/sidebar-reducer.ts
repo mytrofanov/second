@@ -1,6 +1,8 @@
 import {usersAPI} from "../API/api";
-import {toggleIsFetching} from "./users-reducer";
+import {toggleIsFetching, toggleIsFetchingType} from "./users-reducer";
 import {FriendsType} from "../types/Types";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 
 const SET_FRIENDS = 'SET_FRIENDS';
 const SET_CURRENT_FRIENDS_PAGE = 'SET_CURRENT_FRIENDS_PAGE';
@@ -17,7 +19,7 @@ let initialState = {
 
 type InitialStateType = typeof initialState
 
-const sidebarReducer = (state = initialState, action: any): InitialStateType => {
+const sidebarReducer = (state = initialState, action: SideBarActionType): InitialStateType => {
     switch (action.type) {
         case SET_FRIENDS: {
             return {...state, friends: action.newFriends} as InitialStateType
@@ -32,6 +34,11 @@ const sidebarReducer = (state = initialState, action: any): InitialStateType => 
             return state;
     }
 }
+
+type SideBarActionType = SetFriendsType | SetCurrentFriendsPageType |
+    SetTotalFriendsCountType | toggleIsFetchingType
+
+//toggleIsFetchingType импортируем из userReducer
 
 type SetFriendsType = {
     type: typeof SET_FRIENDS
@@ -57,8 +64,12 @@ export const setTotalFriendsCount = (totalFriendsCount: number): SetTotalFriends
     totalFriendsCount
 })
 
-export const requestFriends = (currentFriendsPage: number, friendsPageSize: number, followed: boolean) => {
-    return async (dispatch: any) => {
+
+type ThunkActionType  = ThunkAction<Promise<void>, AppStateType, any , SideBarActionType>;
+
+export const requestFriends = (currentFriendsPage: number,
+                               friendsPageSize: number, followed: boolean):ThunkActionType => {
+    return async (dispatch) => {
         dispatch(toggleIsFetching(true));
         dispatch(setCurrentFriendsPage(currentFriendsPage))
 
