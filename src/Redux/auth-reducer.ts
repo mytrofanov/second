@@ -8,7 +8,12 @@ const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA';
 const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
 const SET_CAPTCHA_URL = 'SET_CAPTCHA_URL';
 
-let initialState: { isAuth: boolean; authError: string | number | null; login: null | string; userId: number | null; email: string | null; captureURL: string | null };
+let initialState: { isAuth: boolean;
+    authError: string | false | null;
+    login: null | string;
+    userId: number | null;
+    email: string | null;
+    captureURL: string | null };
 initialState = {
     userId: null,
     email: null,
@@ -54,7 +59,7 @@ type SetAuthUserDataActionType = {
 }
 type  setAuthErrorType = {
     type: typeof SET_AUTH_ERROR,
-    errorMessage: string | null
+    errorMessage: string | null | false
 }
 type setCaptchaURLType = {
     type: typeof SET_CAPTCHA_URL,
@@ -66,7 +71,7 @@ export const setAuthUserData = (userId: number | null, email: string | null,
                                 login: string | null, isAuth: boolean): SetAuthUserDataActionType =>
     ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}})
 
-export const setAuthError = (errorMessage: string | null): setAuthErrorType =>
+export const setAuthError = (errorMessage: string | null | false): setAuthErrorType =>
     ({type: SET_AUTH_ERROR, errorMessage})
 
 export const setCaptchaURL = (captureURL: string): setCaptchaURLType =>

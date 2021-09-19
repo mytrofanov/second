@@ -1,4 +1,5 @@
-import * as axios from "axios";
+import axios from "axios";
+import {ProfileType} from "../types/Types";
 
 
 const instance = axios.create({
@@ -21,16 +22,16 @@ export const usersAPI = {
     },
 
 // в delete параметр withCredentials отправляется вторым
-    unFollow(id) {
+    unFollow(id: number) {
         return instance.delete(`follow/${id}`)
     },
 
 // в post параметр withCredentials отправляется третьим
-    follow(id) {
+    follow(id:number) {
         return instance.post(`follow/${id}`)
     },
 
-    getProfile(userId) {
+    getProfile(userId: number) {
         console.warn('Obsolete method.Please use profileApi')
         return profileAPI.getProfile(userId);
     }
@@ -38,17 +39,17 @@ export const usersAPI = {
 }
 
 export const profileAPI = {
-    getProfile(userId) {
+    getProfile(userId: number) {
         return instance.get(`profile/` + userId)
     },
 
-    getStatus(userId) {
+    getStatus(userId: number) {
         return instance.get(`profile/status/` + userId)
     },
-    updateStatus(status) {
+    updateStatus(status: string) {
         return instance.put('profile/status', {status: status})
     },
-    saveProfile(profile) {
+    saveProfile(profile: ProfileType) {
         return instance.put(`profile`, profile )
             .catch(function (error) {
                 if (error.response) {
@@ -68,7 +69,7 @@ export const profileAPI = {
             });
 
     },
-    savePhoto(file) {
+    savePhoto(file: File) {
         const formData = new FormData();
         formData.append("image", file);
 
@@ -80,17 +81,46 @@ export const profileAPI = {
         });
     }
 }
+export enum ResponseCodeMe  {
+    success,
+    error = 1
+}
+export enum ResponseCodeWithCaptcha {
+    captchaRequired=10
+}
 
+type ResponseDataType = {
+    id: number
+    email: string
+    login: string
+}
+
+type AuthApiMeType = {
+    data: ResponseDataType
+    resultCode:ResponseCodeMe
+    messages: Array<string>
+}
+
+type AuthApiLoginType = {
+    resultCode: ResponseCodeMe | ResponseCodeWithCaptcha
+    messages: Array<string>
+    data: {userId:number}
+}
+type AuthApiDeleteType = {
+    resultCode: ResponseCodeMe
+    messages: Array<string>
+    data: {}
+}
 
 export const authAPI = {
     me() {
-        return instance.get(`auth/me`)
+        return instance.get<AuthApiMeType>(`auth/me`)
     },
-    login(email, password, rememberMe = false, captcha) {
-        return instance.post('auth/login', {email, password, rememberMe, captcha})
+    login(email: string, password: string, rememberMe = false, captcha:string) {
+        return instance.post<AuthApiLoginType>('auth/login', {email, password, rememberMe, captcha})
     },
     logout() {
-        return instance.delete('auth/login')
+        return instance.delete<AuthApiDeleteType>('auth/login')
     }
 }
 
