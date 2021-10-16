@@ -18,12 +18,17 @@
 }
 
 .messages {
-    padding: 10px;
-    color: white;
+    padding: 20px;
+    color: blue;
 }
 
-.message {
+.formMessage{
+    padding-top: 10px;
+    display: flex;
 
+    flex-direction: row;
+    width: 400px;
+    align-content: space-between;
 }
 
 .ava {

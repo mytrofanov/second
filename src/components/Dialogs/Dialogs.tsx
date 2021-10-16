@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
 import {useForm} from "react-hook-form";
+import {Button, TextField} from "@mui/material";
 
 type DialogItemPropsType = {
     id: number
@@ -100,9 +101,15 @@ export const AddMessageForm = (props:any) => {
     const onSubmit = data => props.onSubmit(data);
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <input {...register("newMessageBody", {required: true, maxLength: 30})}
-                   placeholder="enter your message"/>
-            <input type="Submit" value="Send Message"/>
+            <div className={s.formMessage}>
+            <TextField sx={{
+                fs: "10px",
+                width: "250px"
+            }}            {...register("newMessageBody", {required: true, maxLength: 30})}
+                       id="outlined-basic" label="enter your message" variant="outlined" size="small"/>
+
+            <Button type="submit" variant="contained">Send Message</Button>
+            </div>
             {errors?.newMessageBody?.type === "required" && <span>This field is required</span>}
             {errors?.newMessageBody?.type === "maxLength" && (
                 <span>This field cannot exceed 30 characters</span>
