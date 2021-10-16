@@ -35,7 +35,7 @@ const ProfileInfo: React.FC<ProfilePropsType>= ({profile, status,
         <div>
             <div className={s.ProfileInfo}>
                 <div className={s.container}>
-                    <img alt={"ava"} className={s.about} src={ava}/>
+                    <img alt={"ava"} className={s.userPortraitOnProfile} src={ava}/>
                     {isOwner && <div className={s.overlay}>🖋</div>}
                     {isOwner && <input type={"file"} className={s.bigPen} onChange={selectPhoto}/>}
 

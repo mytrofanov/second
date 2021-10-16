@@ -10,7 +10,7 @@
 }
 
 .container {
-
+    padding-top: 30px;
     position: relative;
     width: 100%;
     max-width: 300px;
@@ -26,6 +26,10 @@
 
 .block {
     padding: 10px;
+}
+.userPortraitOnProfile {
+
+
 }
 
 .about  {
@@ -54,7 +58,7 @@
 
 .status {
     grid-area: m;
-    padding-top: 15px;
+    padding-top: 25px;
     max-width: 300px;
     max-height: 50px;
     word-wrap:break-word;
@@ -116,6 +120,7 @@
 
 
 .container:hover .overlay {
+    margin-top: 30px;
     opacity: .5;
 }
 

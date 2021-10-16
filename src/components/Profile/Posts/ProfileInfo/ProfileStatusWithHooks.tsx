@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import s from './ProfileInfo.module.css';
+import {TextField} from "@mui/material";
 
 type ProfileStatusWithHookPropsType = {
     status: string | null
@@ -39,10 +40,17 @@ const ProfileStatusWithHooks:React.FC<ProfileStatusWithHookPropsType> =
             }
             {editMode &&
             <div>
-                <input className={s.about} value={status!}
-                       autoFocus={true} onChange={onStatusChange}
-                       onBlur={deactivateEditMode}/>
-            </div>
+                <TextField
+                    sx={{width:"300px"} }
+                    label="Status"
+                    id="outlined-size-small"
+                    defaultValue="Small"
+                    size="small"
+                    value={status!}
+                    autoFocus={true} onChange={onStatusChange}
+                    onBlur={deactivateEditMode}/>
+
+                 </div>
             }
         </div>
     )
