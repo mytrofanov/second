@@ -25,6 +25,9 @@
     text-align: center;
     margin: 20px auto;
 }
+.email {
+    padding-bottom: 10px;
+}
 
 .error {
     text-align: center;
@@ -36,4 +39,11 @@
     padding: 10px;
     text-align: center;
     font-size: large;
+}
+.checkboxAndButtonBlock{
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    padding-top: 10px;
+    justify-content: space-between;
 }

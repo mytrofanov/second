@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {loginReducer} from "../../Redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import {AppStateType} from "../../Redux/redux-store";
+import {Button, TextField} from "@mui/material";
 
 type LoginFormPropsType = {
     onSubmit: SubmitHandler<FormValues>
@@ -13,20 +14,20 @@ type LoginFormPropsType = {
 }
 type LoginPropsType = {
     isAuth: boolean
-    loginReducer: (email:string, password:string, rememberMe:string, captcha:string)=>void
+    loginReducer: (email: string, password: string, rememberMe: string, captcha: string) => void
     authError: string | null
     captureURL: string
-   }
+}
 
 type FormValues = {
-    email:string
-    password:string
-    rememberMe:string
-    captcha:string
+    email: string
+    password: string
+    rememberMe: string
+    captcha: string
 };
 type MapStateToPropsType = {
-    isAuth:boolean
-    captureURL:string | null
+    isAuth: boolean
+    captureURL: string | null
     authError: any
 }
 type AllFormPropsType = FormValues & LoginPropsType & LoginFormPropsType
@@ -42,20 +43,30 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({onSubmit, captureURL}) 
         <div className={s.loginPage}>
             <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
                 <h1>Login Form</h1>
-                <div>
-                    <input {...register("email", {
-                        required: true,
-                        maxLength: 40
-                    })} placeholder={" e-mail"}/>
+                <div className={s.email}>
+                    <TextField sx={{
+                        fs: "10px",
+                        width: "300px"
+                    }}
+                               {...register("email", {
+                                   required: true,
+                                   maxLength: 40
+                               })} placeholder={" e-mail"}
+                               id="outlined-basic" label="e-mail" variant="outlined" size="small"/>
+
                     {errors?.email?.type === "required" && <span>This field is required</span>}
                     {errors?.email?.type === "maxLength" && (
                         <span>This field cannot exceed 40 characters</span>
                     )}
                 </div>
                 <div>
-                    <input {...register("password", {required: true, maxLength: 30}
-                    )} placeholder={" password"} type={"password"}
-                    />
+                    <TextField sx={{
+                        fs: "10px",
+                        width: "300px"
+                    }}
+                               {...register("password", {required: true, maxLength: 30}
+                               )} placeholder={" password"} type={"password"}
+                               id="outlined-basic" label="Password" variant="outlined" size="small"/>
                     {errors?.password?.type === "required" && <span>This field is required</span>}
                     {errors?.password?.type === "maxLength" && (
                         <span>This field cannot exceed 30 characters</span>
@@ -67,14 +78,15 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({onSubmit, captureURL}) 
                                 placeholder={"введите символы сюда"}
                                 type={"text"}/></div>}
                 </div>
+                <div className={s.checkboxAndButtonBlock}>
+                    <div>
+                        <input {...register("rememberMe")} type="checkbox"/>
+                        Remember me
+                    </div>
 
-                <div>
-                    <input {...register("rememberMe")} type="checkbox"/>
-                    Remember me
+                    {/*<input type="submit" value="Login"/>*/}
+                    <Button type="submit" variant="contained">Login</Button>
                 </div>
-
-                <input type="submit" value="Login"/>
-
             </form>
 
 
@@ -88,10 +100,10 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({onSubmit, captureURL}) 
 }
 
 // @ts-ignore
-const login:any = ({isAuth, loginReducer, authError, captureURL}) => {
+const login: any = ({isAuth, loginReducer, authError, captureURL}) => {
 
 
-    const onSubmit:SubmitHandler<FormValues>  = data =>
+    const onSubmit: SubmitHandler<FormValues> = data =>
         loginReducer(data.email, data.password, data.rememberMe, data.captcha);
 
     if (isAuth) {
@@ -108,7 +120,7 @@ const login:any = ({isAuth, loginReducer, authError, captureURL}) => {
     </div>
 }
 
-const mapStateToProps = (state:AppStateType):MapStateToPropsType => ({
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     isAuth: state.auth.isAuth,
     authError: state.auth.authError,
     captureURL: state.auth.captureURL
@@ -116,10 +128,10 @@ const mapStateToProps = (state:AppStateType):MapStateToPropsType => ({
 
 type MapDispatchToPropsType = {
     loginReducer: (email: string, password: string,
-                   rememberMe: boolean, captcha: string)=>void
+                   rememberMe: boolean, captcha: string) => void
 }
 
 //<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>
 
-export default connect<MapStateToPropsType,MapDispatchToPropsType,AllFormPropsType, AppStateType>
+export default connect<MapStateToPropsType, MapDispatchToPropsType, AllFormPropsType, AppStateType>
 (mapStateToProps, {loginReducer})(login);

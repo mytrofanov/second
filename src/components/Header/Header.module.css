@@ -35,3 +35,7 @@
     .NavlinkButton{
         text-decoration: none;
     }
+    .checkboxAndButtonBlock{
+        display: flex;
+        flex-direction: row;
+    }
