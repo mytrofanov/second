@@ -16,12 +16,12 @@ let Friends: React.FC<FriendsPropsType> = ({totalFriendsCount, friends}) => {
     return <div className={s.friendsBlock} >
 
         {friends===undefined? "Ошибка сервера" :
-            friends.slice(0, 3).map(u =>
+            friends.slice(0, 12).map(u =>
             <Friend friend={u}   />
         )
         }
         <div className={s.friends} >
-            <div className={s.totalFriends}>Всего друзей:</div>
+            <div className={s.totalFriends}>Всего друзей: </div>
             <div>{totalFriendsCount}</div>
         </div>
     </div>

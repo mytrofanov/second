@@ -1,20 +1,22 @@
 .friendsBlock {
-    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    height: 200px;
+
     padding-top: 15px;
 
 }
-
-
-
 .friend {
     padding-bottom: 10px;
     max-width: 200px;
     word-wrap:break-word;
-
 }
 
 
 .friends {
+    display: flex;
+    flex-direction: row;
+
     font-family: 'Concert One', cursive;
     font-family: 'Jura', sans-serif;
     font-size: 16px;
@@ -33,4 +35,9 @@
     color: blue;
     font-size: large;
     cursor: pointer;
+}
+.FriendAvatar{
+    width: 100px;
+    text-decoration: none;
+
 }

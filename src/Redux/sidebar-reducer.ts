@@ -12,7 +12,7 @@ const SET_TOTAL_FRIENDS_COUNT = 'SET_TOTAL_FRIENDS_COUNT';
 
 let initialState = {
     friends: [] as Array<FriendsType>,
-    friendsPageSize: 3,
+    friendsPageSize: 12,
     totalFriendsCount: 0,
     currentFriendsPage: 1
 };
