@@ -21,7 +21,7 @@ let Friends: React.FC<FriendsPropsType> = ({totalFriendsCount, friends}) => {
         )
         }
         <div className={s.friends} >
-            <div>Всего друзей:</div>
+            <div className={s.totalFriends}>Всего друзей:</div>
             <div>{totalFriendsCount}</div>
         </div>
     </div>

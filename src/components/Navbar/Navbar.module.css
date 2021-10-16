@@ -5,10 +5,18 @@
 
 }
 
+.item {
+    font-family: 'Concert One', cursive;
+    font-size: 24px;
+    margin-top: 15px;
+
+}
+
 .item a {
     color: black;
-    font-size: large;
+    color: #3f50b5;
     text-decoration: none;
+
 }
 .item a.activeLink {
     color: gold;

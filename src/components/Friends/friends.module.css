@@ -4,6 +4,8 @@
 
 }
 
+
+
 .friend {
     padding-bottom: 10px;
     max-width: 200px;
@@ -13,7 +15,9 @@
 
 
 .friends {
-    font-size: large;
+    font-family: 'Concert One', cursive;
+    font-family: 'Jura', sans-serif;
+    font-size: 16px;
     color: darkblue;
     font-weight: 700;
 }

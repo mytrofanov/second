@@ -5,7 +5,9 @@
     width: 100%;
 }
 .friends {
-    font-size: large;
+    font-family: 'Concert One', cursive;
+    font-family: 'Jura', sans-serif;
+    font-size: 22px;
     color: darkblue;
     font-weight: 700;
 }
