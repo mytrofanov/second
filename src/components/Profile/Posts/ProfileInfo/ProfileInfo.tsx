@@ -5,6 +5,7 @@ import mask from "./../../../../assets/images/mask.jpg";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import {ProfileForm} from "./ProfileForm";
 import {ContactsType, ProfilePropsType, ProfileType} from "../../../../types/Types";
+import {Button} from "@mui/material";
 
 
 
@@ -86,9 +87,10 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, setEditM
             })
             }
         </div>
-        {isOwner && <button className={s.editProfile} onClick={() => {
-            setEditMode(true)
-        }}> 🛠 Редактировать профиль</button>}
+        {isOwner && <Button  onClick={() => {setEditMode(true)}} size="small"
+                             variant="contained">Редактировать профиль </Button>}
+
+
         <div className={s.profileError}>
             {profile.error && profile.error}
         </div>
