@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {
     follow,
-    unfollow, toggleFollowingProgress, requestUsers,
+    unfollow,  requestUsers,
 } from "../../Redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/preloader/preloader";
@@ -30,6 +30,13 @@ class UsersContainer extends React.Component<UsersPropsType> {
     onPageChanged = (pageNumber: number) => {
         let {pageSize} = this.props;
         this.props.getUsers(pageNumber, pageSize);
+    }
+    componentDidUpdate(prevProps) {
+        // Популярный пример (не забудьте сравнить пропсы):
+        if (this.props.followingInProgress !== prevProps.followingInProgress) {
+            let {currentPage, pageSize} = this.props;
+            this.props.getUsers(currentPage, pageSize);
+        }
     }
 
     render() {
