@@ -43,6 +43,7 @@ let User:React.FC<UserPropsType> = ({user, followingInProgress, unfollow, follow
                     >
                         {user.status}
                     </Typography>
+                    <div>
                     {user.followed
                         ? <button disabled={followingInProgress.some(id => id === user.id)}
                                   onClick={() => {
@@ -54,6 +55,7 @@ let User:React.FC<UserPropsType> = ({user, followingInProgress, unfollow, follow
                                       follow(user.id);
                                   }}>
                             Follow</button>}
+                    </div>
                 </React.Fragment>
             }
         />
