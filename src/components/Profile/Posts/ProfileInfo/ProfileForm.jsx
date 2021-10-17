@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import s from "./ProfileInfo.module.css";
 import {useForm} from "react-hook-form";
+import {Button, Checkbox, TextField} from "@material-ui/core";
+import {Stack} from "@mui/material";
 
 
 export const ProfileForm = ({profile, onSubmit, callEditMode}) => {
@@ -14,8 +16,16 @@ export const ProfileForm = ({profile, onSubmit, callEditMode}) => {
 export const ProfileDataForm = ({onSubmit, profile, callEditMode}) => {
 
     const inputCreator = (divName, inputName, placeholder) => {
-        return <div>
-            {divName} : <input {...register(inputName)} placeholder={placeholder} defaultValue={placeholder}/>
+        return <div className = {s.ContactInputForm}>
+            <TextField
+            fullWidth
+            label= {divName}
+            id="outlined-size-small"
+            variant="outlined"
+            defaultValue={placeholder}
+            size="small"
+            {...register(inputName)}
+        />
 
         </div>
     }
@@ -25,23 +35,53 @@ export const ProfileDataForm = ({onSubmit, profile, callEditMode}) => {
         formState: {errors}
     } = useForm();
 
-
+    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     const profileError = profile.error;
 
      return (
-        <div className={s.loginPage}>
-            <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+        <div >
+            <form className={s.ProfileFormBlock} onSubmit={handleSubmit(onSubmit)}>
 
                 <div>
-                    <div>Имя: <input {...register("fullName")} placeholder={profile.fullName}
-                                     defaultValue={profile.fullName}/></div>
-                    <div>Обо мне: <input {...register("aboutMe")} placeholder={profile.aboutMe}
-                                         defaultValue={profile.aboutMe}/></div>
-                    <div>Ищу работу: <input {...register("lookingForAJob")} type="checkbox"/></div>
-                    <div>Мои навыки: <input {...register("lookingForAJobDescription")}
-                                            placeholder={profile.lookingForAJobDescription}
-                                            defaultValue={profile.lookingForAJobDescription}/></div>
-                    <b>Контакты:</b>
+                    <div className={s.FormInputDiv}> <TextField
+                        label="Имя"
+                        id="outlined-size-small"
+                        variant="outlined"
+                        defaultValue={profile.fullName}
+                        size="small"
+                        {...register("fullName")} placeholder={profile.fullName}
+                    />
+                         </div>
+                    <div className={s.FormInputDiv}>
+                        <TextField
+                            label="Обо мне"
+                            id="outlined-size-small"
+                            defaultValue={profile.aboutMe}
+                            size="small"
+                            variant="outlined"
+                            {...register("aboutMe")} placeholder={profile.aboutMe}
+                        />
+                       </div>
+                    <div>Ищу работу:   <Checkbox {...label} defaultChecked {...register("lookingForAJob")}/>
+
+                        {/*<input {...register("lookingForAJob")} type="checkbox"/>*/}
+
+                    </div>
+                    <div className={s.FormInputDiv}>
+                        <TextField
+                            fullWidth
+                            label="Мои навыки"
+                            id="outlined-size-small"
+                            defaultValue={profile.lookingForAJobDescription}
+                            size="small"
+                            sx={{width:"300px"}}
+                            variant="outlined"
+                            {...register("lookingForAJobDescription")}
+                        />
+
+                     </div>
+                    <b >Контакты:</b>
+
                     {Object.keys(profile.contacts).map(key => {
                         return < div key={key}>
                             {inputCreator(key, "contacts." + key, profile.contacts[key])}
@@ -49,9 +89,12 @@ export const ProfileDataForm = ({onSubmit, profile, callEditMode}) => {
                     })
                     }
                 </div>
+                <div className={s.ButtonsOnProfileEditForm}></div>
+                <Stack spacing={2} direction="row">
+                <Button variant="contained" type="submit" color="warning">Save</Button>
+                <Button variant="contained"  onClick={callEditMode} color="success">Вернуться без изменений</Button>
+                </Stack>
 
-                <input className={s.editProfile} type="submit" value="💾 Save"/>
-                <button className={s.editProfile} onClick={callEditMode}><b>↪</b> Вернуться без изменений</button>
                 <div className={s.profileError}>
                     {profileError && profileError}
                 </div>

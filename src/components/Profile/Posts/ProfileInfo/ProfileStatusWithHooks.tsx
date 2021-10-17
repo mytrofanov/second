@@ -14,12 +14,12 @@ const ProfileStatusWithHooks:React.FC<ProfileStatusWithHookPropsType> =
     let [editMode, setEditMode] = useState(false);
     let [status, setStatus] = useState(props.status);
 
-    const activateEditMode = () => {
+    const activateEditModeForStatus = () => {
         if (props.isOwner) {
             setEditMode(true)
         }
     }
-    const deactivateEditMode = () => {
+    const deactivateEditModeForStatus = () => {
         setEditMode(false);
         props.updateStatus(status);
     }
@@ -34,7 +34,7 @@ const ProfileStatusWithHooks:React.FC<ProfileStatusWithHookPropsType> =
         <div className={s.status}>
             {!editMode &&
             <div>
-                  <span className={s.aboutStatus}  onDoubleClick={activateEditMode} data-title="Double click for editing. Your account only">Статус: &nbsp;
+                  <span className={s.aboutStatus}  onDoubleClick={activateEditModeForStatus} data-title="Double click for editing. Your account only">Статус: &nbsp;
                       {props.status||"-------"}  </span>
             </div>
             }
@@ -48,7 +48,7 @@ const ProfileStatusWithHooks:React.FC<ProfileStatusWithHookPropsType> =
                     size="small"
                     value={status!}
                     autoFocus={true} onChange={onStatusChange}
-                    onBlur={deactivateEditMode}/>
+                    onBlur={deactivateEditModeForStatus}/>
 
                  </div>
             }

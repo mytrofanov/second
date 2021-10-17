@@ -52,7 +52,7 @@ export const NewPostForm = (props: any) => {
             <TextField
                 sx={{width: "150"}}
                 label="post"
-                id="outlined-size-small"
+                id="textFieldOnPosts"
                 size="small"
                 {...register("newPost", {required: true, maxLength: 30}
                 )} placeholder="enter your post"

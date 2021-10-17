@@ -41,10 +41,33 @@
 
 
 }
+.ProfileBlockForTwoColums {
+    display: flex;
+    flex-direction: row;
+}
+.ProfileBlockColumTwo {
+    margin-left: 150px;
+    width: 500px;
+}
 
 .ProfileData {
     padding: 25px 0 15px 0;
 }
+.ProfileFormBlock {
+    margin-top: 20px;
+}
+
+.FormInputDiv {
+    margin-top: 10px;
+    font-size: 10px;
+}
+.ContactInputForm{
+    padding-top: 10px;
+}
+.ButtonsOnProfileEditForm{
+    padding-top: 10px;
+}
+
 .profileError {
     color: red;
     font-size: large;
@@ -58,7 +81,7 @@
 
 .status {
     grid-area: m;
-    padding-top: 25px;
+    padding-top: 5px;
     max-width: 300px;
     max-height: 50px;
     word-wrap:break-word;
@@ -98,11 +121,11 @@
     text-align: right;
     font-size: 80px;
     position: absolute;
-    top: 0;
+    top: 30px;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 100%;
+    height: 90%;
     width: 100%;
     opacity: 0;
     transition: .3s ease;
@@ -120,7 +143,7 @@
 
 
 .container:hover .overlay {
-    margin-top: 30px;
+
     opacity: .5;
 }
 

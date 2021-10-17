@@ -35,6 +35,8 @@ const ProfileInfo: React.FC<ProfilePropsType>= ({profile, status,
     return (
         <div>
             <div className={s.ProfileInfo}>
+                <div className={s.ProfileBlockForTwoColums}>
+                    <div className={s.ProfileBlockColumOne}>
                 <div className={s.container}>
                     <img alt={"ava"} className={s.userPortraitOnProfile} src={ava}/>
                     {isOwner && <div className={s.overlay}>🖋</div>}
@@ -44,15 +46,18 @@ const ProfileInfo: React.FC<ProfilePropsType>= ({profile, status,
                 <div className={s.status}>
                     <ProfileStatusWithHooks status={status} updateStatus={updateStatus} isOwner={isOwner}/>
                 </div>
-                {editMode ? <ProfileForm profile={profile} onSubmit={onSubmit} callEditMode={() => {
+                    </div>
+                    <div className={s.ProfileBlockColumTwo}>
+                {!editMode && <ProfileData profile={profile} isOwner={isOwner} setEditMode={() => {
+                    callEditMode(true)
+                }}/>}
+
+                {editMode && <ProfileForm profile={profile} onSubmit={onSubmit} callEditMode={() => {
                         callEditMode(false)
-                    }}/> :
-                    <ProfileData profile={profile} isOwner={isOwner} setEditMode={() => {
-                        callEditMode(true)
                     }}/>
                 }
-
-
+                    </div>
+                </div>
             </div>
         </div>
 
