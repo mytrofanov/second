@@ -39,6 +39,8 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({onSubmit, captureURL}) 
         formState: {errors}
     } = useForm();
     const {onChange, ...rest} = register("loginError");
+    // @ts-ignore
+    // @ts-ignore
     return (
         <div className={s.loginPage}>
             <form className={s.Loginform} onSubmit={handleSubmit(onSubmit)}>

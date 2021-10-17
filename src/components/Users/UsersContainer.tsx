@@ -60,7 +60,7 @@ let mapStateToProps = (state: AppStateType): UsersMapStateToPropsType => {
         totalUsersCount: totalUsersCount(state),
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state),
-    }
+    } as UsersMapStateToPropsType
 }
 
 
