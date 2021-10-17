@@ -10,6 +10,8 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+
 
 type UserPropsType = {
     user: UsersType
@@ -45,16 +47,32 @@ let User:React.FC<UserPropsType> = ({user, followingInProgress, unfollow, follow
                     </Typography>
                     <div>
                     {user.followed
-                        ? <button disabled={followingInProgress.some(id => id === user.id)}
-                                  onClick={() => {
-                                      unfollow(user.id);
-                                  }}>
-                            UnFollow</button>
-                        : <button disabled={followingInProgress.some(id => id === user.id)}
+                        ?  <Button  variant="outlined" color="error" disabled={followingInProgress.some(id => id === user.id)}
+                                      onClick={() => {
+                                          unfollow(user.id);
+                                      }}>
+                            unfollow
+                        </Button>
+                        // <button disabled={followingInProgress.some(id => id === user.id)}
+                        //           onClick={() => {
+                        //               unfollow(user.id);
+                        //           }}>
+                        //     UnFollow</button>
+                        : <Button  variant="outlined" color="success" disabled={followingInProgress.some(id => id === user.id)}
                                   onClick={() => {
                                       follow(user.id);
                                   }}>
-                            Follow</button>}
+                            Follow
+                        </Button>
+
+
+                        // <button disabled={followingInProgress.some(id => id === user.id)}
+                        //           onClick={() => {
+                        //               follow(user.id);
+                        //           }}>
+                        //     Follow</button>
+
+                    }
                     </div>
                 </React.Fragment>
             }
