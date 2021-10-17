@@ -9,6 +9,12 @@
   font-weight: bold;
 
 }
+.PostAddForm {
+ padding-top: 15px;
+}
+.textFieldOnPosts {
+  color: black;
+}
 
 .content {
   background-color: lightgreen;

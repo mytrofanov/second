@@ -1,12 +1,13 @@
-import React, {useState} from "react";
+import React from "react";
 import s from "./ProfileInfo.module.css";
 import {useForm} from "react-hook-form";
-import {Button, Checkbox, TextField} from "@material-ui/core";
+import {Button, Checkbox, createTheme, TextField} from "@material-ui/core";
 import {Stack} from "@mui/material";
+import {ThemeProvider} from "@emotion/react";
 
 
 export const ProfileForm = ({profile, onSubmit, callEditMode}) => {
-// на поле ищу работу - нужно вставить значение по умолчанию
+
 
     return <div>
         <ProfileDataForm profile={profile} onSubmit={onSubmit} callEditMode={callEditMode}/>
@@ -20,7 +21,7 @@ export const ProfileDataForm = ({onSubmit, profile, callEditMode}) => {
             <TextField
             fullWidth
             label= {divName}
-            id="outlined-size-small"
+            id={divName}
             variant="outlined"
             defaultValue={placeholder}
             size="small"
@@ -37,6 +38,23 @@ export const ProfileDataForm = ({onSubmit, profile, callEditMode}) => {
 
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     const profileError = profile.error;
+
+    const ButtonTheme = createTheme({
+        palette: {
+            primary: {
+                light: '#68b36b',
+                main: '#43a047',
+                dark: '#2e7031',
+                contrastText: '#fff',
+            },
+            secondary: {
+                light: '#ffee33',
+                main: '#ffea00',
+                dark: '#b2a300',
+                contrastText: '#000',
+            },
+        },
+    });
 
      return (
         <div >
@@ -90,11 +108,12 @@ export const ProfileDataForm = ({onSubmit, profile, callEditMode}) => {
                     }
                 </div>
                 <div className={s.ButtonsOnProfileEditForm}></div>
+                <ThemeProvider theme={ButtonTheme}>
                 <Stack spacing={2} direction="row">
-                <Button variant="contained" type="submit" color="warning">Save</Button>
-                <Button variant="contained"  onClick={callEditMode} color="success">Вернуться без изменений</Button>
+                <Button variant="contained" id="saveProfileFormButton" type="submit" color="primary">Save</Button>
+                <Button variant="contained"  onClick={callEditMode} color="secondary">Вернуться без изменений</Button>
                 </Stack>
-
+                </ThemeProvider>
                 <div className={s.profileError}>
                     {profileError && profileError}
                 </div>

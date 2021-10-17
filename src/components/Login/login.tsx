@@ -41,7 +41,7 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({onSubmit, captureURL}) 
     const {onChange, ...rest} = register("loginError");
     return (
         <div className={s.loginPage}>
-            <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+            <form className={s.Loginform} onSubmit={handleSubmit(onSubmit)}>
                 <h1>Login Form</h1>
                 <div className={s.email}>
                     <TextField sx={{
@@ -85,7 +85,7 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({onSubmit, captureURL}) 
                     </div>
 
                     {/*<input type="submit" value="Login"/>*/}
-                    <Button type="submit" variant="contained">Login</Button>
+                    <Button type="submit" id="LoginFormButton" variant="contained">Login</Button>
                 </div>
             </form>
 

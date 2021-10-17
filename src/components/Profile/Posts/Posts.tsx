@@ -48,7 +48,8 @@ export const NewPostForm = (props: any) => {
     } = useForm();
     const onSubmit = (data: any) => props.onSubmit(data);
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className={s.PostAddForm} onSubmit={handleSubmit(onSubmit)}>
+            <span className={s.textFieldOnPosts}>
             <TextField
                 sx={{width: "150"}}
                 label="post"
@@ -56,15 +57,16 @@ export const NewPostForm = (props: any) => {
                 size="small"
                 {...register("newPost", {required: true, maxLength: 30}
                 )} placeholder="enter your post"
-
             />
+            </span>
 
-            <Button type="submit" variant="contained">Send Message</Button>
-
+            <Button type="submit" id="buttonOnPostAddField" variant="contained">Send Message</Button>
             {errors?.newPost?.type === "required" && <span>This field is required</span>}
             {errors?.newPost?.type === "maxLength" && (
                 <span>This field cannot exceed 30 characters</span>
+
             )}
+
         </form>
     );
 };
