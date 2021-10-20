@@ -1,3 +1,7 @@
+.UsersBlock {
+    display: flex;
+    flex-direction: row;
+}
 
 .usersPhoto {
     width: 70px;
@@ -19,4 +23,8 @@
 .userBlock {
     max-width: 200px;
     word-wrap:break-word;
+}
+.UserSearchBlock {
+    padding-top: 30px;
+    padding-left: 150px;
 }

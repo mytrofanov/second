@@ -2,6 +2,8 @@ import React from "react";
 import Paginator from "../common/paginator/Paginator";
 import User from "./User";
 import {UsersType} from "../../types/Types";
+import s from './users.module.css'
+import TextField from '@mui/material/TextField';
 
 type PropsType = {
     currentPage: number
@@ -16,7 +18,8 @@ type PropsType = {
 
 
 let Users: React.FC <PropsType> = ({currentPage, onPageChanged ,pageSize ,totalUsersCount ,...props}) => {
-    return <div>
+    return <div className={s.UsersBlock}>
+        <div>
         <Paginator totalUsersCount={totalUsersCount} pageSize={pageSize}
                    onPageChanged={onPageChanged} currentPage={currentPage}/>
 
@@ -29,6 +32,11 @@ let Users: React.FC <PropsType> = ({currentPage, onPageChanged ,pageSize ,totalU
             />
         )
         }
+        </div>
+        <div className={s.UserSearchBlock}>
+            <TextField id="outlined-basic" label="Найти пользователя" variant="outlined" />
+
+        </div>
     </div>
 }
 
