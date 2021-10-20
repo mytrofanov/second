@@ -18,14 +18,16 @@ type UserPropsType = {
     followingInProgress: Array<number>
     follow: (userId: number | null) => void
     unfollow: (userId: number | null) => void
-
+    index: number
 }
 
 let User:React.FC<UserPropsType> = ({user, followingInProgress, unfollow, follow}) => {
 
 
+
     return (
         <div>
+
                  <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>

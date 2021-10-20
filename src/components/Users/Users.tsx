@@ -4,6 +4,7 @@ import User from "./User";
 import {UsersType} from "../../types/Types";
 import s from './users.module.css'
 import TextField from '@mui/material/TextField';
+import UsersSearchEngine from './UsersSearchEngine'
 
 type PropsType = {
     currentPage: number
@@ -14,17 +15,22 @@ type PropsType = {
     onPageChanged: (pageNumber:number)=> void
     unfollow: (userId:number | null)=> void
     follow: (userId:number | null)=> void
+    index: number
 }
 
 
 let Users: React.FC <PropsType> = ({currentPage, onPageChanged ,pageSize ,totalUsersCount ,...props}) => {
+
+
+
     return <div className={s.UsersBlock}>
         <div>
         <Paginator totalUsersCount={totalUsersCount} pageSize={pageSize}
                    onPageChanged={onPageChanged} currentPage={currentPage}/>
 
-        {props.users.map(u =>
-            <User key={u.id}
+        {props.users.map((u) =>
+            <User
+                  key={u.id}
                   user={u}
                   followingInProgress={props.followingInProgress}
                   unfollow={props.unfollow}
@@ -34,7 +40,7 @@ let Users: React.FC <PropsType> = ({currentPage, onPageChanged ,pageSize ,totalU
         }
         </div>
         <div className={s.UserSearchBlock}>
-            <TextField id="outlined-basic" label="Найти пользователя" variant="outlined" />
+            <UsersSearchEngine/>
 
         </div>
     </div>
