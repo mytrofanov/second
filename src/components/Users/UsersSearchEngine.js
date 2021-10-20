@@ -1,15 +1,27 @@
-
-import {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {Highlight} from "./highlight/Highlight";
+import Preloader from "../common/preloader/preloader";
+import {css} from "@emotion/react";
+import PacmanLoader from "react-spinners/PacmanLoader";
+import Alert from '@mui/material/Alert';
+import s from './users.module.css'
+import {NavLink} from "react-router-dom";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import userPhoto from "../../assets/images/user.png";
+import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
 
 
-export default function UsersSearchEngine() {
+export default function UsersSearchEngine({followingInProgress, follow, unfollow}) {
 
     const [postsFromServer, setPostsFromServer] = useState([])
     const [filteredPosts, setFilteredPosts] = useState([])
@@ -17,28 +29,22 @@ export default function UsersSearchEngine() {
     const [loading, setLoading] = useState(false)
     const [inputTextValue, setInputTextValue] = useState('')
     const [pageNumber, setPageNumber] = useState(0)
+    const [serverError, setServerError] = useState('')
 
+
+    //================ preloader ======================
     const delayLoadingFetchToFalse = () => {
         setLoading(false)
     }
+    const override = css`
+      display: block;
+      z-index: 1000;
+      position: fixed;
+      margin-top: 18px;
+      margin-left: 195px;
+      border-color: red;
+    `;
 
-    // ================ button & input colors =============
-    const theme = createTheme({
-        palette: {
-            primary: {
-                light: '#6fbf73',
-                main: '#4caf50',
-                dark: '#357a38',
-                contrastText: '#52b202',
-            },
-            secondary: {
-                light: '#ff7961',
-                main: '#f44336',
-                dark: '#ba000d',
-                contrastText: '#000',
-            },
-        },
-    });
 
     // =============== filtering  ==================
     const filter = useCallback(() => {
@@ -68,7 +74,9 @@ export default function UsersSearchEngine() {
                 setTimeout(delayLoadingFetchToFalse, 1000)
                 filter()
             })
-            .catch(error => console.log(error))
+            .catch(error =>
+                setServerError(error.toString())
+            )
     }
 
 
@@ -87,9 +95,31 @@ export default function UsersSearchEngine() {
         IncreasePageNumber()
     }, [])
 
+    const StartSearching = () => {
+        let AllPages = totalCount / 10
+
+        if (inputTextValue.length > 0 && filteredPosts.length < 1 && pageNumber < AllPages && loading === false) {
+            Get100Slow()
+            if (pageNumber >= AllPages) {
+                alert('Достигнут конец списка')
+                return false
+            }
+        }
+    }
+    useEffect(() => {
+        if (loading === true) {
+            setTimeout(StartSearching(), 1000)
+        }
+        if (loading === false) {
+            StartSearching()
+        }
+
+    }, [inputTextValue, filteredPosts])
+
+
     //===========button Get 100 posts consistently
     function Get100Slow() {
-
+        setServerError('')
         let urls = []
         let i = pageNumber
         let b = pageNumber + 10
@@ -130,24 +160,12 @@ export default function UsersSearchEngine() {
 
 
     return (
-        <div className="container">
+        <div className={s.ContainerForSearchEngine}>
+            {loading &&
+            <PacmanLoader color={"#7D93C5"} css={override} size={15}/>
+           }
 
-
-
-                {/*<Stack spacing={2} direction="row">*/}
-
-                {/*    <Button*/}
-
-                {/*        onClick={IncreasePageNumber} variant="contained">Следующая страница</Button>*/}
-                {/*    <Button*/}
-
-                {/*        onClick={Get100Slow} variant="contained">Получить 100 постов последовательно</Button>*/}
-                {/*    <Button*/}
-
-                {/*        onClick={Get100Fast} variant="contained">Получить 100 постов сразу</Button>*/}
-
-
-                {/*</Stack>*/}
+            <div className={s.SearchBlockWithButton}>
                 <div className="searchBlock">
                <span>
 
@@ -161,7 +179,7 @@ export default function UsersSearchEngine() {
                        autoComplete="off"
                    >
       <TextField id="searchField" label="Найти пользователя"
-                 // sx={{color: "darkolivegreen"}}
+          // sx={{color: "darkolivegreen"}}
                  color="primary"
 
                  variant="outlined"
@@ -179,46 +197,83 @@ export default function UsersSearchEngine() {
 
 
                 </div>
+                {inputTextValue.length > 0 && <Button sx={{
+                    height: "40px",
+                    mt: "15px"
+                }}
+                                                      onClick={Get100Slow} variant="contained" size="small">Следующие
+                    100 записей </Button>
+                }
+            </div>
+            <div>
+                {serverError &&
+                <Alert sx={{width: "400px"}} severity="error">Сервер ограничивает выдачу по 10 пользователей за раз.
+                    Не стесняемся, жмем дальше. Сообщение сервера:
+                    {serverError}</Alert>}
+            </div>
 
-
+            {inputTextValue.length > 0 && <div>
                 <div>Отображено записей {filteredPosts.length} из {totalCount} </div>
-                <b> Страница № {pageNumber} </b>
+                <b> Страница на сервере № {pageNumber} </b>
 
-                <div className="AllTables">
-                    <div className="SmallTable">
+                <div>
+                    {filteredPosts.map((user, index) =>
+                        <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
+                            <ListItem alignItems="flex-start">
+                                <ListItemAvatar>
+                                    <NavLink to={'/profile/' + user.id}>
+                                        <Avatar alt={user.name}
+                                                src={user.photos.small != null ? user.photos.small : userPhoto}/>
+                                    </NavLink>
+                                </ListItemAvatar>
 
-                        <div className="messageTableBlock">
+                                <ListItemText
+                                    primary={
+                                        <Highlight name={user.name} searchText={inputTextValue}/>
 
+                                    }
+                                    secondary={
+                                        <React.Fragment>
+                                            <Typography
+                                                sx={{display: 'inline'}}
+                                                component="span"
+                                                variant="body2"
+                                                color="text.primary"
+                                            >
+                                                {user.status}
+                                            </Typography>
 
-                            <table>
+                                            {/*<div>*/}
+                                            {/*    {user.followed &&  <Button variant="outlined" color="error"*/}
+                                            {/*                  disabled={followingInProgress.some(id => id === user.id)}*/}
+                                            {/*                  onClick={() => {*/}
+                                            {/*                      unfollow(user.id);*/}
+                                            {/*                  }}>*/}
+                                            {/*            unfollow*/}
+                                            {/*        </Button>}*/}
+                                            {/*    {!user.followed &&  <Button variant="outlined" color="success"*/}
+                                            {/*                  disabled={followingInProgress.some(id => id === user.id)}*/}
+                                            {/*                  onClick={() => {*/}
+                                            {/*                      follow(user.id);*/}
+                                            {/*                  }}>*/}
+                                            {/*            Follow*/}
+                                            {/*        </Button>*/}
 
-                                <tbody>
-                                <tr>
-                                    <th>№ п/п</th>
-                                    <th>user Id</th>
-                                    <th>Name</th>
+                                            {/*    }*/}
+                                            {/*</div>*/}
+                                        </React.Fragment>
+                                    }
+                                />
+                            </ListItem>
 
-                                </tr>
+                            <Divider variant="inset" component="li"/>
+                        </List>)
 
-                                {filteredPosts.map((post, index) =>
-
-                                    <tr key={index}>
-                                        <td> {index + 1}</td>
-                                        <td> {post.id}</td>
-                                        {inputTextValue===""? <td> {post.name}</td>:
-                                            <td> <Highlight name={post.name} searchText={inputTextValue}/></td> }
-                                    </tr>)
-                                }
-
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
+                    }
 
                 </div>
-
+            </div>}
         </div>
     );
 }
+

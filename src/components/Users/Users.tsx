@@ -19,7 +19,8 @@ type PropsType = {
 }
 
 
-let Users: React.FC <PropsType> = ({currentPage, onPageChanged ,pageSize ,totalUsersCount ,...props}) => {
+let Users: React.FC <PropsType> = ({currentPage, onPageChanged ,pageSize ,
+                                       totalUsersCount ,...props}) => {
 
 
 
@@ -40,7 +41,9 @@ let Users: React.FC <PropsType> = ({currentPage, onPageChanged ,pageSize ,totalU
         }
         </div>
         <div className={s.UserSearchBlock}>
-            <UsersSearchEngine/>
+            <UsersSearchEngine  followingInProgress={props.followingInProgress}
+                                unfollow={props.unfollow}
+                                follow={props.follow}  />
 
         </div>
     </div>

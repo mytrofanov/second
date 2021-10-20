@@ -21,67 +21,61 @@ type UserPropsType = {
     index: number
 }
 
-let User:React.FC<UserPropsType> = ({user, followingInProgress, unfollow, follow}) => {
-
+let User: React.FC<UserPropsType> = ({user, followingInProgress, unfollow, follow}) => {
 
 
     return (
         <div>
 
-                 <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-            <NavLink to={'/profile/' + user.id}>
-          <Avatar alt={user.name} src={user.photos!.small != null ? user.photos!.small : userPhoto} />
-            </NavLink>
-        </ListItemAvatar>
-        <ListItemText
-            primary={user.name}
-            secondary={
-                <React.Fragment>
-                    <Typography
-                        sx={{ display: 'inline' }}
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                    >
-                        {user.status}
-                    </Typography>
-                    <div>
-                    {user.followed
-                        ?  <Button  variant="outlined" color="error" disabled={followingInProgress.some(id => id === user.id)}
-                                      onClick={() => {
-                                          unfollow(user.id);
-                                      }}>
-                            unfollow
-                        </Button>
-                        // <button disabled={followingInProgress.some(id => id === user.id)}
-                        //           onClick={() => {
-                        //               unfollow(user.id);
-                        //           }}>
-                        //     UnFollow</button>
-                        : <Button  variant="outlined" color="success" disabled={followingInProgress.some(id => id === user.id)}
-                                  onClick={() => {
-                                      follow(user.id);
-                                  }}>
-                            Follow
-                        </Button>
+            <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
+                <ListItem alignItems="flex-start">
+                    <ListItemAvatar>
+                        <NavLink to={'/profile/' + user.id}>
+                            <Avatar alt={user.name} src={user.photos!.small != null ? user.photos!.small : userPhoto}/>
+                        </NavLink>
+                    </ListItemAvatar>
+
+                    <ListItemText
+                        primary={user.name}
+                        secondary={
+                            <React.Fragment>
+                                <Typography
+                                    sx={{display: 'inline'}}
+                                    component="span"
+                                    variant="body2"
+                                    color="text.primary"
+                                >
+                                    {user.status}
+                                </Typography>
 
 
-                        // <button disabled={followingInProgress.some(id => id === user.id)}
-                        //           onClick={() => {
-                        //               follow(user.id);
-                        //           }}>
-                        //     Follow</button>
+                            <div>
+                                    {user.followed
+                                        ? <Button variant="outlined" color="error"
+                                                  disabled={followingInProgress.some(id => id === user.id)}
+                                                  onClick={() => {
+                                                      unfollow(user.id);
+                                                  }}>
+                                            unfollow
+                                        </Button>
 
-                    }
-                    </div>
-                </React.Fragment>
-            }
-        />
-          </ListItem>
-                      <Divider variant="inset" component="li" />
-          </List>
+                                        : <Button variant="outlined" color="success"
+                                                  disabled={followingInProgress.some(id => id === user.id)}
+                                                  onClick={() => {
+                                                      follow(user.id);
+                                                  }}>
+                                            Follow
+                                        </Button>
+
+                                    }
+                                </div>
+                            </React.Fragment>
+                        }
+                    />
+                </ListItem>
+
+                <Divider variant="inset" component="li"/>
+            </List>
 
         </div>)
 

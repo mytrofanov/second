@@ -1,3 +1,4 @@
+import s from '../users.module.css'
 export const Highlight = ({name, searchText}) => {
 
     const parts = name.split(new RegExp(`(${searchText})`, 'gi'));
@@ -6,7 +7,7 @@ export const Highlight = ({name, searchText}) => {
         <>
             {parts.map((part, index) =>
                 part.toLowerCase() === searchText.toLowerCase() ?
-                    <b key={index} className="Highlight">{part}</b> : part)}
+                    <b key={index} className={s.Highlight}>{part}</b> : part)}
 
 
         </>
