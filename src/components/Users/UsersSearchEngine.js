@@ -64,7 +64,7 @@ export default function UsersSearchEngine({followingInProgress, follow, unfollow
 
         setLoading(true);
         return axios
-            .get(URL, {headers: {'API-KEY': '7d870823-54dd-449f-8b28-49f59a10c313'}})
+            .get(URL, {headers: {'API-KEY': 'c637e3f0-9a3b-4f86-b8d5-b0bd7b1220cf'}})
             .then(response => {
                 let DataFromServer = response.data.items
                 setTotalCount(response.data.totalCount)
