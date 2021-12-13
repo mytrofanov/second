@@ -4,7 +4,7 @@ import s from './Post.module.css'
 
 const Post = (props) => {
     return (
-        <div>
+        <div key={props.message+ new Date().getTime() }>
             <div className={s.item}>
                 <img src='https://i.insider.com/5de2ca2b79d7577f925703f2?width=1124&format=jpeg'
                 alt={"ava"}/>

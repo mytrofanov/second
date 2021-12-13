@@ -4,6 +4,7 @@ import s from './Posts.module.css'
 import {useForm} from "react-hook-form";
 import {PostsType} from "../../../types/Types";
 import {Button, TextField} from "@mui/material";
+import shortid from 'shortid';
 
 export type MapPropsType = {
     posts: Array<PostsType>
@@ -15,7 +16,7 @@ export type DispatchPropsType = {
 const Posts: React.FC<MapPropsType & DispatchPropsType> = React.memo(props => {
 
     let postsElements =
-        [...props.posts].reverse().map(p => <Post message={p.message} count={p.count} discount={p.discount}/>)
+        [...props.posts].reverse().map(p => <Post key={shortid.generate()} message={p.message}  count={p.count} discount={p.discount}/>)
 
     let addNewPost = (value: any) => {
         props.addPost(value.newPost);
