@@ -17,7 +17,7 @@ let Friends: React.FC<FriendsPropsType> = ({totalFriendsCount, friends}) => {
 
         {friends===undefined? "Ошибка сервера" :
             friends.slice(0, 12).map(u =>
-            <Friend friend={u}   />
+            <Friend friend={u}  key={new Date().getTime() + u.id} />
         )
         }
         <div className={s.friends} >

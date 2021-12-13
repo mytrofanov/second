@@ -1,11 +1,9 @@
 import React, {useCallback, useEffect, useState} from "react";
 import axios from "axios";
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import {Highlight} from "./highlight/Highlight";
-import Preloader from "../common/preloader/preloader";
 import {css} from "@emotion/react";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import Alert from '@mui/material/Alert';
@@ -139,24 +137,24 @@ export default function UsersSearchEngine({followingInProgress, follow, unfollow
 
 //===========button Get 100 posts synchronously
 
-    const Get100Fast = () => {
-        let urlList = []
-        let i = pageNumber
-        let b = pageNumber + 10
-
-        while (i < b) {
-            i++
-            urlList.push(`https://social-network.samuraijs.com/api/1.0/users?count=10&page=${i}`)
-        }
-        setPageNumber(prevState => prevState + 10)
-
-        const getAllPagesFast = async (urlList) => {
-            return Promise.all(urlList.map(FetchMessagesFromServer))
-        }
-
-        getAllPagesFast(urlList)
-            .catch(error => console.log(error));
-    }
+    // const Get100Fast = () => {
+    //     let urlList = []
+    //     let i = pageNumber
+    //     let b = pageNumber + 10
+    //
+    //     while (i < b) {
+    //         i++
+    //         urlList.push(`https://social-network.samuraijs.com/api/1.0/users?count=10&page=${i}`)
+    //     }
+    //     setPageNumber(prevState => prevState + 10)
+    //
+    //     const getAllPagesFast = async (urlList) => {
+    //         return Promise.all(urlList.map(FetchMessagesFromServer))
+    //     }
+    //
+    //     getAllPagesFast(urlList)
+    //         .catch(error => console.log(error));
+    // }
 
 
     return (

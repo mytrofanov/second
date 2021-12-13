@@ -12,18 +12,20 @@ type FriendPropsType = {
 let Friend: React.FC<FriendPropsType> = ({friend}) => {
 
         return (
-            <div id={friend.name}>
-                <div className={s.friend} id={friend.name + friend.status}>
-                    <NavLink className={s.FriendAvatar} to={'/profile/' + friend.id}>
+            <div id={friend.name} key={friend.id}>
+                <div className={s.friend} id={friend.name + friend.status} key={friend.id + friend.name}>
+                    <NavLink className={s.FriendAvatar} to={'/profile/' + friend.id} key={friend.id + friend.name + friend.uniqueUrlName}>
                         {friend.photos!.small !=null && <Avatar
                             alt={friend.name}
                             src={friend.photos!.small!}
                             sx={{ width: 90, height: 90 }}
+                            key = {friend.id+new Date().getTime()}
                         />}
                         {friend.photos!.small ===null && <Avatar
                             alt={friend.name}
                             src={userPhoto}
                             sx={{ width: 90, height: 90 }}
+                            key={friend.name + friend.id}
                         />}
                     </NavLink>
 
