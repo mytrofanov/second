@@ -54,7 +54,7 @@ export const LoginForm: React.FC<LoginFormPropsType> = ({onSubmit, captureURL}) 
                                    required: true,
                                    maxLength: 40
                                })} placeholder={" e-mail"}
-                               id="outlined-basic" label="e-mail" variant="outlined" size="small"/>
+                                label="e-mail" variant="outlined" size="small"/>
 
                     {errors?.email?.type === "required" && <span>This field is required</span>}
                     {errors?.email?.type === "maxLength" && (
